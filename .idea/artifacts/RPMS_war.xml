@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="RPMS:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>RPMS</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="vaadin-archetype-application-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="RPMS:war exploded" />
+    </root>
+  </artifact>
+</component>

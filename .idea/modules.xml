@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/vaadin-archetype-application.iml" filepath="$PROJECT_DIR$/vaadin-archetype-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/RPMS.iml" filepath="$PROJECT_DIR$/.idea/RPMS.iml" />
     </modules>
   </component>
 </project>
