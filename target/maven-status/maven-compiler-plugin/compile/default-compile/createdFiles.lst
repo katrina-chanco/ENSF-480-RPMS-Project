@@ -1,2 +1,15 @@
+com/RPMS/model/entity/Registered_Renter.class
+com/RPMS/model/entity/Email.class
+com/RPMS/model/entity/Address.class
+com/RPMS/model/entity/Account.class
+com/RPMS/model/entity/Contract.class
+com/RPMS/model/entity/Landlord.class
+com/RPMS/model/entity/Manager.class
+com/RPMS/model/entity/Name.class
+com/RPMS/model/entity/Amenity.class
 com/RPMS/MainView.class
-com/RPMS/model/Name.class
+com/RPMS/model/entity/Subscription.class
+com/RPMS/model/entity/Property.class
+com/RPMS/model/entity/Payment.class
+com/RPMS/model/entity/Report.class
+com/RPMS/model/entity/Property$Pets_Allowed.class

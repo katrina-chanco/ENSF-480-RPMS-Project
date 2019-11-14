@@ -1,8 +1,7 @@
 package com.RPMS;
 
-import com.RPMS.model.Name;
+import com.RPMS.model.entity.*;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.router.Route;
@@ -10,7 +9,6 @@ import com.vaadin.flow.router.Route;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 
 /**
@@ -27,11 +25,13 @@ public class MainView extends VerticalLayout {
                 event ->{
                     factory = Persistence.createEntityManagerFactory("RPMS_PU");
                     EntityManager em = factory.createEntityManager();
-
                     em.getTransaction().begin();
-                    Name newName = new Name("Evan", "John", "Krul");
 
-                    em.persist(newName);
+                    Account account = new Manager(new Address(1,"Street", "City", "Postal", "Canada"),
+                            new Name("F", "M", "L"),
+                            new Email("email@email.ca"), "TESTMAN");
+
+                    em.persist(account);
                     em.getTransaction().commit();
                     em.close();
                 });
