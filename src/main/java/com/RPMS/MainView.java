@@ -1,44 +1,78 @@
 package com.RPMS;
 
-import com.RPMS.model.Name;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.notification.Notification;
+import com.RPMS.view.HomePageView;
+import com.RPMS.view.SearchPropertyView;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.component.page.Viewport;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.router.Route;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
+@Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 
-/**
- * The main view contains a button and a click listener.
- */
-@Route
-@PWA(name = "My Application", shortName = "My Application")
-public class MainView extends VerticalLayout {
+public class MainView extends AppLayout {
 
-    private static EntityManagerFactory factory;
-
-    public MainView() {
-        Button button = new Button("Click me",
-                event ->{
-                    factory = Persistence.createEntityManagerFactory("RPMS_PU");
-                    EntityManager em = factory.createEntityManager();
-
-                    em.getTransaction().begin();
-                    Name newName = new Name("Evan", "John", "Krul");
-
-                    em.persist(newName);
-                    em.getTransaction().commit();
-                    em.close();
-                });
-        add(button);
-
-
-
-
+    public MainView(){
+        final DrawerToggle drawerToggle = new DrawerToggle();
+        final RouterLink home = new RouterLink("Home", HomePageView.class);
+        final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
+        final VerticalLayout layout = new VerticalLayout(home, about);
+        addToDrawer(layout);
+        addToNavbar(drawerToggle);
     }
+
 }
+
+
+//
+///**
+// * The main view contains a button and a click listener.
+// */
+//@Route
+//@PWA(name = "My Application", shortName = "My Application")
+//public class MainView extends AppLayout {
+//
+//    private static EntityManagerFactory factory;
+//    public MainView() {
+//        Label tLabel = new Label("H(III");
+//        AppLayout appLayout = new AppLayout();
+//
+//        appLayout.addToNavbar(new DrawerToggle());
+//        Tabs tabs = new Tabs(new Tab("Login"), new Tab("Browse"));
+//        tabs.setOrientation(Tabs.Orientation.VERTICAL);
+//        appLayout.addToDrawer(tabs);
+//        appLayout.setContent(tLabel);
+//
+//        appLayout.setVisible(true);
+//
+////        NaviBarView topNaviBar = new NaviBarView();
+////
+////        setSizeFull();
+////        setMargin(false);
+////        setSpacing(false);
+////        setPadding(false);
+////        add(header, workspace, footer);
+////        Button button = new Button("Click me",
+////                event ->{
+////                    factory = Persistence.createEntityManagerFactory("RPMS_PU");
+////                    EntityManager em = factory.createEntityManager();
+////                    em.getTransaction().begin();
+////
+////                    Account account = new Manager(new Address(1,"Street", "City", "Postal", "Canada"),
+////                            new Name("F", "M", "L"),
+////                            new Email("email@email.ca"), "TESTMAN");
+////
+////                    em.persist(account);
+////                    em.getTransaction().commit();
+////                    em.close();
+////                });
+////        add(button);
+//
+//
+//
+//
+//    }
+//}

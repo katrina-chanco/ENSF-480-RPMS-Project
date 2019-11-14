@@ -116,6 +116,11 @@
             <version>5.4.8.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-core</artifactId>
+        </dependency>
+
 
     </dependencies>
 

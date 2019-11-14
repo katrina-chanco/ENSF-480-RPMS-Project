@@ -1,2 +1,14 @@
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/Name.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Account.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Landlord.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Address.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Amenity.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Subscription.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Payment.java
 /home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/MainView.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Registered_Renter.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Property.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Name.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Report.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Manager.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Email.java
+/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Contract.java

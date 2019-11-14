@@ -7,13 +7,25 @@
         <description>
             TOUCH ONLY CLASS
         </description>
-        <class>com.RPMS.model.Name</class>
+        <class>com.RPMS.model.entity.Account</class>
+        <class>com.RPMS.model.entity.Address</class>
+        <class>com.RPMS.model.entity.Amenity</class>
+        <class>com.RPMS.model.entity.Contract</class>
+        <class>com.RPMS.model.entity.Email</class>
+        <class>com.RPMS.model.entity.Landlord</class>
+        <class>com.RPMS.model.entity.Manager</class>
+        <class>com.RPMS.model.entity.Name</class>
+        <class>com.RPMS.model.entity.Payment</class>
+        <class>com.RPMS.model.entity.Property</class>
+        <class>com.RPMS.model.entity.Registered_Renter</class>
+        <class>com.RPMS.model.entity.Report</class>
+        <class>com.RPMS.model.entity.Subscription</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://34.94.217.52:3306/RPMS" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="password" />
-            <property name="javax.persistence.schema-generation.database.action" value="create" />
+<!--            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />-->
         </properties>
 
     </persistence-unit>

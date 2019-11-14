@@ -1,10 +1,12 @@
-package com.RPMS.model;
+package com.RPMS.model.entity;
 
 import javax.persistence.*;
 
 @Entity
 @Table
 public class Name {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String fName;
     private String mName;
@@ -16,8 +18,10 @@ public class Name {
         this.lName = lName;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Name() {
+
+    }
+
     public int getId() {
         return id;
 
