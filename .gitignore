@@ -1,1 +1,4 @@
 /target/
+target/classes/META-INF/VAADIN/config/flow-build-info.json
+/target/
+/.idea/
