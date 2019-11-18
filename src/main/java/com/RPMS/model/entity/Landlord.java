@@ -17,8 +17,8 @@ public class Landlord extends Account {
     @OneToMany(cascade = {CascadeType.ALL})
     private  List<Payment> payments = new LinkedList<>();
 
-    public Landlord(Address address, Name name, Email email, List<Property> properties, List<Payment> payments) {
-        super(address, name, email);
+    public Landlord(Address address, Name name, Email email, String password, List<Property> properties, List<Payment> payments) {
+        super(address, name, email, password);
         this.properties = properties;
         this.payments = payments;
     }

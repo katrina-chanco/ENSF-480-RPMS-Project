@@ -17,7 +17,6 @@ public class Email {
     public Email() {
     }
 
-
     public int getId() {
         return id;
 

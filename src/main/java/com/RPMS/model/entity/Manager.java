@@ -11,8 +11,8 @@ public class Manager extends Account {
 
     private String testManagerValue;
 
-    public Manager(Address address, Name name, Email email, String testManagerValue) {
-        super(address, name, email);
+    public Manager(Address address, Name name, Email email, String password, String testManagerValue) {
+        super(address, name, email, password);
         this.testManagerValue = testManagerValue;
     }
 

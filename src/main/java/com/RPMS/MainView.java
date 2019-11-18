@@ -1,5 +1,6 @@
 package com.RPMS;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
 import com.RPMS.view.SearchPropertyView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -22,6 +23,7 @@ public class MainView extends AppLayout {
         final VerticalLayout layout = new VerticalLayout(home, about);
         addToDrawer(layout);
         addToNavbar(drawerToggle);
+        System.out.println(LoginController.getInstance().getAllAccounts().toString());
     }
 
 }

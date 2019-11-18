@@ -6,7 +6,13 @@ import javax.persistence.*;
 
 @Entity
 @Table
-@DiscriminatorColumn(name = "AccountType")
+@NamedQueries({
+        @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
+        @NamedQuery(name = "Account.validateLogin", query = "SELECT a FROM Account a " +
+                "WHERE a.email = :email" +
+                " AND a.password = :password")
+})
+@DiscriminatorColumn(name = "accountType")
 public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +27,13 @@ public abstract class Account {
     @OneToOne(cascade = {CascadeType.ALL})
     private Email email;
 
-    public Account(Address address, Name name, Email email) {
+    private String password;
+
+    public Account(Address address, Name name, Email email, String password) {
         this.address = address;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public Account() {
@@ -62,5 +71,13 @@ public abstract class Account {
 
     public void setEmail(Email email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

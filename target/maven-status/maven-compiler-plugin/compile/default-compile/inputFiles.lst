@@ -1,14 +1,17 @@
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Account.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Landlord.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Address.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Amenity.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Subscription.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Payment.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/MainView.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Registered_Renter.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Property.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Name.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Report.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Manager.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Email.java
-/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/src/main/java/com/RPMS/model/entity/Contract.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Amenity.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Name.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Registered_Renter.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/MainView.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Subscription.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/LoginController.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Property.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Address.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Landlord.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Contract.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Report.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Email.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Manager.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/SearchPropertyView.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Account.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Payment.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/HomePageView.java
