@@ -1,30 +1,35 @@
 package com.RPMS;
 
-import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
+import com.RPMS.view.LoginView;
 import com.RPMS.view.SearchPropertyView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.router.Route;
 
 
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 
 public class MainView extends AppLayout {
 
-    public MainView(){
+    public MainView() {
+        final RouterLink login = new RouterLink("Login", LoginView.class);
         final DrawerToggle drawerToggle = new DrawerToggle();
         final RouterLink home = new RouterLink("Home", HomePageView.class);
         final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
         final VerticalLayout layout = new VerticalLayout(home, about);
         addToDrawer(layout);
         addToNavbar(drawerToggle);
-        System.out.println(LoginController.getInstance().getAllAccounts().toString());
+        redirectToLoginPage();
+//        System.out.println(LoginController.getInstance().getAllAccounts().toString());
     }
+
+    public void redirectToLoginPage() {
+        this.getUI().ifPresent(ui -> ui.navigate(LoginView.class));
+    }
+
 
 }
 

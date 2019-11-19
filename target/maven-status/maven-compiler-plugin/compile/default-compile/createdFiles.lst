@@ -1,6 +1,7 @@
 com/RPMS/controller/LoginController.class
 com/RPMS/model/entity/Email.class
 com/RPMS/model/entity/Registered_Renter.class
+com/RPMS/view/LoginView.class
 com/RPMS/model/entity/Address.class
 com/RPMS/model/entity/Account.class
 com/RPMS/model/entity/Contract.class
@@ -14,5 +15,6 @@ com/RPMS/MainView.class
 com/RPMS/model/entity/Property.class
 com/RPMS/model/entity/Payment.class
 com/RPMS/model/entity/Report.class
+com/RPMS/view/RegistrationView.class
 com/RPMS/model/entity/Property$Pets_Allowed.class
 com/RPMS/view/HomePageView.class

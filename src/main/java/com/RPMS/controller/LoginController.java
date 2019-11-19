@@ -25,12 +25,14 @@ public class LoginController {
      * Shows if there is a user currently logged in
      */
     private Boolean isLoggedIn;
+    private Boolean isLoggedInAsTemporaryUser;
 
     /**
      * Default constructor
      */
     private LoginController() {
         isLoggedIn = false;
+        isLoggedInAsTemporaryUser = false;
         account = null;
     }
 
@@ -46,10 +48,18 @@ public class LoginController {
         return obj;
     }
 
+    public boolean loginAsUnregisteredRenter() {
+        account = null;
+        isLoggedIn = null;
+        isLoggedInAsTemporaryUser = true;
+        return isLoggedInAsTemporaryUser;
+
+    }
+
     /**
      * Validates credentials entered by user to login
      */
-    public void login(AbstractLogin.LoginEvent e) {
+    public boolean authenticateUser(AbstractLogin.LoginEvent e) {
         TypedQuery<Account> query = em.createNamedQuery("Account.validateLogin", Account.class);
         account = query.setParameter("email", e.getUsername()).setParameter("password", e.getPassword()).getSingleResult();
         if (account != null) {
@@ -57,16 +67,31 @@ public class LoginController {
         } else {
             isLoggedIn = false;
         }
+        return isLoggedIn;
     }
 
     /**
      * Logs the user out
      */
-    public void logOut() {
-        if (isLoggedIn) {
+    public void logOutUser() {
+        if (isLoggedIn || isLoggedInAsTemporaryUser) {
             account = null;
             isLoggedIn = false;
+            isLoggedInAsTemporaryUser = false;
         }
     }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public boolean isLoggedInAsTemporaryUser() {
+        return isLoggedInAsTemporaryUser;
+    }
+
+    public void registerUser(AbstractLogin.ForgotPasswordEvent e) {
+
+    }
+
 
 }
