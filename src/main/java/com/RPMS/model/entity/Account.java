@@ -7,6 +7,9 @@ import javax.persistence.*;
 @Entity
 @Table
 @DiscriminatorColumn(name = "AccountType")
+@NamedQueries({
+        @NamedQuery(name="Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email.emailAddress = :email")
+})
 public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

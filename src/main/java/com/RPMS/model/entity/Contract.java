@@ -66,5 +66,9 @@ public class Contract {
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
     }
+
+    public boolean isSigned() {
+        return landlordSignatureBase64 != null && renterSignatureBase64 != null;
+    }
 }
 

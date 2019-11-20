@@ -2,14 +2,13 @@ package com.RPMS;
 
 import com.RPMS.view.HomePageView;
 import com.RPMS.view.SearchPropertyView;
+import com.RPMS.view.landlord.ListPropertyView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.flow.router.Route;
 
 
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
@@ -20,6 +19,8 @@ public class MainView extends AppLayout {
         final DrawerToggle drawerToggle = new DrawerToggle();
         final RouterLink home = new RouterLink("Home", HomePageView.class);
         final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
+        final RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
+        final VerticalLayout layout = new VerticalLayout(home, landlordList);
         final RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
         final VerticalLayout layout = new VerticalLayout(home, about, selectSystemOptions);
         addToDrawer(layout);
