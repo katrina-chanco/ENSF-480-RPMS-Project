@@ -1,0 +1,43 @@
+/*https://codepen.io/madshensel/pen/WbVROZ*/
+.badge {
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: #f3f5f7;
+    color: var(--lumo-body-text-color);
+    border-radius: 3rem;
+    text-align: center;
+    padding: .05rem .8rem .1rem;
+    line-height: inherit;
+}
+
+.badge--line {
+    background-color: transparent;
+    color: #95a5a6;
+    box-shadow: 0 0 0 1px #95a5a6;
+}
+
+.badge--info {
+    background-color: #3498db;
+}
+
+.badge--warning {
+    background-color: #f1c40f;
+}
+
+.badge--danger {
+    background-color: #e74c3c;
+}
+
+.badge--success {
+    background-color: #2ecc71;
+}
+
+.badge--small {
+    padding: 0 .6rem;
+}
+
+.badge--smaller {
+    font-size: .7rem;
+    padding: .05rem .4rem .15rem;
+}
+

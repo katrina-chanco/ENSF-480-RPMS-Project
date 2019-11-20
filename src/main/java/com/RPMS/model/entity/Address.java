@@ -12,14 +12,16 @@ public class Address {
     private String  strName;
     private String city;
     private String postalCode;
+    private String province;
     private String country;
 
-    public Address(int houseNo, String strName, String city, String postalCode, String country) {
+    public Address(int houseNo, String strName, String city, String postalCode, String province, String country) {
         this.strName = strName;
         this.houseNo = houseNo;
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
+        this.province = province;
     }
 
     public Address() {
@@ -74,5 +76,19 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    @Override
+    public String toString() {
+        return houseNo + " " + strName + ", " + city + " " + province + " " + postalCode + " " + country;
     }
 }
