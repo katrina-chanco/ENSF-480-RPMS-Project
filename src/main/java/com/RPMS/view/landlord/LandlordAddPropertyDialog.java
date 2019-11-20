@@ -1,17 +1,24 @@
 package com.RPMS.view.landlord;
 
+import com.RPMS.model.Amenities;
 import com.RPMS.model.entity.Property;
 import com.RPMS.view.helpers.AddressFieldComponent;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.theme.lumo.Lumo;
+import org.vaadin.gatanaso.MultiselectComboBox;
+
+import java.util.*;
 
 public class LandlordAddPropertyDialog extends Dialog {
     private FormLayout formLayout;
@@ -20,7 +27,14 @@ public class LandlordAddPropertyDialog extends Dialog {
     private Button closeButton;
     private HorizontalLayout bottomBar;
     private Binder<Property> binder = new Binder<>(Property.class);
+
     private AddressFieldComponent addressField;
+    private NumberField propertyPriceField;
+    private NumberField propertyBedField;
+    private NumberField propertyBathField;
+    private ComboBox<Property.Pets_Allowed> propertyPetStatus;
+    private MultiselectComboBox<Amenities> amenitiesField;
+
 
     public LandlordAddPropertyDialog() {
         setCloseOnEsc(false);
@@ -60,20 +74,56 @@ public class LandlordAddPropertyDialog extends Dialog {
         add(layout);
     }
 
+    private void generateProperty(){
+        property = new Property();
+        property.setDateAdded(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        property.setContract(null);
+//        property.setLandlord(
+//        pr);
+        property.setPropertyStatus(Property.Property_Status.SUSPENDED);
+    }
+
     /**
      * Form layout
      */
     private void createForm() {
-//    public Property(double price, int beds, int bathrooms, List<Amenity > amenities, Property.Pets_Allowed
-//        petsAllowed, Landlord landlord, Contract contract, Address address, Date dateAdded, Property.Property_Status
-//        propertyStatus) {
-
         formLayout = new FormLayout();
 
+//        FIELDS
         addressField = new AddressFieldComponent();
-
         addressField.setRequiredIndicatorVisible(true);
 
+        propertyPriceField = new NumberField("Cost/Month");
+        propertyPriceField.setWidth("150px");
+
+        propertyBedField = new NumberField("Beds");
+        propertyBedField.setWidth("100px");
+        propertyBedField.setMax(10);
+        propertyBedField.setMin(1);
+        propertyBedField.setHasControls(true);
+
+        propertyBathField = new NumberField("Baths");
+        propertyBathField.setWidth("100px");
+        propertyBathField.setMax(10);
+        propertyBathField.setMin(1);
+        propertyBathField.setHasControls(true);
+
+        propertyPetStatus = new ComboBox<>("Pets Allowed");
+        propertyPetStatus.setWidth("133px");
+
+        List<Property.Pets_Allowed> pets_allowedList = new ArrayList<>(EnumSet.allOf(Property.Pets_Allowed.class));
+
+        propertyPetStatus.setDataProvider(new ListDataProvider<>(pets_allowedList));
+        propertyPetStatus.setItemLabelGenerator(Property.Pets_Allowed::getPrettyName);
+
+        amenitiesField = new MultiselectComboBox();
+
+//        // create and add items
+        List<Amenities> amenitiesList = new ArrayList<>(EnumSet.allOf(Amenities.class));
+        amenitiesField.setDataProvider(new ListDataProvider<>(amenitiesList));
+        amenitiesField.setItemLabelGenerator(Amenities::getAmenityName);
+        amenitiesField.setWidth("530px");
+//        BINDERS
         binder.bind(addressField, Property::getAddress,
                 Property::setAddress);
 
@@ -81,7 +131,12 @@ public class LandlordAddPropertyDialog extends Dialog {
         binder.readBean(property);
 
 
-        formLayout.add(addressField);
+        formLayout.add(new VerticalLayout(
+                addressField,
+                new HorizontalLayout(propertyPriceField, propertyBedField, propertyBathField, propertyPetStatus),
+                amenitiesField
+            )
+        );
 
     }
 
