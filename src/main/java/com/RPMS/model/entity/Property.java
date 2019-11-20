@@ -1,6 +1,7 @@
 package com.RPMS.model.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,8 @@ public class Property {
     private double price;
     private int beds;
     private int bathrooms;
+
+    private Date dateAdded;
 
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Amenity> amenities = new ArrayList<>();

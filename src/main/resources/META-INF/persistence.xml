@@ -24,7 +24,7 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://34.94.217.52:3306/RPMS" />
             <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="password" />
+            <property name="javax.persistence.jdbc.password" value="89s^QAj;/_g6m=cm" />
 <!--            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />-->
         </properties>
 

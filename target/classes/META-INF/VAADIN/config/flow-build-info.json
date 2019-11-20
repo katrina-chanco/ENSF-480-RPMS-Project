@@ -1,7 +1,7 @@
 {
   "compatibilityMode": false,
   "productionMode": false,
-  "npmFolder": "/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS",
-  "generatedFolder": "/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/target/frontend",
-  "frontendFolder": "/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/frontend"
+  "npmFolder": "C:\\Users\\katri\\OneDrive\\Documents\\ENSF_480\\RPMS_Project",
+  "generatedFolder": "C:\\Users\\katri\\OneDrive\\Documents\\ENSF_480\\RPMS_Project\\target\\frontend",
+  "frontendFolder": "C:\\Users\\katri\\OneDrive\\Documents\\ENSF_480\\RPMS_Project\\frontend"
 }
