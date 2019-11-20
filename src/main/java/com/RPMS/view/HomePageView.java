@@ -10,5 +10,6 @@ public class HomePageView extends Div {
     public HomePageView() {
         Label label = new Label("HOME");
         add(label);
+
     }
 }
