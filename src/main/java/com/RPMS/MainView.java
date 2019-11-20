@@ -3,6 +3,7 @@ package com.RPMS;
 import com.RPMS.view.HomePageView;
 import com.RPMS.view.LoginView;
 import com.RPMS.view.SearchPropertyView;
+import com.RPMS.view.landlord.ListPropertyView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,7 +19,8 @@ public class MainView extends AppLayout {
         final DrawerToggle drawerToggle = new DrawerToggle();
         final RouterLink home = new RouterLink("Home", HomePageView.class);
         final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
-        final VerticalLayout layout = new VerticalLayout(home, about);
+        final RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
+        final VerticalLayout layout = new VerticalLayout(home, landlordList);
         addToDrawer(layout);
         addToNavbar(drawerToggle);
     }

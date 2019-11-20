@@ -6,6 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @Table
+@DiscriminatorColumn(name = "accountType")
+@NamedQueries({
+        @NamedQuery(name="Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email.emailAddress = :email")
+})
 @NamedQueries({
         @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
         @NamedQuery(name = "Account.validateLogin", query = "SELECT a FROM Account a " +
