@@ -1,6 +1,4 @@
 package com.RPMS.view;
-
-import com.RPMS.MainView;
 import com.RPMS.controller.LoginController;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -46,7 +44,7 @@ public class LoginView extends Div {
         continue_as_an_unregistered_renter.addClickListener(e -> {
             Notification.show("Entering RPMS as an unregistered renter...", 3000, Notification.Position.TOP_START);
             LoginController.getInstance().loginAsUnregisteredRenter();
-            continue_as_an_unregistered_renter.getUI().ifPresent(ui -> ui.navigate(MainView.class));
+            continue_as_an_unregistered_renter.getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
             // TODO take unreg renter to correct page
         });
         return continue_as_an_unregistered_renter;
@@ -86,7 +84,7 @@ public class LoginView extends Div {
         LoginController loginController = LoginController.getInstance();
         if (loginController.isLoggedIn()) {
             Notification.show("Welcome!", 3000, Notification.Position.TOP_START);
-            component.getUI().ifPresent(ui -> ui.navigate(MainView.class));
+            component.getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
         }
     }
 

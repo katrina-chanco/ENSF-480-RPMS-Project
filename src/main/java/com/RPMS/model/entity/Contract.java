@@ -23,8 +23,7 @@ public class Contract {
         this.expiryDate = expiryDate;
     }
 
-    public Contract(){
-
+    public Contract() {
     }
 
     public String getTerms() {

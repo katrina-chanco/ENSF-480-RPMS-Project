@@ -126,6 +126,12 @@
             <artifactId>textfieldformatter</artifactId>
             <version>4.0.0.beta4</version>
         </dependency>
+        <!--https://www.journaldev.com/2532/javamail-example-send-mail-in-java-smtp-->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.5</version>
+        </dependency>
 
     </dependencies>
 

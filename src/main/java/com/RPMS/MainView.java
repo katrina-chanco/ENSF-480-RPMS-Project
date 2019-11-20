@@ -15,21 +15,13 @@ import com.vaadin.flow.router.RouterLink;
 public class MainView extends AppLayout {
 
     public MainView() {
-        final RouterLink login = new RouterLink("Login", LoginView.class);
         final DrawerToggle drawerToggle = new DrawerToggle();
         final RouterLink home = new RouterLink("Home", HomePageView.class);
         final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
         final VerticalLayout layout = new VerticalLayout(home, about);
         addToDrawer(layout);
         addToNavbar(drawerToggle);
-        redirectToLoginPage();
-//        System.out.println(LoginController.getInstance().getAllAccounts().toString());
     }
-
-    public void redirectToLoginPage() {
-        this.getUI().ifPresent(ui -> ui.navigate(LoginView.class));
-    }
-
 
 }
 

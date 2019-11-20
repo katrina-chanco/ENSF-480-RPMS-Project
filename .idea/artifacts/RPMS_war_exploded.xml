@@ -146,6 +146,9 @@
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-context-menu:4.3.12" />
           <element id="library" level="project" name="Maven: com.vaadin:vaadin-menu-bar-flow:1.0.2" />
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-menu-bar:1.0.3" />
+          <element id="library" level="project" name="Maven: org.vaadin:textfieldformatter:4.0.0.beta4" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.5" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

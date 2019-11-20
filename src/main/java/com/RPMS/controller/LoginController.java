@@ -50,7 +50,7 @@ public class LoginController {
 
     public boolean loginAsUnregisteredRenter() {
         account = null;
-        isLoggedIn = null;
+        isLoggedIn = false;
         isLoggedInAsTemporaryUser = true;
         return isLoggedInAsTemporaryUser;
 
@@ -62,11 +62,7 @@ public class LoginController {
     public boolean authenticateUser(AbstractLogin.LoginEvent e) {
         TypedQuery<Account> query = em.createNamedQuery("Account.validateLogin", Account.class);
         account = query.setParameter("email", e.getUsername()).setParameter("password", e.getPassword()).getSingleResult();
-        if (account != null) {
-            isLoggedIn = true;
-        } else {
-            isLoggedIn = false;
-        }
+        isLoggedIn = account != null;
         return isLoggedIn;
     }
 
@@ -90,8 +86,10 @@ public class LoginController {
     }
 
     public void registerUser(AbstractLogin.ForgotPasswordEvent e) {
-
+        //TODO
     }
 
-
+    public Account getAccount() {
+        return account;
+    }
 }
