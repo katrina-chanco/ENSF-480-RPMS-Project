@@ -14,6 +14,7 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 public class LandlordAddPropertyDialog extends Dialog {
+
     private FormLayout formLayout;
     private Property property = new Property();
     private Button saveButton;

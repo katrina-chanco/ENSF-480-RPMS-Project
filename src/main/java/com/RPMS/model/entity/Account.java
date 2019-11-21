@@ -2,19 +2,13 @@ package com.RPMS.model.entity;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Table
-@DiscriminatorColumn(name = "accountType")
-@NamedQueries({
-        @NamedQuery(name="Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email.emailAddress = :email")
-})
 @NamedQueries({
         @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
         @NamedQuery(name = "Account.validateLogin", query = "SELECT a FROM Account a " +
                 "WHERE a.email = :email" +
-                " AND a.password = :password")
+                " AND a.password = :password"),
 })
 @DiscriminatorColumn(name = "accountType")
 public abstract class Account {
@@ -46,7 +40,6 @@ public abstract class Account {
 
     public int getId() {
         return id;
-
     }
 
     public void setId(int id) {
@@ -84,4 +77,5 @@ public abstract class Account {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

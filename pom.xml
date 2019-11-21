@@ -132,8 +132,12 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.5</version>
         </dependency>
-
-
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/mysql/mysql-connector-java &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <version>8.0.18</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.vaadin</groupId>
             <artifactId>textfieldformatter</artifactId>

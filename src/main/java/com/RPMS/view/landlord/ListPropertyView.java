@@ -2,6 +2,7 @@
 package com.RPMS.view.landlord;
 
 import com.RPMS.MainView;
+import com.RPMS.controller.LoginController;
 import com.RPMS.controller.landlord.LandlordController;
 import com.RPMS.model.entity.Account;
 import com.RPMS.model.entity.Landlord;
@@ -149,7 +150,7 @@ public class ListPropertyView extends Div {
      * Update grid with db info
      */
     private void updateGrid() {
-        //      TODO: use login controller
+        LoginController.getInstance().getAccount();
         EntityManager em = entityManagerFactory.createEntityManager();
         TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "email@email.ca");
         try {

@@ -1,9 +1,10 @@
 package com.RPMS;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
-import com.RPMS.view.LoginView;
 import com.RPMS.view.SearchPropertyView;
 import com.RPMS.view.landlord.ListPropertyView;
+import com.RPMS.view.login_registration.LoginView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

@@ -1,5 +1,6 @@
-package com.RPMS.view;
+package com.RPMS.view.login_registration;
 import com.RPMS.controller.LoginController;
+import com.RPMS.view.HomePageView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -17,9 +18,14 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Route(value = "login")
 public class LoginView extends Div {
 
+    private H2 head;
+    private VerticalLayout vl;
+    private LoginForm form;
+    private Button continue_as_an_unregistered_renter;
+
     public LoginView() {
-        VerticalLayout vl = new VerticalLayout();
-        H2 head = new H2("Welcome to RPMS");
+        head = new H2("Welcome to RPMS");
+        vl = new VerticalLayout();
         vl.add(head, loginForm(), unregisteredRenterButton());
         vl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         vl.setAlignItems(FlexComponent.Alignment.CENTER);
@@ -29,64 +35,68 @@ public class LoginView extends Div {
     }
 
     private Component loginForm() {
-        LoginForm component = new LoginForm();
-        addCustomI81n(component);
-        checkIfLoggedIn(component);
-        addloginListener(component);
-        addRegistrationListener(component);
-        return component;
+        form = new LoginForm();
+        addCustomI81n();
+        addLoginListener();
+        addRegistrationListener();
+        return form;
     }
 
     private Button unregisteredRenterButton() {
-        Button continue_as_an_unregistered_renter = new Button("Continue as an unregistered renter");
+        continue_as_an_unregistered_renter = new Button("Continue as an unregistered renter");
         continue_as_an_unregistered_renter.setThemeName(Lumo.DARK);
         continue_as_an_unregistered_renter.setVisible(true);
+        addRegisterClickListener();
+        return continue_as_an_unregistered_renter;
+    }
+
+
+    private void addRegisterClickListener() {
         continue_as_an_unregistered_renter.addClickListener(e -> {
             Notification.show("Entering RPMS as an unregistered renter...", 3000, Notification.Position.TOP_START);
             LoginController.getInstance().loginAsUnregisteredRenter();
             continue_as_an_unregistered_renter.getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
             // TODO take unreg renter to correct page
         });
-        return continue_as_an_unregistered_renter;
     }
 
-    private void addloginListener(LoginForm component) {
-        component.addLoginListener(e -> {
+    private void addLoginListener() {
+        form.addLoginListener(e -> {
             Notification.show("Logging in....", 3000, Notification.Position.TOP_START);
             boolean isAuthenticated = LoginController.getInstance().authenticateUser(e);
             if (isAuthenticated) {
-                component.getUI().ifPresent(ui -> ui.getPage().reload()); // TODO take to correct page
+                Notification.show("Welcome!", 3000, Notification.Position.TOP_START);
+                form.getUI().ifPresent(ui -> ui.navigate(HomePageView.class)); // TODO take to correct page
             } else {
-                component.setError(true);
+                form.setError(true);
                 Notification.show("Incorrect username and password combination", 3000, Notification.Position.TOP_START);
             }
         });
     }
 
-    private void addRegistrationListener(LoginForm component) {
-        component.addForgotPasswordListener(e -> {
+    private void addRegistrationListener() {
+        form.addForgotPasswordListener(e -> {
             // TODO route to registration page
             Notification.show("Taking you to the registration page....", 3000, Notification.Position.TOP_START);
-            component.getUI().ifPresent(ui -> ui.navigate(RegistrationView.class));
+            form.getUI().ifPresent(ui -> ui.navigate(RegistrationView.class));
         });
     }
 
-    private void addCustomI81n(LoginForm component) {
+    private void addCustomI81n() {
         LoginI18n i18n = LoginI18n.createDefault();
         i18n.getForm().setForgotPassword("Register");
         i18n.setAdditionalInformation("To close the login form, either submit non-empty username and password, register, or continue as an unregistered renter");
         i18n.getForm().getForgotPassword();
-        component.setForgotPasswordButtonVisible(true);
-        component.setI18n(i18n);
+        form.setForgotPasswordButtonVisible(true);
+        form.setI18n(i18n);
     }
 
-    private void checkIfLoggedIn(LoginForm component) {
-        LoginController loginController = LoginController.getInstance();
-        if (loginController.isLoggedIn()) {
-            Notification.show("Welcome!", 3000, Notification.Position.TOP_START);
-            component.getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
-        }
-    }
+//    private void checkIfLoggedIn(LoginForm component) {
+//        if (LoginController.getInstance().isLoggedIn()) {
+//            Notification.show("Welcome!", 3000, Notification.Position.TOP_START);
+//            component.getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
+//        }
+//    }
 
 }
 
