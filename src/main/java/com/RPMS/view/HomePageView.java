@@ -14,8 +14,6 @@ public class HomePageView extends Div implements BeforeEnterObserver {
     public HomePageView() {
         Label label = new Label("HOME");
         add(label);
-            Label label = new Label("HOME");
-            add(label);
         }
 
         /**
