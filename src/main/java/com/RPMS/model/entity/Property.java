@@ -159,8 +159,6 @@ public class Property {
         this.dateAdded = dateAdded;
     }
 
-
-
     public Property_Status getPropertyStatus() {
         return propertyStatus;
     }
