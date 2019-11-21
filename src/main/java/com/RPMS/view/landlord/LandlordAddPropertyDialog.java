@@ -1,28 +1,36 @@
 package com.RPMS.view.landlord;
 
+import com.RPMS.controller.FileController;
+import com.RPMS.controller.PropertyController;
 import com.RPMS.model.Amenities;
-import com.RPMS.model.entity.Property;
+import com.RPMS.model.entity.*;
 import com.RPMS.view.helpers.AddressFieldComponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.component.upload.Upload;
+import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
+import com.vaadin.flow.data.binder.*;
+import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.vaadin.gatanaso.MultiselectComboBox;
 
+import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class LandlordAddPropertyDialog extends Dialog {
     private FormLayout formLayout;
-    private Property property = new Property();
+    private Property property;
     private Button saveButton;
     private Button closeButton;
     private HorizontalLayout bottomBar;
@@ -33,17 +41,45 @@ public class LandlordAddPropertyDialog extends Dialog {
     private NumberField propertyBedField;
     private NumberField propertyBathField;
     private ComboBox<Property.Pets_Allowed> propertyPetStatus;
-    private MultiselectComboBox<Amenities> amenitiesField;
+    private MultiselectComboBox<Amenities> propertyAmenitiesField;
+    private Upload upload;
+    private ArrayList<Image> uploadedImages;
 
+    private Converter<Double, Integer> doubleIntegerConverter = new Converter<Double, Integer>() {
+        @Override
+        public Result<Integer> convertToModel(Double aDouble, ValueContext valueContext) {
+            return Result.ok(aDouble.intValue());
+        }
+
+        @Override
+        public Double convertToPresentation(Integer integer, ValueContext valueContext) {
+            return new Double(integer);
+        }
+    };
+
+    private Converter<Set<Amenities>, List<Amenity>> amenityEnumConverter = new Converter<Set<Amenities>, List<Amenity>> () {
+
+        @Override
+        public Result<List<Amenity>> convertToModel(Set<Amenities> amenities, ValueContext valueContext) {
+            List<Amenity> resultList =  amenities.stream().map(a-> new Amenity(a.getAmenityName())).collect(Collectors.toList());
+            ArrayList<Amenity> amenityArrayList = (ArrayList<Amenity>) resultList;
+            return Result.ok(amenityArrayList);
+        }
+
+        @Override
+        public Set<Amenities> convertToPresentation(List<Amenity> amenities, ValueContext valueContext) {
+            return amenities.stream().map(a-> Amenities.valueOf(a.getAttribute())).collect(Collectors.toSet());
+        }
+    };
 
     public LandlordAddPropertyDialog() {
         setCloseOnEsc(false);
         setCloseOnOutsideClick(false);
         setHeight("750px");
-        setWidth("1000px");
+        setWidth("605px");
         VerticalLayout layout = new VerticalLayout();
+        uploadedImages = new ArrayList<>();
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
-
         layout.setDefaultHorizontalComponentAlignment(
                 FlexComponent.Alignment.STRETCH);
 
@@ -58,28 +94,41 @@ public class LandlordAddPropertyDialog extends Dialog {
         saveButton.addClickListener(e -> saveButton());
 
         Button testB = new Button("Test");
-        testB.addClickListener(e->{
+        testB.addClickListener(e -> {
             System.out.println(property.getAddress().toString());
             Notification.show("Stuff");
         });
         bottomBar.add(testB);
 
         bottomBar.add(closeButton, saveButton);
+        generateProperty();
         createForm();
 
-        formLayout.setHeight("675px");
+        formLayout.setMinHeight("675px");
         formLayout.setWidth("100%");
 
         layout.add(formLayout, bottomBar);
         add(layout);
     }
 
-    private void generateProperty(){
+    private void generateProperty() {
+//        TODO FIX LANDLORD
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RPMS_PU");
+        EntityManager em = entityManagerFactory.createEntityManager();
+        TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "email@email.ca");
+        Landlord landlord = null;
+        try {
+            landlord = (Landlord) landlordTypedQuery.getSingleResult();
+        } catch (NoResultException ex) {
+            Notification.show("No results");
+        }
+        em.close();
+
         property = new Property();
         property.setDateAdded(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
         property.setContract(null);
-//        property.setLandlord(
-//        pr);
+        property.setImages(uploadedImages);
+        property.setLandlord(landlord);
         property.setPropertyStatus(Property.Property_Status.SUSPENDED);
     }
 
@@ -116,41 +165,78 @@ public class LandlordAddPropertyDialog extends Dialog {
         propertyPetStatus.setDataProvider(new ListDataProvider<>(pets_allowedList));
         propertyPetStatus.setItemLabelGenerator(Property.Pets_Allowed::getPrettyName);
 
-        amenitiesField = new MultiselectComboBox();
+        propertyAmenitiesField = new MultiselectComboBox("Amenities");
 
-//        // create and add items
+        MultiFileMemoryBuffer buffer = new MultiFileMemoryBuffer();
+        upload = new Upload(buffer);
+        upload.setDropLabel(new Label("Upload Property Images"));
+        upload.setAcceptedFileTypes("image/jpeg", "image/png", "image/gif");
+        upload.addSucceededListener(event -> uploadedImages.add(new Image(FileController.UploadFiles(event, buffer))));
+        upload.setWidth("495px");
+
         List<Amenities> amenitiesList = new ArrayList<>(EnumSet.allOf(Amenities.class));
-        amenitiesField.setDataProvider(new ListDataProvider<>(amenitiesList));
-        amenitiesField.setItemLabelGenerator(Amenities::getAmenityName);
-        amenitiesField.setWidth("530px");
+        propertyAmenitiesField.setDataProvider(new ListDataProvider<>(amenitiesList));
+        propertyAmenitiesField.setItemLabelGenerator(Amenities::getAmenityName);
+        propertyAmenitiesField.setWidth("530px");
+
+
 //        BINDERS
         binder.bind(addressField, Property::getAddress,
                 Property::setAddress);
+
+        binder.bind(propertyPriceField, Property::getPrice,
+                Property::setPrice);
+
+        binder.forField(propertyBedField).withConverter(doubleIntegerConverter).bind(Property::getBeds, Property::setBeds);
+
+        binder.forField(propertyBathField).withConverter(doubleIntegerConverter).bind(Property::getBathrooms, Property::setBathrooms);
+
+        binder.bind(propertyPetStatus, Property::getPetsAllowed,
+                Property::setPetsAllowed);
+
+        binder.forField(propertyAmenitiesField).withConverter(amenityEnumConverter).bind(Property::getAmenities, Property::setAmenities);
+
 
         // Updates the value in each bound field component
         binder.readBean(property);
 
 
         formLayout.add(new VerticalLayout(
-                addressField,
-                new HorizontalLayout(propertyPriceField, propertyBedField, propertyBathField, propertyPetStatus),
-                amenitiesField
-            )
+                        addressField,
+                        new HorizontalLayout(propertyPriceField, propertyBedField, propertyBathField, propertyPetStatus),
+                        propertyAmenitiesField,
+                        upload
+                )
         );
 
     }
 
+
+    private void formValid() throws Exception {
+        if(addressField.isInvalid() || propertyBathField.isInvalid() || propertyBedField.isInvalid() || propertyPriceField.isInvalid() || propertyPetStatus.isInvalid() || propertyAmenitiesField.isInvalid()){
+            throw new Exception();
+        }
+     }
     /**
      * update bean
      */
     private void saveButton() {
+        BinderValidationStatus binderValidationStatus = binder.validate();
+        List validationResults =  binderValidationStatus.getValidationErrors();
+        System.out.println("dfdsf");
         try {
+            binder.validate();
             binder.writeBean(property);
+            PropertyController.getInstance().saveProperty(property);
+//            formValid();
             // A real application would also save
             // the updated person
             // using the application's backend
+            System.out.println("Saved");
         } catch (ValidationException e) {
             Notification.show("Please check all the fields.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

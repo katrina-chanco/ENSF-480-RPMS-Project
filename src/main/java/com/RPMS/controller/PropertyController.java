@@ -35,4 +35,10 @@ public class PropertyController {
         return list;
     }
 
+    public void saveProperty(Property property) {
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.persist(property);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

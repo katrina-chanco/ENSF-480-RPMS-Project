@@ -49,6 +49,9 @@ public class Property {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Amenity> amenities = new ArrayList<>();
 
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Image> images = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private Pets_Allowed petsAllowed;
 
@@ -70,7 +73,7 @@ public class Property {
         this.address = address;
     }
 
-    public Property(double price, int beds, int bathrooms, List<Amenity> amenities, Pets_Allowed petsAllowed, Landlord landlord, Contract contract, Address address, Date dateAdded, Property_Status propertyStatus) {
+    public Property(double price, int beds, int bathrooms, List<Amenity> amenities, Pets_Allowed petsAllowed, Landlord landlord, Contract contract, Address address, Date dateAdded, Property_Status propertyStatus, List<Image> images) {
         this.price = price;
         this.beds = beds;
         this.bathrooms = bathrooms;
@@ -81,6 +84,7 @@ public class Property {
         this.address = address;
         this.dateAdded = dateAdded;
         this.propertyStatus = propertyStatus;
+        this.images = images;
     }
 
     public Property(){
@@ -159,7 +163,13 @@ public class Property {
         this.dateAdded = dateAdded;
     }
 
+    public List<Image> getImages() {
+        return images;
+    }
 
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 
     public Property_Status getPropertyStatus() {
         return propertyStatus;

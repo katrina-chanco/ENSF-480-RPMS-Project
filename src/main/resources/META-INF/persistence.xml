@@ -10,6 +10,7 @@
         <class>com.RPMS.model.entity.Account</class>
         <class>com.RPMS.model.entity.Address</class>
         <class>com.RPMS.model.entity.Amenity</class>
+        <class>com.RPMS.model.entity.Image</class>
         <class>com.RPMS.model.entity.Contract</class>
         <class>com.RPMS.model.entity.Email</class>
         <class>com.RPMS.model.entity.Landlord</class>
