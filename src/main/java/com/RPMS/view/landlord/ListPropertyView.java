@@ -4,9 +4,7 @@ package com.RPMS.view.landlord;
 import com.RPMS.MainView;
 import com.RPMS.controller.LoginController;
 import com.RPMS.controller.landlord.LandlordController;
-import com.RPMS.model.entity.Account;
-import com.RPMS.model.entity.Landlord;
-import com.RPMS.model.entity.Property;
+import com.RPMS.model.entity.*;
 import com.RPMS.view.helpers.GridHelpers;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -48,41 +46,41 @@ public class ListPropertyView extends Div {
 
     public ListPropertyView() {
 //        Button button = new Button("Populate landlord button");
-//
+////
 //        button.addClickListener(e -> {
 ////            TODO use login  controller
 //            EntityManager em = entityManagerFactory.createEntityManager();
-//            TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "email@email.ca");
+////            TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "email@email.ca");
 //            try {
-//                Landlord landlord = (Landlord) landlordTypedQuery.getSingleResult();
-//                List<Property> properties = landlordController.getAllLandlordProperties(landlord);
-//                System.out.println(properties);
+////                Landlord landlord = (Landlord) landlordTypedQuery.getSingleResult();
+////                List<Property> properties = landlordController.getAllLandlordProperties(landlord);
+////                System.out.println(properties);
 ////
 //                em.getTransaction().begin();
 //
-//                Property property = new Property();
-//                property.setAddress(new Address(2, "Street", "City", "Postal", "Alberta", "Canada"));
-//                property.setLandlord(landlord);
-//                property.setBathrooms(3);
-//                property.setBeds(1);
-//                ArrayList<Amenity> amm = new ArrayList<>();
-//                amm.add(new Amenity("AC"));
-//                amm.add(new Amenity("Water"));
-//                amm.add(new Amenity("Heat"));
-//                amm.add(new Amenity("Utils"));
-//                property.setAmenities(amm);
-//                property.setPetsAllowed(Property.Pets_Allowed.DOGS_ALLOWED);
-//                property.setPrice(2333);
+////                Property property = new Property();
+////                property.setAddress(new Address(2, "Street", "City", "Postal", "Alberta", "Canada"));
+////                property.setLandlord(landlord);
+////                property.setBathrooms(3);
+////                property.setBeds(1);
+////                ArrayList<Amenity> amm = new ArrayList<>();
+////                amm.add(new Amenity("AC"));
+////                amm.add(new Amenity("Water"));
+////                amm.add(new Amenity("Heat"));
+////                amm.add(new Amenity("Utils"));
+////                property.setAmenities(amm);
+////                property.setPetsAllowed(Property.Pets_Allowed.DOGS_ALLOWED);
+////                property.setPrice(2333);
 //
 //
-////                Account account = new Landlord(new Address(1, "Street", "City", "Postal", "AB", "Canada"),
-////                        new Name("F", "M", "L"),
-////                        new Email("email@email.ca"), null, null);
+//                Account account = new Landlord(new Address(1, "Street", "City", "Postal", "AB", "Canada"),
+//                        new Name("F", "M", "L"),
+//                        new Email("email@email.ca"), null, null);
 //
 //
-//                em.persist(property);
+//                em.persist(account);
 //                em.getTransaction().commit();
-//                Notification.show(landlord.getEmail().getEmailAddress());
+////                Notification.show(landlord.getEmail().getEmailAddress());
 //
 //
 //            } catch (NoResultException error) {

@@ -15,10 +15,20 @@ import java.util.List;
 public class Property {
 
     public enum Pets_Allowed{
-        DOGS_ALLOWED,
-        CATS_ALLOWED,
-        DOGS_AND_CATS_ALLOWED,
-        NO_PETS_ALLOWED
+        DOGS_ALLOWED("Dogs"),
+        CATS_ALLOWED("Cats"),
+        DOGS_AND_CATS_ALLOWED("Dogs/Cats"),
+        NO_PETS_ALLOWED("Prohibited");
+
+        private String prettyName;
+
+        Pets_Allowed(String prettyName) {
+            this.prettyName = prettyName;
+        }
+
+        public String getPrettyName() {
+            return prettyName;
+        }
     }
     public enum Property_Status{
         ACTIVE,
@@ -34,6 +44,8 @@ public class Property {
     private double price;
     private int beds;
     private int bathrooms;
+    private Date dateAdded;
+
     private Date dateAdded;
 
     @OneToMany(cascade = {CascadeType.ALL})
