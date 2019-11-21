@@ -22,9 +22,8 @@ public class MainView extends AppLayout {
         final RouterLink home = new RouterLink("Home", HomePageView.class);
         final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
         final RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
-        final VerticalLayout layout = new VerticalLayout(home, landlordList);
         final RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
-        final VerticalLayout layout = new VerticalLayout(home, about, selectSystemOptions);
+        final VerticalLayout layout = new VerticalLayout(home, about, selectSystemOptions, landlordList);
         addToDrawer(layout);
         addToNavbar(drawerToggle);
     }

@@ -46,8 +46,6 @@ public class Property {
     private int bathrooms;
     private Date dateAdded;
 
-    private Date dateAdded;
-
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Amenity> amenities = new ArrayList<>();
 
