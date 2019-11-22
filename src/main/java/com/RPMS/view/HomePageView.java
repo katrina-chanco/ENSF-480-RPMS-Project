@@ -1,7 +1,9 @@
 package com.RPMS.view;
 
 import com.RPMS.MainView;
+import com.RPMS.controller.ContractController;
 import com.RPMS.controller.LoginController;
+import com.RPMS.controller.contact_strategy.ContactController;
 import com.RPMS.view.login_registration.LoginView;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -14,6 +16,7 @@ public class HomePageView extends Div implements BeforeEnterObserver {
     public HomePageView() {
         Label label = new Label("HOME");
         add(label);
+        ContractController.getInstance().signEvanContract();
         }
 
         /**

@@ -46,9 +46,6 @@
     <orderEntry type="library" name="Maven: com.vaadin:vaadin:14.0.13" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-board-flow:3.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-charts-flow:7.0.2" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.10.1" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.10" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.10" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-confirm-dialog-flow:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-cookie-consent-flow:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-crud-flow:2.0.1" level="project" />
@@ -179,6 +176,31 @@
     <orderEntry type="library" name="Maven: org.vaadin:textfieldformatter:4.0.0.beta4" level="project" />
     <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.5.5" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.docusign:docusign-esign-java:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger:swagger-annotations:1.5.8" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-client:1.19.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.19.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey.contribs:jersey-multipart:1.19.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jvnet.mimepull:mimepull:1.9.3" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.10.0.pr1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-joda:2.1.5" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.oltu.oauth2:org.apache.oltu.oauth2.common:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
+    <orderEntry type="library" name="Maven: com.auth0:java-jwt:3.4.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.11" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.60" level="project" />
+    <orderEntry type="library" name="Maven: com.brsanthu:migbase64:2.2" level="project" />
     <orderEntry type="library" name="Maven: org.vaadin.gatanaso:multiselect-combo-box-flow:2.2.1.rc1" level="project" />
   </component>
 </module>

@@ -1,8 +1,8 @@
-package com.RPMS.controller.ContactStrategy;
+package com.RPMS.controller.contact_strategy;
 
 import com.RPMS.model.entity.Property;
 
-public class ContractController {
+public class ContactController {
     /**
      * Strategy for contacting landlord from renter
      */
@@ -10,12 +10,12 @@ public class ContractController {
     /**
      * Singleton instance of ContactController
      */
-    private static ContractController obj;
+    private static ContactController obj;
 
     /**
      * ContactController constructor
      */
-    private ContractController() {
+    private ContactController() {
     }
 
     /**
@@ -23,9 +23,9 @@ public class ContractController {
      *
      * @return instance of EmailController
      */
-    public static ContractController getInstance() {
+    public static ContactController getInstance() {
         if (obj == null) {
-            obj = new ContractController();
+            obj = new ContactController();
         }
         return obj;
     }
@@ -33,9 +33,17 @@ public class ContractController {
     /**
      * Perform contact strategy
      * @param message
+     */
+    public void performContact(String message, String recepient, String subject) {
+        contactStrategy.performContact(message, recepient, subject);
+    }
+
+    /**
+     * Contact landlord from current account
+     * @param message
      * @param property
      */
-    public void performContact(String message, Property property) {
+    public void performContactLandlord(String message, Property property) {
         contactStrategy.contactLandlord(message, property);
     }
 

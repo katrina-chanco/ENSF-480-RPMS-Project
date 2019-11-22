@@ -1,4 +1,4 @@
-package com.RPMS.controller.ContactStrategy;
+package com.RPMS.controller.contact_strategy;
 
 import com.RPMS.controller.LoginController;
 import com.RPMS.model.entity.Property;
@@ -6,14 +6,9 @@ import com.RPMS.model.entity.Property;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.persistence.EntityManager;
 import java.util.Properties;
 
 public class EmailStrategy implements ContactStrategy {
-    /**
-     * Static instance of EmailController
-     */
-    private static EmailStrategy obj;
     /**
      * SMTP server URL and port
      */
@@ -41,34 +36,23 @@ public class EmailStrategy implements ContactStrategy {
     }
 
     /**
-     * getInstance method for the Singleton pattern
-     *
-     * @return instance of EmailController
-     */
-    public static EmailStrategy getInstance() {
-        if (obj == null) {
-            obj = new EmailStrategy();
-        }
-        return obj;
-    }
-
-    /**
      * Email contact strategy
      * @param message
      * @param property
      */
     @Override
     public void contactLandlord(String message, Property property) {
-        sendEmail(message, property);
+        performContact(message, getLandlordEmail(property), "With regards to property at " + property.getAddress());
     }
 
     /**
      * Sends email from logged in user to landlord of selected property
      *
      * @param emailContents
-     * @param property
+     * @param recepient
+     * @param subject
      */
-    public void sendEmail(String emailContents, Property property) {
+    public void performContact(String emailContents, String recepient, String subject) {
         Session session = Session.getInstance(prop,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
@@ -80,9 +64,9 @@ public class EmailStrategy implements ContactStrategy {
             message.setReplyTo(InternetAddress.parse(getUserEmail()));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse(getLandlordEmail(property))
+                    InternetAddress.parse(recepient)
             );
-            message.setSubject("With regards to property at " + property.getAddress());
+            message.setSubject(subject);
             message.setText(emailContents);
             Transport.send(message);
         } catch (MessagingException e) {

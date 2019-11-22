@@ -8,17 +8,17 @@ import javax.persistence.*;
 
 public class LoginController {
     /**
+     * Static instance of LoginController
+     */
+    private static LoginController obj;
+    /**
      * Allows use of querying in JPA
      */
     @PersistenceContext
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RPMS_PU");
     private EntityManager em;
     /**
-     * Static instance of LoginController
-     */
-    private static LoginController obj;
-    /**
-     * Account currently assigned to the controlelr
+     * Account currently assigned to the controller
      */
     private Account account;
     /**
@@ -49,6 +49,11 @@ public class LoginController {
         return obj;
     }
 
+    /**
+     * Logs the user in as an unregistered renter
+     *
+     * @return
+     */
     public boolean loginAsUnregisteredRenter() {
         account = null;
         isLoggedIn = false;
@@ -65,6 +70,11 @@ public class LoginController {
         return isLoggedIn;
     }
 
+    /**
+     * Finds the user using their email
+     * @param emailAddress
+     * @return
+     */
     private Email findEmailByAddress(String emailAddress) {
         em = entityManagerFactory.createEntityManager();
         Email email = null;
@@ -78,12 +88,21 @@ public class LoginController {
         return email;
     }
 
+    /**
+     * Logs in the account that has been registered
+     * @param account
+     */
     public void loginRegistrationAccount(Account account) {
         this.account = account;
         saveAccount(account);
         isLoggedIn = true;
     }
 
+    /**
+     * Logs in a user and validates depending on their input
+     * @param email
+     * @param password
+     */
     private void loginAccount(Email email, String password) {
         if (email != null) {
             em = entityManagerFactory.createEntityManager();
@@ -99,6 +118,18 @@ public class LoginController {
             }
             em.close();
         }
+    }
+
+    /**
+     * Saves account into the database
+     * @param account
+     */
+    private void saveAccount(Account account) {
+        em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(account);
+        em.getTransaction().commit();
+        em.close();
     }
 
     /**
@@ -124,20 +155,12 @@ public class LoginController {
         return account;
     }
 
-    public void setRegistrationSelectedType(String registrationSelectedType) {
-        this.registrationSelectedType = registrationSelectedType;
-    }
-
     public String getRegistrationSelectedType() {
         return registrationSelectedType;
     }
 
-    private void saveAccount(Account account) {
-        em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(account);
-        em.getTransaction().commit();
-        em.close();
+    public void setRegistrationSelectedType(String registrationSelectedType) {
+        this.registrationSelectedType = registrationSelectedType;
     }
 
 }

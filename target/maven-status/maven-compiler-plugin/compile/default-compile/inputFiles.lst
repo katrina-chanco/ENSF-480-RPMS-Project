@@ -1,6 +1,5 @@
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/login_registration/RegistrationView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/ChangeListingStateView.java
-/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/ContactStrategy/EmailStrategy.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/LoginController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Landlord.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/helpers/NameFieldComponent.java
@@ -11,7 +10,9 @@
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/SelectSystemOptionsView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/SearchPropertyView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/landlord/LandlordController.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/contact_strategy/ContactController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Account.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/contact_strategy/EmailStrategy.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/HomePageView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/ModifyPaymentView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Amenity.java
@@ -22,15 +23,15 @@
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/helpers/EmailFieldComponent.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Subscription.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/helpers/AddressFieldComponent.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/ContractController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/helpers/GridHelpers.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/helpers/ConditionalValidator.java
-/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/ContactStrategy/ContactStrategy.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/manager/ReportController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Property.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Address.java
-/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/ContactStrategy/ContractController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Contract.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/AccessSystemInformationView.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/contact_strategy/ContactStrategy.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Email.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/RequestReportView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Manager.java

@@ -27,10 +27,23 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @PageTitle("register")
 @Route(value = "register")
 public class RegistrationView extends Div {
-
+    /**
+     * Account of user registering
+     */
+    private Account account;
+    /**
+     * Binder to account class
+     */
+    private Binder<Account> accountBinder = new Binder<>(Account.class);
+    /**
+     * Flag to check if password was confirmed asuccessfully
+     */
+    private boolean passwordsMatch;
+    /**
+     * Layputs and components
+     */
     private HorizontalLayout layout;
     private VerticalLayout header;
-    private Account account;
     private AddressFieldComponent addressField;
     private EmailFieldComponent emailField;
     private NameFieldComponent nameField;
@@ -38,13 +51,14 @@ public class RegistrationView extends Div {
     private H4 h4;
     private PasswordField confirmPasswordField;
     private ComboBox<String> accountTypeComboBox;
-    private Binder<Account> accountBinder = new Binder<>(Account.class);
-    private boolean passwordsMatch;
 
-
+    /**
+     * Instantiates registration form
+     */
     public RegistrationView() {
         header = new VerticalLayout();
         layout = new HorizontalLayout();
+
         H3 h3 = new H3("Registration");
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
@@ -57,6 +71,9 @@ public class RegistrationView extends Div {
         add(layout);
     }
 
+    /**
+     * Creates a registration form and adds it to the layour
+     */
     private void registrationForm() {
         h4 = new H4();
         h4.setText("Select an account type to enable the fields");
@@ -100,6 +117,11 @@ public class RegistrationView extends Div {
         accountBinder.forField(confirmPasswordField);
     }
 
+    /**
+     * Sets textfields to be enabled or disabled
+     *
+     * @param status
+     */
     private void setTextFieldsEnabled(Boolean status) {
         addressField.setEnabled(status);
         nameField.setEnabled(status);
@@ -119,6 +141,7 @@ public class RegistrationView extends Div {
                 accountTypeComboBox.setEnabled(false);
                 setTextFieldsEnabled(true);
                 h4.setText(LoginController.getInstance().getRegistrationSelectedType() + " Registration");
+                // create an account based on combobox selection
                 switch (LoginController.getInstance().getRegistrationSelectedType()) {
                     case "Landlord":
                         account = new Landlord();
@@ -137,7 +160,13 @@ public class RegistrationView extends Div {
         header.add(hl);
     }
 
+    /**
+     * Checks if text fields are validated and passwords match
+     *
+     * @throws Exception if fields not validates
+     */
     public void isValid() throws Exception {
+        passwordField.setErrorMessage("dfjnklms,cdms,");
         if(passwordField.getValue().equals(confirmPasswordField.getValue())) {
             passwordsMatch = true;
         }
@@ -146,6 +175,10 @@ public class RegistrationView extends Div {
         }
     }
 
+    /**
+     * Creates a button to confrim account creation
+     * @return
+     */
     private Button confirmButton() {
         Button confirmButton = new Button("Confirm");
         confirmButton.setThemeName(Lumo.DARK);
@@ -154,6 +187,7 @@ public class RegistrationView extends Div {
                 accountBinder.writeBean(account);
                 isValid();
                 LoginController.getInstance().loginRegistrationAccount(account);
+                confirmButton.setEnabled(false);
                 getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
             } catch (Exception v) {
                 if (!passwordsMatch) {
@@ -161,6 +195,7 @@ public class RegistrationView extends Div {
                 } else {
                     Notification.show("Please enter information in all the fields.");
                 }
+                confirmButton.setEnabled(true);
             }
         });
         return confirmButton;
