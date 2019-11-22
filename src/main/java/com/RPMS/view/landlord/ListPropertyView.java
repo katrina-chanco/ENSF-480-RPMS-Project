@@ -148,12 +148,12 @@ public class ListPropertyView extends Div {
      * Update grid with db info
      */
     private void updateGrid() {
-        LoginController.getInstance().getAccount();
-        EntityManager em = entityManagerFactory.createEntityManager();
-        TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "email@email.ca");
+        Account landlordAccount = LoginController.getInstance().getAccount();
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//        TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "email@email.ca");
         try {
-            Landlord landlord = (Landlord) landlordTypedQuery.getSingleResult();
-            properties = landlordController.getAllLandlordProperties(landlord);
+//            Landlord landlord = (Landlord) landlordTypedQuery.getSingleResult();
+            properties = landlordController.getAllLandlordProperties((Landlord)landlordAccount);
             propertyGrid.setItems(properties);
         } catch (NoResultException ex) {
             Notification.show("No results");
