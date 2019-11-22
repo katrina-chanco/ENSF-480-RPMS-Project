@@ -35,4 +35,15 @@ public class PropertyController {
         return list;
     }
 
+    /**
+     * Save/update property in DB
+     * @param property property object
+     */
+    public void saveProperty(Property property) {
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(property);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }

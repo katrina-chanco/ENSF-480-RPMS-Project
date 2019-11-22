@@ -150,6 +150,12 @@
             <version>2.2.1.rc1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.vaadin.jonni</groupId>
+            <artifactId>payment-request-addon</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -166,7 +172,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.4.15.v20190215</version>
                 <configuration>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
                 </configuration>
             </plugin>
 
