@@ -54,4 +54,9 @@ public class Name {
     public void setlName(String lName) {
         this.lName = lName;
     }
+
+    @Override
+    public String toString() {
+        return fName+ " " + mName  +" "+lName;
+    }
 }

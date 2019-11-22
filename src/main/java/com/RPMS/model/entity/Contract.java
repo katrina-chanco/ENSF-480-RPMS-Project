@@ -44,5 +44,12 @@ public class Contract {
         this.id = id;
     }
 
+    /**
+     * Returns ID+1 for docu-sign
+     * @return ID+1
+     */
+    public int getContractId() {
+        return id+1;
+    }
 }
 

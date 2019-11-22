@@ -43,7 +43,7 @@ public class ContractController {
 
     private String basePath = "https://demo.docusign.net/restapi";
     private String accountId = "9431335";
-    private String accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjY4MTg1ZmYxLTRlNTEtNGNlOS1hZjFjLTY4OTgxMjIwMzMxNyJ9";
+    private String accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjY4MTg1ZmYxLTRlNTEtNGNlOS1hZjFjLTY4OTgxMjIwMzMxNyJ9.eyJUb2tlblR5cGUiOjUsIklzc3VlSW5zdGFudCI6MTU3NDQ0NjI3NSwiZXhwIjoxNTc0NDc1MDc1LCJVc2VySWQiOiIxMjU3NTcxNi03Y2I3LTQzMWMtYTIxYi0yNzk2OTI0ODkyZDEiLCJzaXRlaWQiOjEsInNjcCI6WyJzaWduYXR1cmUiLCJjbGljay5tYW5hZ2UiLCJvcmdhbml6YXRpb25fcmVhZCIsImdyb3VwX3JlYWQiLCJwZXJtaXNzaW9uX3JlYWQiLCJ1c2VyX3JlYWQiLCJ1c2VyX3dyaXRlIiwiYWNjb3VudF9yZWFkIiwiZG9tYWluX3JlYWQiLCJpZGVudGl0eV9wcm92aWRlcl9yZWFkIiwiZHRyLnJvb21zLnJlYWQiLCJkdHIucm9vbXMud3JpdGUiLCJkdHIuZG9jdW1lbnRzLnJlYWQiLCJkdHIuZG9jdW1lbnRzLndyaXRlIiwiZHRyLnByb2ZpbGUucmVhZCIsImR0ci5wcm9maWxlLndyaXRlIiwiZHRyLmNvbXBhbnkucmVhZCIsImR0ci5jb21wYW55LndyaXRlIl0sImF1ZCI6ImYwZjI3ZjBlLTg1N2QtNGE3MS1hNGRhLTMyY2VjYWUzYTk3OCIsImlzcyI6Imh0dHBzOi8vYWNjb3VudC1kLmRvY3VzaWduLmNvbS8iLCJzdWIiOiIxMjU3NTcxNi03Y2I3LTQzMWMtYTIxYi0yNzk2OTI0ODkyZDEiLCJhdXRoX3RpbWUiOjE1NzQ0NDYyNDUsInB3aWQiOiJkODlkMWI1OC01N2MwLTRiNTctOGM4Ni05NWNmYzJjY2JkYTkifQ.YHYwkWlwmcHeH-7FHlMcG6wXnEg_hbwstndyBKKQwJ9-pVfTMLK49JQIt-iVOwdMYemA8NmqLKMFc9jZ0C_S9IA_manQlW0DZOVKG0oVM8aiko_BrPbW4cHsWVUIAp0yfDfT3W43ZTpccF2ivAqU40IR3Jzh-u2c5w3hyuwL4ZUwdM-4mQY0VM8T2m-7bYh-OoddGKklksU5Bx7bNchYdcdMOJOglNvAiZrOBfMaI4MvTxF8X80iVFG8QTxxJU5fiCIJfkAtT6Jxv9ef2d28_CZZnA2CZU3ztydTHkyinsmnTT5-RS3TjZ7U_2zrr2S42ZetAkMwwRlT2Y0qxyEzNA";
 
     /**
      * getInstance method for the Singleton pattern
@@ -78,7 +78,10 @@ public class ContractController {
             Property property = query.setParameter("landlord", landlord).getResultList().get(1);
             createContract(property);
             initiateContractSigning(new Email("layla.e.arab@gmail.com"), "RentalAgreement-MonthtoMonth.pdf", property);
-        } catch (NoResultException | ApiException | IOException e) {
+        } catch (ApiException e) {
+//            DO NADA PROBS FINE TBH
+        } catch (NoResultException | IOException e) {
+            e.printStackTrace();
         }
         em.close();
     }
@@ -109,15 +112,19 @@ public class ContractController {
         document.setDocumentBase64(encodedString);
         document.setName("Contract for property at " + property.getAddress()); // can be different from actual file name
         document.setFileExtension("pdf");
-        document.setDocumentId(String.valueOf(property.getContract().getId()));  // a label used to reference the doc
+        document.setDocumentId(String.valueOf(property.getContract().getContractId()));  // a label used to reference the doc
         // renter signer
         Signer renterSigner = new Signer();
+        renterSigner.setName("Renter");
+//        renterSigner.roleName("client");
         renterSigner.setEmail(renterEmailAddress.getEmailAddress());
         renterSigner.recipientId("1");
         // landlord signer
         Signer landlordSigner = new Signer();
+        landlordSigner.setName(property.getLandlord().getName().toString());
+//        landlordSigner.roleName("client");
         landlordSigner.setEmail(property.getLandlord().getEmail().getEmailAddress());
-        landlordSigner.recipientId("1");
+        landlordSigner.recipientId("2");
 
         List<Signer> signers = new LinkedList<>();
         signers.add(landlordSigner);
@@ -125,7 +132,7 @@ public class ContractController {
 
         List<SignHere> landlordSignHereElements = new LinkedList<>();
         SignHere landlordSignHere1 = new SignHere();
-        landlordSignHere1.setDocumentId(String.valueOf(property.getContract().getId()));
+        landlordSignHere1.setDocumentId(String.valueOf(property.getContract().getContractId()));
         landlordSignHere1.setPageNumber("1");
         landlordSignHere1.setRecipientId("1");
         landlordSignHere1.setTabLabel("landlordSignHereTab");
@@ -135,7 +142,7 @@ public class ContractController {
 
         List<SignHere> renterSignHereElements = new LinkedList<>();
         SignHere renterSignHere1 = new SignHere();
-        renterSignHere1.setDocumentId(String.valueOf(property.getContract().getId()));
+        renterSignHere1.setDocumentId(String.valueOf(property.getContract().getContractId() ));
         renterSignHere1.setPageNumber("1");
         renterSignHere1.setRecipientId("2");
         renterSignHere1.setTabLabel("renterSignHereTab");
