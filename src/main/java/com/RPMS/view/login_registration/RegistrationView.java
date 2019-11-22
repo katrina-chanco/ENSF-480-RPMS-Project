@@ -138,14 +138,12 @@ public class RegistrationView extends Div {
     }
 
     public void isValid() throws Exception {
-        boolean email = account.getEmail() != null;
-        boolean address = account.getAddress() != null;
-        boolean name = account.getName() != null;
-        boolean password = account.getPassword() != null;
-        if(passwordField.getValue().equals(confirmPasswordField.getValue()))
+        if(passwordField.getValue().equals(confirmPasswordField.getValue())) {
             passwordsMatch = true;
-        if (!email || !password || !address || !name || !passwordsMatch)
+        }
+        if(emailField.isInvalid() || passwordField.isInvalid() || addressField.isInvalid() || nameField.isInvalid() || !passwordsMatch){
             throw new Exception();
+        }
     }
 
     private Button confirmButton() {

@@ -8,10 +8,14 @@ import com.RPMS.view.login_registration.LoginView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.RouterLink;
-
+import com.vaadin.flow.theme.lumo.Lumo;
 
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 
@@ -26,6 +30,21 @@ public class MainView extends AppLayout {
         final VerticalLayout layout = new VerticalLayout(home, about, selectSystemOptions, landlordList);
         addToDrawer(layout);
         addToNavbar(drawerToggle);
+        HorizontalLayout filler = new HorizontalLayout();
+        filler.setWidth("1190px");
+        addToNavbar(filler);
+        addToNavbar(logoutButton());
+    }
+
+    private Button logoutButton() {
+        Button logoutButton = new Button("Logout");
+        logoutButton.addClickListener(e -> {
+            LoginController.getInstance().logOutUser();
+            getUI().ifPresent(ui -> ui.navigate(LoginView.class));
+        });
+        logoutButton.setThemeName(Lumo.DARK);
+        logoutButton.setIcon(new Icon(VaadinIcon.EXIT_O));
+        return logoutButton;
     }
 
 }
