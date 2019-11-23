@@ -19,6 +19,14 @@ public class LandlordViewPropertyDialog extends Dialog {
     private Button closeButton;
     private HorizontalLayout bottomBar;
     private Dialog changeStatusDialog;
+    private Button changeStatusButton;
+    private Button editPropertyButton;
+    private Dialog editPropertyDialog;
+
+
+    /**
+     * Configure the UI
+     */
     public LandlordViewPropertyDialog(Property property) {
         this.property = property;
 
@@ -51,11 +59,15 @@ public class LandlordViewPropertyDialog extends Dialog {
         add(layout);
     }
 
+    /**
+     * Builds the UI
+     */
     private void fillPropertyInfo() {
+//        ELEMENTS OF DIALOG
         H3 pAddress = new H3(property.getAddress().toString());
 
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-        H4 pPrice = new H4(defaultFormat.format(property.getPrice())+"/month");
+        H4 pPrice = new H4(defaultFormat.format(property.getPrice()) + "/month");
 
         Component pBeds = GridHelpers.getBeds().createComponent(property);
         Component pBath = GridHelpers.getBathrooms().createComponent(property);
@@ -63,13 +75,27 @@ public class LandlordViewPropertyDialog extends Dialog {
         Component petStatus = GridHelpers.getPropertyPetBadge().createComponent(property);
         Component pStatus = GridHelpers.getPropertyStatusBadge().createComponent(property);
         Component imageLayout = GridHelpers.getImageList().createComponent(property);
-
-        Button changeStatusButton = new Button("Update Property Status");
-        changeStatusButton.addClickListener( updateEvent -> {
-            changeStatusDialog = new LandlordChangeStatusDialog(property);
-            changeStatusDialog.open();
-        }
+//        CHANGE STATUS
+        changeStatusButton = new Button("Update Property Status");
+        changeStatusButton.addClickListener(updateEvent -> {
+                    changeStatusDialog = new LandlordChangeStatusDialog(property);
+                    changeStatusDialog.open();
+                    changeStatusDialog.addOpenedChangeListener(e -> {
+                        close();
+                    });
+                }
         );
+
+//        EDIT PROPERTY
+        editPropertyButton = new Button("Edit");
+        editPropertyButton.addClickListener(editEvent->{
+            editPropertyDialog = new LandlordAddEditPropertyDialog(property);
+            editPropertyDialog.open();
+            editPropertyDialog.addOpenedChangeListener(e->{
+                close();
+            });
+        });
+
         panel.add(
                 pAddress,
                 pPrice,
@@ -77,7 +103,7 @@ public class LandlordViewPropertyDialog extends Dialog {
                         pBeds, pBath, contract, petStatus, pStatus
                 ),
                 imageLayout,
-                changeStatusButton
+                new HorizontalLayout(changeStatusButton, editPropertyButton)
         );
     }
 }

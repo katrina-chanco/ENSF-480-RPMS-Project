@@ -51,7 +51,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
     public ListPropertyView(){
         Button addPropertyButton = new Button("Add Property");
         addPropertyButton.addClickListener(e -> {
-            addPropertyDialog = new LandlordAddPropertyDialog();
+            addPropertyDialog = new LandlordAddEditPropertyDialog();
             addPropertyDialog.open();
             addPropertyDialog.addOpenedChangeListener( closeE-> {
                 updateGrid();
@@ -72,15 +72,12 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
         Grid.Column<Property> addressColumn = propertyGrid.addColumn(Property::getAddress).setWidth("250px").setHeader("Address").setSortable(true);
         propertyGrid.addColumn(GridHelpers.getBathrooms()).setAutoWidth(true).setHeader("Bathrooms").setSortable(true).setComparator(Comparator.comparingDouble(Property::getBathrooms));
         propertyGrid.addColumn(GridHelpers.getBeds()).setAutoWidth(true).setHeader("Beds").setSortable(true).setComparator(Comparator.comparingDouble(Property::getBeds));
-//        propertyGrid.addColumn(Property::getBathrooms).setAutoWidth(true).setHeader("Bathrooms").setSortable(true);
-//        propertyGrid.addColumn(Property::getBeds).setAutoWidth(true).setHeader("Beds").setSortable(true);
         propertyGrid.addColumn(GridHelpers.getPropertyPetBadge()).setAutoWidth(true).setHeader("Pets Allowed");
         propertyGrid.addColumn(GridHelpers.getPropertyCost()).setAutoWidth(true).setHeader("Price").setSortable(true).setComparator(Comparator.comparingDouble(Property::getPrice));
         propertyGrid.addColumn(GridHelpers.getPropertyContract()).setAutoWidth(true).setHeader("Contract");
         propertyGrid.addColumn(GridHelpers.getPropertyStatusBadge()).setHeader("Status");
         Grid.Column<Property> rightColumn = propertyGrid.addColumn(Property::getDateAdded).setAutoWidth(true).setHeader("Creation Date").setSortable(true);
-
-
+        propertyGrid.setHeight("850px");
 //            Filter address
         HeaderRow filterRow = propertyGrid.appendHeaderRow();
 
@@ -88,6 +85,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
         addressTextFilter.addValueChangeListener(e -> {
             List<Property> filteredItemList = properties.stream().filter(property -> property.getAddress().toString().contains(addressTextFilter.getValue())).collect(Collectors.toList());
             propertyGrid.setItems(filteredItemList);
+
         });
 
         addressTextFilter.setValueChangeMode(ValueChangeMode.EAGER);
@@ -119,6 +117,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
         Notification.show(itemClickEvent.getItem().toString());
         viewPropertyDialog = new LandlordViewPropertyDialog((Property) itemClickEvent.getItem());
         viewPropertyDialog.open();
+        viewPropertyDialog.addOpenedChangeListener( e -> updateGrid());
     }
 
     @Override

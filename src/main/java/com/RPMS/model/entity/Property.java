@@ -8,7 +8,9 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord")
+        @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord"),
+        @NamedQuery(name="Property.findAllByQuery", query="SELECT c FROM Property c WHERE " +
+                "c.price > :lowerPrice AND c.price < :upperPrice")
 })
 
 @Table
@@ -201,4 +203,5 @@ public class Property {
     public void setDateActivated(Date dateActivated) {
         this.dateActivated = dateActivated;
     }
+
 }

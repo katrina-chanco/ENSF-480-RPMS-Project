@@ -1,7 +1,6 @@
 package com.RPMS.view.landlord;
 
 import com.RPMS.controller.FileController;
-import com.RPMS.controller.LoginController;
 import com.RPMS.controller.PropertyController;
 import com.RPMS.controller.landlord.LandlordController;
 import com.RPMS.model.Amenities;
@@ -29,7 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class LandlordAddPropertyDialog extends Dialog {
+public class LandlordAddEditPropertyDialog extends Dialog {
     private FormLayout formLayout;
     private Property property;
     private Button saveButton;
@@ -69,11 +68,13 @@ public class LandlordAddPropertyDialog extends Dialog {
 
         @Override
         public Set<Amenities> convertToPresentation(List<Amenity> amenities, ValueContext valueContext) {
-            return amenities.stream().map(a-> Amenities.valueOf(a.getAttribute())).collect(Collectors.toSet());
+            Set<Amenities> set = amenities.stream().map(a-> Amenities.fromString(a.getAttribute())).collect(Collectors.toSet());
+            return amenities.stream().map(a-> Amenities.fromString(a.getAttribute())).collect(Collectors.toSet());
         }
     };
 
-    public LandlordAddPropertyDialog() {
+    public LandlordAddEditPropertyDialog(Property property) {
+        this.property = property;
         setCloseOnEsc(false);
         setCloseOnOutsideClick(false);
         setHeight("750px");
@@ -102,7 +103,7 @@ public class LandlordAddPropertyDialog extends Dialog {
         bottomBar.add(testB);
 
         bottomBar.add(closeButton, saveButton);
-        generateProperty();
+
         createForm();
 
         formLayout.setMinHeight("675px");
@@ -112,15 +113,11 @@ public class LandlordAddPropertyDialog extends Dialog {
         add(layout);
     }
 
-    private void generateProperty() {
-        property = new Property();
-        property.setDateAdded(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
-        property.setContract(null);
-        property.setImages(uploadedImages);
-//        Landlord will be populated in cntl
-        property.setLandlord(null);
-        property.setPropertyStatus(Property.Property_Status.SUSPENDED);
+    public LandlordAddEditPropertyDialog() {
+        this(PropertyController.getInstance().generatePropertyBean());
     }
+
+
 
     /**
      * Form layout
@@ -211,6 +208,7 @@ public class LandlordAddPropertyDialog extends Dialog {
      * update bean
      */
     private void saveButton() {
+        property.setImages(uploadedImages);
         BinderValidationStatus binderValidationStatus = binder.validate();
         List validationResults =  binderValidationStatus.getValidationErrors();
         try {

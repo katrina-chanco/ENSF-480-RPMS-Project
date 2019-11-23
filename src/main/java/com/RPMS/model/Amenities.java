@@ -47,4 +47,13 @@ public enum Amenities {
     public String getAmenityName() {
         return this.amenity;
     }
+
+    public static Amenities fromString(String textVal) {
+        for (Amenities b : Amenities.values()) {
+            if (b.amenity.equalsIgnoreCase(textVal)) {
+                return b;
+            }
+        }
+        return null;
+    }
 }

@@ -1,5 +1,8 @@
 package com.RPMS.view.landlord;
 
+import com.RPMS.controller.LoginController;
+import com.RPMS.controller.PaymentController;
+import com.RPMS.controller.PropertyController;
 import com.RPMS.controller.SystemSettingController;
 import com.RPMS.model.entity.Property;
 import com.RPMS.view.helpers.GridHelpers;
@@ -37,10 +40,10 @@ public class LandlordChangeStatusDialog extends Dialog {
     private Button closeButton;
     private HorizontalLayout bottomBar;
     private Button saveButton;
+    private ComboBox<Property.Property_Status> property_statusComboBox;
     private Double subCost;
     private Integer subDays;
     private NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
-    private PaymentRequest paymentRequest;
     private Button payButton;
 
     public LandlordChangeStatusDialog(Property property) {
@@ -48,7 +51,7 @@ public class LandlordChangeStatusDialog extends Dialog {
 
         setCloseOnEsc(true);
         setCloseOnOutsideClick(true);
-        setHeight("320px");
+        setMinHeight("150px");
         setWidth("350px");
 
         subCost = SystemSettingController.getInstance().getSubscriptionCost();
@@ -71,13 +74,17 @@ public class LandlordChangeStatusDialog extends Dialog {
         saveButton.setThemeName(Lumo.DARK);
         saveButton.addClickListener(e -> saveButton());
 
+        payButton = new Button("Pay Fee & Save");
+        payButton.setThemeName(Lumo.DARK);
+        payButton.setVisible(false);
+        addPayment();
+
 //        Panel
         panel = new VerticalLayout();
-        panel.setMinHeight("200px");
+        panel.setMinHeight("100px");
         panel.setWidth("100%");
 
-        bottomBar.add(panel, closeButton, saveButton);
-        addPayment();
+        bottomBar.add(panel, closeButton, saveButton, payButton);
         updateStatusView();
 
         layout.add(panel, bottomBar);
@@ -90,12 +97,30 @@ public class LandlordChangeStatusDialog extends Dialog {
         HorizontalLayout status = new HorizontalLayout(currentStatus, pStatus);
         Label infoLabel = new Label();
 
-        ComboBox<Property.Property_Status> property_statusComboBox = new ComboBox<>();
+        property_statusComboBox = new ComboBox<>();
         List<Property.Property_Status> statusList = new ArrayList<>(EnumSet.allOf(Property.Property_Status.class));
         property_statusComboBox.setDataProvider(new ListDataProvider<>(statusList));
         property_statusComboBox.setItemLabelGenerator(Property.Property_Status::getPrettyName);
+        property_statusComboBox.setValue(property.getPropertyStatus());
+        property_statusComboBox.setRequired(true);
+        property_statusComboBox.addValueChangeListener(property_statusComboBoxEvent -> {
+//            payment needed
+            if (isPaymentNeeded(property_statusComboBoxEvent.getValue())) {
+                infoLabel.setVisible(true);
+                saveButton.setVisible(false);
+                payButton.setVisible(true);
+            } else if (isPaymentActive(property_statusComboBoxEvent.getValue())) {
+                infoLabel.setVisible(true);
+            } else {
+                infoLabel.setVisible(false);
+                saveButton.setVisible(true);
+                payButton.setVisible(false);
+            }
 
+
+        });
         infoLabel.getStyle().set("color", "red");
+        infoLabel.setVisible(false);
         if (property.getPropertyStatus() == Property.Property_Status.ACTIVE) {
             infoLabel.setText("Changing the status from ACTIVE will invalidate current subscription.");
         } else {
@@ -113,11 +138,9 @@ public class LandlordChangeStatusDialog extends Dialog {
      * update bean
      */
     private void saveButton() {
-
         try {
-
             saveButton.setEnabled(false);
-
+            PropertyController.getInstance().updateStatus(property, property_statusComboBox.getValue());
             close();
         } catch (Exception e) {
             saveButton.setEnabled(true);
@@ -131,14 +154,12 @@ public class LandlordChangeStatusDialog extends Dialog {
                 addPaymentRequestHandlerToButton();
             } else {
                 payButton.addClickListener(click -> Notification
-                        .show("Payment collection is not supported on your browser!", 9000, Notification.Position.MIDDLE));
+                        .show("Payment collection is not supported on your browser! Please use latest Google Chrome. Known to work. ", 9000, Notification.Position.MIDDLE));
             }
         });
-        payButton = new Button("Pay");
-        panel.add(payButton);
     }
 
-    //    PAYMENT API FROM: https://vaadin.com/directory/component/payment-request-addon/l
+    //    PAYMENT API FROM: https://vaadin.com/directory/component/payment-request-addon/
     private void addPaymentRequestHandlerToButton() {
         JsonArray supportedPaymentMethods = getSupportedMethods();
 
@@ -147,49 +168,33 @@ public class LandlordChangeStatusDialog extends Dialog {
         PaymentRequest paymentRequest = new PaymentRequest(supportedPaymentMethods, paymentDetails);
         paymentRequest.setPaymentResponseCallback((paymentResponse) -> {
             JsonObject eventData = paymentResponse.getEventData();
-            Notification.show("Please wait a moment while we finish the payment via our payment gateway.", 9000,
-                    Notification.Position.MIDDLE);
-
             Command onPaymentGatewayRequestComplete = () -> {
                 // Close the Payment Request native dialog
                 paymentResponse.complete();
                 String cardNumber = eventData.getObject("details").getString("cardNumber");
                 String cardEnding = cardNumber.substring(cardNumber.length() - 4);
                 Notification
-                        .show("Purchase complete! We have charged the total (1337€) from your credit card ending in "
-                                + cardEnding, 9000, Notification.Position.MIDDLE);
+                        .show("Purchase complete! We have charged the total " + defaultFormat.format(subCost) + " from your credit card ending in "
+                                + cardEnding);
+                saveButton();
             };
-            startPaymentGatewayQuery(paymentResponse, eventData, onPaymentGatewayRequestComplete);
+            startPaymentGatewayQuery(eventData, onPaymentGatewayRequestComplete);
         });
         paymentRequest.install(payButton);
-
     }
 
     /**
-     * simulates asynchronous communication with a payment gateway
+     *  save to DB and 'charge' card
      *
-     * @param paymentResponse
-     * @param eventData
-     * @param onPaymentGatewayRequestComplete
      */
-    private void startPaymentGatewayQuery(PaymentRequest.PaymentResponse paymentResponse, JsonObject eventData,
-                                          Command onPaymentGatewayRequestComplete) {
+    private void  startPaymentGatewayQuery(JsonObject eventData, Command onPaymentGatewayRequestComplete) {
         UI ui = UI.getCurrent();
-        Thread paymentGatewayThread = new Thread(() -> {
-            try {
-                Thread.sleep(9000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            ui.access(onPaymentGatewayRequestComplete);
-
-        });
-        paymentGatewayThread.start();
+        PaymentController.getInstance().addPayment(property, eventData, subCost);
+        ui.access(onPaymentGatewayRequestComplete);
     }
 
     /**
-     * @return <code>[{supportedMethods: 'basic-card'}]</code>
+     * allow cards
      */
     private JsonArray getSupportedMethods() {
         JreJsonFactory jsonFactory = new JreJsonFactory();
@@ -201,20 +206,32 @@ public class LandlordChangeStatusDialog extends Dialog {
     }
 
     /**
-     * @return <code>total: { label: 'Cart (10 items)', amount:{ currency: 'EUR', value:
-     * 1337 } }</code>
+     * Build payment with amount
      */
     private JsonObject getPaymentDetails() {
         JreJsonFactory jsonFactory = new JreJsonFactory();
         JsonObject paymentDetails = jsonFactory.createObject();
-
         JsonObject total = jsonFactory.createObject();
-        total.put("label", "Cart (10 items)");
+        total.put("label", "RPMS: " + property.getAddress().toString() + " subscription.");
         JsonObject totalAmount = jsonFactory.createObject();
-        totalAmount.put("currency", "EUR");
-        totalAmount.put("value", "1337");
+        totalAmount.put("currency", "CAD");
+        totalAmount.put("value", subCost);
         total.put("amount", totalAmount);
         paymentDetails.put("total", total);
         return paymentDetails;
+    }
+
+    /**
+     * is payment needed for status change
+     *
+     * @param property_status potential status
+     * @return
+     */
+    private boolean isPaymentNeeded(Property.Property_Status property_status) {
+        return PaymentController.getInstance().isPaymentNeeded() && property.getPropertyStatus() != Property.Property_Status.ACTIVE && property_status == Property.Property_Status.ACTIVE;
+    }
+
+    private boolean isPaymentActive(Property.Property_Status property_status) {
+        return PaymentController.getInstance().isPaymentNeeded() && property.getPropertyStatus() == Property.Property_Status.ACTIVE && property_status != Property.Property_Status.ACTIVE;
     }
 }
