@@ -10,23 +10,20 @@ import com.RPMS.view.helpers.EmailFieldComponent;
 import com.RPMS.view.helpers.NameFieldComponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 
-@PageTitle("register")
-@Route(value = "register")
-public class RegistrationView extends Div {
+//@PageTitle("register")
+//@Route(value = "register")
+public class RegistrationView extends Dialog {
     /**
      * Account of user registering
      */
@@ -39,16 +36,12 @@ public class RegistrationView extends Div {
      * Flag to check if password was confirmed asuccessfully
      */
     private boolean passwordsMatch;
-    /**
-     * Layputs and components
-     */
     private HorizontalLayout layout;
     private VerticalLayout header;
     private AddressFieldComponent addressField;
     private EmailFieldComponent emailField;
     private NameFieldComponent nameField;
     private PasswordField passwordField;
-    private H4 h4;
     private PasswordField confirmPasswordField;
     private ComboBox<String> accountTypeComboBox;
 
@@ -58,14 +51,15 @@ public class RegistrationView extends Div {
     public RegistrationView() {
         header = new VerticalLayout();
         layout = new HorizontalLayout();
-
-        H3 h3 = new H3("Registration");
-        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        layout.setAlignItems(FlexComponent.Alignment.CENTER);
+        setHeight("510px");
+        setWidth("760px");
+        H2 h2 = new H2( "Register");
+        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
         layout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.STRETCH);
-        layout.setAlignSelf(FlexComponent.Alignment.CENTER);
         layout.setWidth("75%");
-        header.add(h3);
+        header.add(h2);
+        header.setMargin(false);
+        header.setPadding(false);
         registrationForm();
         add(header);
         add(layout);
@@ -75,12 +69,6 @@ public class RegistrationView extends Div {
      * Creates a registration form and adds it to the layour
      */
     private void registrationForm() {
-        h4 = new H4();
-        h4.setText("Select an account type to enable the fields");
-
-        header.add(new HorizontalLayout(h4));
-        addAccountTypeComboBox();
-
         addressField = new AddressFieldComponent();
         nameField = new NameFieldComponent();
         emailField = new EmailFieldComponent();
@@ -89,10 +77,6 @@ public class RegistrationView extends Div {
 
         passwordField.setLabel("Password");
         confirmPasswordField.setLabel("Confirm password");
-
-        if (LoginController.getInstance().getRegistrationSelectedType() == null) {
-            setTextFieldsEnabled(false);
-        }
 
         addressField.setRequiredIndicatorVisible(true);
         nameField.setRequiredIndicatorVisible(true);
@@ -108,56 +92,28 @@ public class RegistrationView extends Div {
                 .withValidationStatusHandler(status -> passwordsMatch = false)
                 .bind(Account::getPassword, Account::setPassword);
 
-        VerticalLayout verticalLayout1 = new VerticalLayout(nameField, new HorizontalLayout(passwordField), new HorizontalLayout(confirmPasswordField));
-        VerticalLayout verticalLayout2 = new VerticalLayout(addressField, emailField, confirmButton());
-        verticalLayout2.setSpacing(true);
+        initializeAccountTypeComboBox();
 
+        /**
+         * Layputs and components
+         */
+        Button closeButton = new Button("Close");
+        closeButton.addClickListener(e -> close());
+        VerticalLayout passwordLayout = new VerticalLayout(passwordField, confirmPasswordField);
+        passwordLayout.setMargin(false);
+        passwordLayout.setPadding(false);
+        VerticalLayout verticalLayout1 = new VerticalLayout(nameField, new HorizontalLayout(passwordLayout));
+        VerticalLayout verticalLayout2 = new VerticalLayout(addressField, emailField, accountTypeComboBox, new HorizontalLayout(), new HorizontalLayout(new HorizontalLayout(), confirmButton(), closeButton));
+        verticalLayout1.setPadding(false);
+        verticalLayout2.setPadding(false);
         layout.add(verticalLayout1, verticalLayout2);
         accountBinder.forField(passwordField);
         accountBinder.forField(confirmPasswordField);
     }
 
-    /**
-     * Sets textfields to be enabled or disabled
-     *
-     * @param status
-     */
-    private void setTextFieldsEnabled(Boolean status) {
-        addressField.setEnabled(status);
-        nameField.setEnabled(status);
-        emailField.setEnabled(status);
-        passwordField.setEnabled(status);
-        confirmPasswordField.setEnabled(status);
-    }
-
-    private void addAccountTypeComboBox() {
+    private void initializeAccountTypeComboBox() {
         accountTypeComboBox = new ComboBox<>("Account Type");
         accountTypeComboBox.setItems("Landlord", "Renter");
-        accountTypeComboBox.addValueChangeListener(event -> {
-            if (event.getSource().isEmpty()) {
-                accountTypeComboBox.setEnabled(true);
-            } else {
-                LoginController.getInstance().setRegistrationSelectedType(event.getValue());
-                accountTypeComboBox.setEnabled(false);
-                setTextFieldsEnabled(true);
-                h4.setText(LoginController.getInstance().getRegistrationSelectedType() + " Registration");
-                // create an account based on combobox selection
-                switch (LoginController.getInstance().getRegistrationSelectedType()) {
-                    case "Landlord":
-                        account = new Landlord();
-                        break;
-                    case "Renter":
-                        account = new Registered_Renter();
-                        break;
-                    default:
-                        System.out.println("ERROR in selecting account type");
-                        break;
-                }
-            }
-        });
-        HorizontalLayout hl = new HorizontalLayout();
-        hl.add(new HorizontalLayout(accountTypeComboBox));
-        header.add(hl);
     }
 
     /**
@@ -166,11 +122,10 @@ public class RegistrationView extends Div {
      * @throws Exception if fields not validates
      */
     public void isValid() throws Exception {
-        passwordField.setErrorMessage("dfjnklms,cdms,");
         if(passwordField.getValue().equals(confirmPasswordField.getValue())) {
             passwordsMatch = true;
         }
-        if(emailField.isInvalid() || passwordField.isInvalid() || addressField.isInvalid() || nameField.isInvalid() || !passwordsMatch){
+        if (emailField.isEmpty() || passwordField.isEmpty() || addressField.isEmpty() || nameField.isEmpty() || !passwordsMatch || accountTypeComboBox.isEmpty()) {
             throw new Exception();
         }
     }
@@ -183,14 +138,30 @@ public class RegistrationView extends Div {
         Button confirmButton = new Button("Confirm");
         confirmButton.setThemeName(Lumo.DARK);
         confirmButton.addClickListener(e -> {
+            // create an account based on combobox selection
             try {
+                switch (accountTypeComboBox.getValue()) {
+                    case "Landlord":
+                        account = new Landlord();
+                        break;
+                    case "Renter":
+                        account = new Registered_Renter();
+                        break;
+                    default:
+                        System.out.println("ERROR in selecting account type");
+                        break;
+                }
                 accountBinder.writeBean(account);
                 isValid();
                 LoginController.getInstance().loginRegistrationAccount(account);
                 confirmButton.setEnabled(false);
                 getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
+                this.close();
+                Notification.show("Registration success!", 3000, Notification.Position.TOP_START);
             } catch (Exception v) {
-                if (!passwordsMatch) {
+                if (accountTypeComboBox.isEmpty()) {
+                    Notification.show("Please select an account type");
+                } else if (!passwordsMatch) {
                     Notification.show("Passwords don't match");
                 } else {
                     Notification.show("Please enter information in all the fields.");

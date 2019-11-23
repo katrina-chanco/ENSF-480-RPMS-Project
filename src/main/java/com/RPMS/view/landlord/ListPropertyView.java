@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 @Route(value = "landlord/list", layout = MainView.class)
 @StyleSheet("./styles/badge.css")
 public class ListPropertyView extends Div {
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RPMS_PU");
     private LandlordController landlordController = LandlordController.getInstance();
     /**
      * Add property dialog

@@ -8,32 +8,19 @@ public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private boolean isSignedByLandlord;
-    private boolean isSignedByRenter;
+    private int envelopeId;
+
+    private boolean isSigned;
 
     public Contract() {
-        this.isSignedByLandlord = false;
-        this.isSignedByRenter = false;
     }
 
     public boolean isSigned() {
-        return isSignedByRenter && isSignedByLandlord;
+        return isSigned;
     }
 
-    public boolean isSignedByRenter() {
-        return isSignedByRenter;
-    }
-
-    public void setSignedByRenter(boolean signedByRenter) {
-        isSignedByRenter = signedByRenter;
-    }
-
-    public boolean isSignedByLandlord() {
-        return isSignedByLandlord;
-    }
-
-    public void setSignedByLandlord(boolean signedByLandlord) {
-        isSignedByLandlord = signedByLandlord;
+    public void setSigned(boolean signed) {
+        isSigned = signed;
     }
 
     public int getId() {
@@ -44,12 +31,16 @@ public class Contract {
         this.id = id;
     }
 
-    /**
-     * Returns ID+1 for docu-sign
-     * @return ID+1
-     */
     public int getContractId() {
-        return id+1;
+        return id + 1;
+    }
+
+    public int getEnvelopeId() {
+        return envelopeId;
+    }
+
+    public void setEnvelopeId(int envelopeId) {
+        this.envelopeId = envelopeId;
     }
 }
 

@@ -26,7 +26,6 @@ public class LoginController {
      */
     private Boolean isLoggedIn;
     private Boolean isLoggedInUnregisteredRenter;
-    private String registrationSelectedType;
 
     /**
      * Default constructor
@@ -155,12 +154,5 @@ public class LoginController {
         return account;
     }
 
-    public String getRegistrationSelectedType() {
-        return registrationSelectedType;
-    }
-
-    public void setRegistrationSelectedType(String registrationSelectedType) {
-        this.registrationSelectedType = registrationSelectedType;
-    }
 
 }
