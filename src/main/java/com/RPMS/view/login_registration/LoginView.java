@@ -3,8 +3,9 @@ import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.notification.Notification;
@@ -18,13 +19,13 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Route(value = "login")
 public class LoginView extends Div {
 
-    private H2 head;
+    private H1 head;
     private VerticalLayout vl;
     private LoginForm form;
     private Button continue_as_an_unregistered_renter;
 
     public LoginView() {
-        head = new H2("Welcome to RPMS");
+        head = new H1("Welcome to RPMS");
         vl = new VerticalLayout();
         vl.add(head, loginForm(), unregisteredRenterButton());
         vl.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
@@ -62,7 +63,6 @@ public class LoginView extends Div {
 
     private void addLoginListener() {
         form.addLoginListener(e -> {
-            Notification.show("Logging in....", 3000, Notification.Position.TOP_START);
             boolean isAuthenticated = LoginController.getInstance().authenticateUser(e);
             if (isAuthenticated) {
                 Notification.show("Welcome!", 3000, Notification.Position.TOP_START);
@@ -78,7 +78,8 @@ public class LoginView extends Div {
         form.addForgotPasswordListener(e -> {
             // TODO route to registration page
             Notification.show("Taking you to the registration page....", 3000, Notification.Position.TOP_START);
-            form.getUI().ifPresent(ui -> ui.navigate(RegistrationView.class));
+            Dialog regDialog = new RegistrationView();
+            regDialog.open();
         });
     }
 
@@ -90,13 +91,6 @@ public class LoginView extends Div {
         form.setForgotPasswordButtonVisible(true);
         form.setI18n(i18n);
     }
-
-//    private void checkIfLoggedIn(LoginForm component) {
-//        if (LoginController.getInstance().isLoggedIn()) {
-//            Notification.show("Welcome!", 3000, Notification.Position.TOP_START);
-//            component.getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
-//        }
-//    }
 
 }
 

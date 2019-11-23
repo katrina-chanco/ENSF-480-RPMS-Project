@@ -21,7 +21,6 @@ import org.vaadin.gatanaso.MultiselectComboBox;
 import java.util.*;
 
 public class LandlordAddPropertyDialog extends Dialog {
-
     private FormLayout formLayout;
     private Property property = new Property();
     private Button saveButton;
@@ -36,7 +35,6 @@ public class LandlordAddPropertyDialog extends Dialog {
     private ComboBox<Property.Pets_Allowed> propertyPetStatus;
     private MultiselectComboBox<Amenities> amenitiesField;
 
-
     public LandlordAddPropertyDialog() {
         setCloseOnEsc(false);
         setCloseOnOutsideClick(false);
@@ -48,7 +46,7 @@ public class LandlordAddPropertyDialog extends Dialog {
         layout.setDefaultHorizontalComponentAlignment(
                 FlexComponent.Alignment.STRETCH);
 
-        //        Bottom buttons
+        //  Bottom buttons
         bottomBar = new HorizontalLayout();
         bottomBar.setHeight("50px");
         bottomBar.setWidth("100%");
@@ -130,7 +128,6 @@ public class LandlordAddPropertyDialog extends Dialog {
 
         // Updates the value in each bound field component
         binder.readBean(property);
-
 
         formLayout.add(new VerticalLayout(
                 addressField,

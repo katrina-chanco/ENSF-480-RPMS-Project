@@ -21,21 +21,29 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 public class MainView extends AppLayout {
 
+    /**
+     * Instantiates MainView
+     */
     public MainView() {
-        final DrawerToggle drawerToggle = new DrawerToggle();
-        final RouterLink home = new RouterLink("Home", HomePageView.class);
-        final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
-        final RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
-        final RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
-        final VerticalLayout layout = new VerticalLayout(home, about, selectSystemOptions, landlordList);
-        addToDrawer(layout);
+        DrawerToggle drawerToggle = new DrawerToggle();
+        RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
+        RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
+        RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
+        RouterLink home = new RouterLink("Home", HomePageView.class);
+        VerticalLayout mainLayout = new VerticalLayout(home, about, selectSystemOptions, landlordList);
+        addToDrawer(mainLayout);
         addToNavbar(drawerToggle);
         HorizontalLayout filler = new HorizontalLayout();
-        filler.setWidth("1190px");
+        filler.setWidth("88%");
         addToNavbar(filler);
         addToNavbar(logoutButton());
     }
 
+    /**
+     * Button to logout current user
+     *
+     * @return
+     */
     private Button logoutButton() {
         Button logoutButton = new Button("Logout");
         logoutButton.addClickListener(e -> {

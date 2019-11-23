@@ -132,7 +132,14 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.5</version>
         </dependency>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/mysql/mysql-connector-java &ndash;&gt;-->
+
+        <!-- https://mvnrepository.com/artifact/com.docusign/docusign-esign-java -->
+        <dependency>
+            <groupId>com.docusign</groupId>
+            <artifactId>docusign-esign-java</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/mysql/mysql-connector-java &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>mysql</groupId>-->
 <!--            <artifactId>mysql-connector-java</artifactId>-->
@@ -203,6 +210,7 @@
                     <groupId>com.vaadin</groupId>
                     <artifactId>flow-server-production-mode</artifactId>
                 </dependency>
+
             </dependencies>
 
             <build>
