@@ -1,5 +1,6 @@
 package com.RPMS.controller.landlord;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.controller.PropertyController;
 import com.RPMS.model.entity.Landlord;
 import com.RPMS.model.entity.Property;
@@ -12,16 +13,9 @@ public class LandlordController {
      */
     private static LandlordController instance;
 
-    /**
-     * Default constructor
-     */
     private LandlordController() {
     }
 
-    /**
-     * Function to get Singleton instance
-     * @return
-     */
     public static LandlordController getInstance() {
         if(instance == null) {
             instance = new LandlordController();
@@ -29,13 +23,14 @@ public class LandlordController {
         return instance;
     }
 
-    /**
-     * Gets all properties of landlord currently logged in
-     * @param landlord
-     * @return
-     */
-    public List<Property> getAllLandlordProperties(Landlord landlord) {
+    public List<Property> getAllLandlordProperties() {
         PropertyController propertyController = PropertyController.getInstance();
+        Landlord landlord  = (Landlord) LoginController.getInstance().getAccount();
         return propertyController.getAllLandlordProperties(landlord);
+    }
+
+    public void saveProperty(Property property) {
+        property.setLandlord((Landlord) LoginController.getInstance().getAccount());
+        PropertyController.getInstance().saveProperty(property);
     }
 }

@@ -109,10 +109,10 @@ public class LoginController {
             try {
                 account = query.setParameter("email", email).setParameter("password", password).getSingleResult();
             } catch (NullPointerException | NoResultException e) {
-                System.out.println("\n\naccount not found...\n\n");
+//                System.out.println("\n\naccount not found...\n\n");
             }
             if (account != null) {
-                System.out.println(account.getClass());
+//                System.out.println(account.getClass());
                 isLoggedIn = true;
             }
             em.close();

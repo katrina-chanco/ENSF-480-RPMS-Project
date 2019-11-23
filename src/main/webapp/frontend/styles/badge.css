@@ -8,6 +8,8 @@
     text-align: center;
     padding: .05rem .8rem .1rem;
     line-height: inherit;
+    height: 25px;
+
 }
 
 .badge--line {
