@@ -13,6 +13,10 @@ import java.util.List;
                 "c.price > :lowerPrice AND c.price < :upperPrice")
 })
 
+@NamedNativeQueries({
+        //Interacts with Database to get Report Values
+})
+
 @Table
 public class Property {
 
