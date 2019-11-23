@@ -1,5 +1,6 @@
 package com.RPMS.controller.landlord;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.controller.PropertyController;
 import com.RPMS.model.entity.Landlord;
 import com.RPMS.model.entity.Property;
@@ -22,8 +23,14 @@ public class LandlordController {
         return instance;
     }
 
-    public List<Property> getAllLandlordProperties(Landlord landlord) {
+    public List<Property> getAllLandlordProperties() {
         PropertyController propertyController = PropertyController.getInstance();
+        Landlord landlord  = (Landlord) LoginController.getInstance().getAccount();
         return propertyController.getAllLandlordProperties(landlord);
+    }
+
+    public void saveProperty(Property property) {
+        property.setLandlord((Landlord) LoginController.getInstance().getAccount());
+        PropertyController.getInstance().saveProperty(property);
     }
 }

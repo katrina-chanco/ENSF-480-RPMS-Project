@@ -6,11 +6,12 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.List;
 
-
+@PageTitle("Search Property")
 @Route(value = "search", layout = MainView.class)
 public class SearchPropertyView extends Div {
     public SearchPropertyView() {

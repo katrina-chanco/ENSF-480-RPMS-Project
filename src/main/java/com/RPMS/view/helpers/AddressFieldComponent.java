@@ -4,10 +4,11 @@ import com.RPMS.model.entity.Address;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import org.vaadin.textfieldformatter.CustomStringBlockFormatter;
+
+import static com.vaadin.flow.component.textfield.Autocapitalize.WORDS;
 
 
 public class AddressFieldComponent extends CustomField<Address> {
@@ -27,17 +28,20 @@ public class AddressFieldComponent extends CustomField<Address> {
 //        houseNoField.set
 
         streetNameField = new TextField();
-        streetNameField.setLabel("Street Name");
+        streetNameField.setLabel("Street name");
         streetNameField.setWidth("253px");
+        streetNameField.setAutocapitalize(WORDS);
         streetNameField.setRequired(true);
 
         cityNameField = new TextField();
         cityNameField.setLabel("City");
+        cityNameField.setAutocapitalize(WORDS);
         cityNameField.setWidth("147px");
         cityNameField.setRequired(true);
 
         provinceField = new TextField();
         provinceField.setLabel("Province/State");
+        provinceField.setAutocapitalize(WORDS);
         provinceField.setWidth("200px");
         provinceField.setRequired(true);
 
@@ -56,6 +60,15 @@ public class AddressFieldComponent extends CustomField<Address> {
         add(new HorizontalLayout(houseNoField, streetNameField, cityNameField), new HorizontalLayout(provinceField, postalField, countryField));
     }
 
+    public void setEnabled(Boolean status) {
+        houseNoField.setEnabled(status);
+        streetNameField.setEnabled(status);
+        cityNameField.setEnabled(status);
+        provinceField.setEnabled(status);
+        postalField.setEnabled(status);
+        countryField.setEnabled(status);
+    }
+
     @Override
     public Address generateModelValue() {
         Address address = new Address();
@@ -66,7 +79,6 @@ public class AddressFieldComponent extends CustomField<Address> {
         address.setPostalCode(postalField.getValue());
         address.setCountry(countryField.getValue());
         return address;
-
     }
 
     @Override

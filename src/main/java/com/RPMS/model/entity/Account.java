@@ -2,12 +2,14 @@ package com.RPMS.model.entity;
 
 import javax.persistence.*;
 
-
-
 @Entity
 @Table
-@DiscriminatorColumn(name = "AccountType")
+@DiscriminatorColumn(name = "accountType")
 @NamedQueries({
+        @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
+        @NamedQuery(name = "Account.validateLogin", query = "SELECT a FROM Account a " +
+                "WHERE a.email = :email" +
+                " AND a.password = :password"),
         @NamedQuery(name="Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email.emailAddress = :email")
 })
 public abstract class Account {
@@ -24,10 +26,13 @@ public abstract class Account {
     @OneToOne(cascade = {CascadeType.ALL})
     private Email email;
 
-    public Account(Address address, Name name, Email email) {
+    private String password;
+
+    public Account(Address address, Name name, Email email, String password) {
         this.address = address;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public Account() {
@@ -36,7 +41,6 @@ public abstract class Account {
 
     public int getId() {
         return id;
-
     }
 
     public void setId(int id) {
@@ -66,4 +70,13 @@ public abstract class Account {
     public void setEmail(Email email) {
         this.email = email;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

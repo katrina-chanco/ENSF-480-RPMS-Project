@@ -8,7 +8,9 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord")
+        @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord"),
+        @NamedQuery(name="Property.findAllByQuery", query="SELECT c FROM Property c WHERE " +
+                "c.price > :lowerPrice AND c.price < :upperPrice")
 })
 
 @NamedNativeQueries({
@@ -35,10 +37,19 @@ public class Property {
         }
     }
     public enum Property_Status{
-        ACTIVE,
-        CANCELED,
-        RENTED,
-        SUSPENDED
+        ACTIVE("Active"),
+        CANCELED("Canceled"),
+        RENTED("Rented"),
+        SUSPENDED("Suspended");
+        private String prettyName;
+
+        Property_Status(String prettyName) {
+            this.prettyName = prettyName;
+        }
+
+        public String getPrettyName() {
+            return prettyName;
+        }
     }
 
     @Id
@@ -49,9 +60,13 @@ public class Property {
     private int beds;
     private int bathrooms;
     private Date dateAdded;
+    private Date dateActivated;
 
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Amenity> amenities = new ArrayList<>();
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Image> images = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Pets_Allowed petsAllowed;
@@ -74,7 +89,7 @@ public class Property {
         this.address = address;
     }
 
-    public Property(double price, int beds, int bathrooms, List<Amenity> amenities, Pets_Allowed petsAllowed, Landlord landlord, Contract contract, Address address, Date dateAdded, Property_Status propertyStatus) {
+    public Property(double price, int beds, int bathrooms, List<Amenity> amenities, Pets_Allowed petsAllowed, Landlord landlord, Contract contract, Address address, Date dateAdded, Date dateActivated, Property_Status propertyStatus, List<Image> images) {
         this.price = price;
         this.beds = beds;
         this.bathrooms = bathrooms;
@@ -84,7 +99,9 @@ public class Property {
         this.contract = contract;
         this.address = address;
         this.dateAdded = dateAdded;
+        this.dateActivated = dateActivated;
         this.propertyStatus = propertyStatus;
+        this.images = images;
     }
 
     public Property(){
@@ -163,7 +180,13 @@ public class Property {
         this.dateAdded = dateAdded;
     }
 
+    public List<Image> getImages() {
+        return images;
+    }
 
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 
     public Property_Status getPropertyStatus() {
         return propertyStatus;
@@ -176,4 +199,13 @@ public class Property {
     public boolean hasContract() {
         return contract != null;
     }
+
+    public Date getDateActivated() {
+        return dateActivated;
+    }
+
+    public void setDateActivated(Date dateActivated) {
+        this.dateActivated = dateActivated;
+    }
+
 }

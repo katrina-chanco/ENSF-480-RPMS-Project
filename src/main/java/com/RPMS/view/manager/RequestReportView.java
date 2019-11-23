@@ -42,6 +42,7 @@ public class RequestReportView extends Div {
                 new HorizontalLayout(startDatePicker, endDatePicker)
         ));
 
+
         startDatePicker.addValueChangeListener(event -> {
             LocalDate selectedDate = event.getValue();
             LocalDate endDate = endDatePicker.getValue();
@@ -425,4 +426,3 @@ public class RequestReportView extends Div {
         ));
     }
 }
-

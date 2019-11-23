@@ -1,29 +1,55 @@
 package com.RPMS;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
 import com.RPMS.view.SearchPropertyView;
 import com.RPMS.view.landlord.ListPropertyView;
+import com.RPMS.view.login_registration.LoginView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.RouterLink;
-
+import com.vaadin.flow.theme.lumo.Lumo;
 
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 
 public class MainView extends AppLayout {
 
     public MainView(){
-        final DrawerToggle drawerToggle = new DrawerToggle();
-        final RouterLink home = new RouterLink("Home", HomePageView.class);
-        final RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
-        final RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
-        final RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
-        final VerticalLayout layout = new VerticalLayout(home, about, landlordList, selectSystemOptions);
-        addToDrawer(layout);
+        DrawerToggle drawerToggle = new DrawerToggle();
+        RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
+        RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
+        RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
+        RouterLink home = new RouterLink("Home", HomePageView.class);
+        VerticalLayout mainLayout = new VerticalLayout(home, about, selectSystemOptions, landlordList);
+        addToDrawer(mainLayout);
         addToNavbar(drawerToggle);
+        HorizontalLayout filler = new HorizontalLayout();
+        filler.setWidth("88%");
+        addToNavbar(filler);
+        addToNavbar(logoutButton());
+    }
+
+    /**
+     * Button to logout current user
+     *
+     * @return
+     */
+    private Button logoutButton() {
+        Button logoutButton = new Button("Logout");
+        logoutButton.addClickListener(e -> {
+            LoginController.getInstance().logOutUser();
+            getUI().ifPresent(ui -> ui.navigate(LoginView.class));
+        });
+        logoutButton.setThemeName(Lumo.DARK);
+        logoutButton.setIcon(new Icon(VaadinIcon.EXIT_O));
+        return logoutButton;
     }
 
 }

@@ -1,7 +1,7 @@
 {
   "compatibilityMode": false,
   "productionMode": false,
-  "npmFolder": "/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS",
-  "generatedFolder": "/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/target/frontend",
-  "frontendFolder": "/home/evan/Documents/3rd-Year/ENSF 480/Project/RPMS/frontend"
+  "npmFolder": "/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project",
+  "generatedFolder": "/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/target/frontend",
+  "frontendFolder": "/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/frontend"
 }

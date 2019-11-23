@@ -1,7 +1,10 @@
 package com.RPMS.controller.manager;
 
+import com.RPMS.model.entity.Account;
+import com.RPMS.model.entity.Property;
 import com.RPMS.model.entity.Report;
-
+import com.RPMS.view.manager.RequestReportView;
+import javax.management.Notification;
 import javax.persistence.*;
 import java.util.List;
 

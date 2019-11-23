@@ -12,8 +12,8 @@ public class Registered_Renter extends Account {
     @OneToOne(cascade = {CascadeType.ALL})
     private Subscription subscription;
 
-    public Registered_Renter(Address address, Name name, Email email, Subscription subscription) {
-        super(address, name, email);
+    public Registered_Renter(Address address, Name name, Email email, String password, Subscription subscription) {
+        super(address, name, email, password);
         this.subscription = subscription;
     }
 
