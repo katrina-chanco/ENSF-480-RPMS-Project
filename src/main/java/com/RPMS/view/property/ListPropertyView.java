@@ -1,10 +1,11 @@
 
-package com.RPMS.view.landlord;
+package com.RPMS.view.property;
 
 import com.RPMS.MainView;
 import com.RPMS.controller.LoginController;
+import com.RPMS.controller.PropertyController;
 import com.RPMS.controller.landlord.LandlordController;
-import com.RPMS.model.entity.*;
+import com.RPMS.model.entity.Property;
 import com.RPMS.view.helpers.GridHelpers;
 import com.RPMS.view.login_registration.LoginView;
 import com.vaadin.flow.component.button.Button;
@@ -24,13 +25,13 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
-import javax.persistence.*;
+import javax.persistence.NoResultException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 //TODO Check for landlord account
-@Route(value = "landlord/list", layout = MainView.class)
+@Route(value = "list", layout = MainView.class)
 @StyleSheet("./styles/badge.css")
 public class ListPropertyView extends Div implements BeforeEnterObserver {
     private LandlordController landlordController = LandlordController.getInstance();
@@ -47,18 +48,25 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
      * Vaadin grid to display
      */
     private Grid<Property> propertyGrid = new Grid<>(Property.class);
+    private String accountType;
 
-    public ListPropertyView(){
-        Button addPropertyButton = new Button("Add Property");
-        addPropertyButton.addClickListener(e -> {
-            addPropertyDialog = new LandlordAddEditPropertyDialog();
-            addPropertyDialog.open();
-            addPropertyDialog.addOpenedChangeListener( closeE-> {
-                updateGrid();
+    public ListPropertyView() {
+        accountType = LoginController.getInstance().getAccountType();
+        if (accountType.equals("Landlord")) {
+            Button addPropertyButton = new Button("Add Property");
+            addPropertyButton.addClickListener(e -> {
+                addPropertyDialog = new AddEditPropertyDialog();
+                addPropertyDialog.open();
+                addPropertyDialog.addOpenedChangeListener(closeE -> {
+                    updateGrid();
+                });
             });
-        });
+            add(new VerticalLayout(addPropertyButton, propertyGrid));
+        }
         buildPropertyGrid();
-        add(new VerticalLayout(addPropertyButton, propertyGrid));
+        if (accountType.equals("Manager")) {
+            add(new VerticalLayout(propertyGrid));
+        }
     }
 
     /**
@@ -78,17 +86,32 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
         propertyGrid.addColumn(GridHelpers.getPropertyStatusBadge()).setHeader("Status");
         Grid.Column<Property> rightColumn = propertyGrid.addColumn(Property::getDateAdded).setAutoWidth(true).setHeader("Creation Date").setSortable(true);
         propertyGrid.setHeight("850px");
-//            Filter address
-        HeaderRow filterRow = propertyGrid.appendHeaderRow();
 
+        HeaderRow filterRow = propertyGrid.appendHeaderRow();
+        // show landlord name if manager
+        if (accountType.equals("Manager")) {
+            Grid.Column<Property> landlordColumn = propertyGrid.addColumn(Property::getLandlord).setWidth("250px").setHeader("Landlord").setSortable(true);
+            TextField landlordTextFilter = new TextField();
+            landlordTextFilter.addValueChangeListener(e -> {
+                List<Property> filteredItemList = properties.stream().filter(property -> property.getLandlord().getName().toString().contains(landlordTextFilter.getValue())).collect(Collectors.toList());
+                propertyGrid.setItems(filteredItemList);
+            });
+            landlordTextFilter.setValueChangeMode(ValueChangeMode.EAGER);
+            filterRow.getCell(landlordColumn).setComponent(landlordTextFilter);
+            landlordTextFilter.setSizeFull();
+            landlordTextFilter.setClearButtonVisible(true);
+            landlordTextFilter.setPlaceholder("Filter...");
+        }
+
+        // Filter address
         TextField addressTextFilter = new TextField();
         addressTextFilter.addValueChangeListener(e -> {
             List<Property> filteredItemList = properties.stream().filter(property -> property.getAddress().toString().contains(addressTextFilter.getValue())).collect(Collectors.toList());
             propertyGrid.setItems(filteredItemList);
-
         });
 
         addressTextFilter.setValueChangeMode(ValueChangeMode.EAGER);
+
         filterRow.getCell(addressColumn).setComponent(addressTextFilter);
         addressTextFilter.setSizeFull();
         addressTextFilter.setClearButtonVisible(true);
@@ -106,7 +129,12 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
      */
     private void updateGrid() {
         try {
-            properties = landlordController.getAllLandlordProperties();
+            if (accountType.equals("Landlord")) {
+                properties = landlordController.getAllLandlordProperties();
+            }
+            if (accountType.equals("Manager")) {
+                properties = PropertyController.getInstance().getAllProperties();
+            }
             propertyGrid.setItems(properties);
         } catch (NoResultException ex) {
             Notification.show("No results");
@@ -115,7 +143,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
 
     private void showGridEditDialog(ItemClickEvent itemClickEvent) {
         Notification.show(itemClickEvent.getItem().toString());
-        viewPropertyDialog = new LandlordViewPropertyDialog((Property) itemClickEvent.getItem());
+        viewPropertyDialog = new ViewPropertyDialog((Property) itemClickEvent.getItem());
         viewPropertyDialog.open();
         viewPropertyDialog.addOpenedChangeListener( e -> updateGrid());
     }

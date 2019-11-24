@@ -1,5 +1,6 @@
 package com.RPMS.view.helpers;
 
+import com.RPMS.controller.ContractController;
 import com.RPMS.model.entity.Image;
 import com.RPMS.model.entity.Property;
 import com.vaadin.flow.component.html.Label;
@@ -85,7 +86,7 @@ public class GridHelpers {
             if (!property.hasContract()) {
                 icon = new Icon(VaadinIcon.FILE_REMOVE);
                 label.setText("No Contract");
-            } else if (property.getContract().isSigned()) {
+            } else if (ContractController.getInstance().getEnvelopeStatus(property.getContract())) {
                 icon = new Icon(VaadinIcon.FILE_TEXT);
                 label.setText("Signed");
             } else {

@@ -10,7 +10,8 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord"),
         @NamedQuery(name="Property.findAllByQuery", query="SELECT c FROM Property c WHERE " +
-                "c.price > :lowerPrice AND c.price < :upperPrice")
+                "c.price > :lowerPrice AND c.price < :upperPrice"),
+        @NamedQuery(name = "Property.findAll", query = "SELECT c FROM Property c")
 })
 
 @NamedNativeQueries({

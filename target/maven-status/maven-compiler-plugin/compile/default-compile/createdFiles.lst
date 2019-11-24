@@ -1,5 +1,4 @@
-com/RPMS/controller/contact_strategy/EmailStrategy.class
-com/RPMS/controller/contact_strategy/ContactStrategy.class
-com/RPMS/controller/contact_strategy/ContactController.class
-com/RPMS/controller/ContractController.class
-com/RPMS/controller/contact_strategy/EmailStrategy$1.class
+com/RPMS/controller/PaymentController.class
+com/RPMS/view/manager/ChangeStatusDialog.class
+com/RPMS/view/property/ViewPropertyDialog.class
+com/RPMS/model/entity/Image.class

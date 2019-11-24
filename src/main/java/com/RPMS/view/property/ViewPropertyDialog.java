@@ -1,5 +1,6 @@
-package com.RPMS.view.landlord;
+package com.RPMS.view.property;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.model.entity.Property;
 import com.RPMS.view.helpers.GridHelpers;
 import com.vaadin.flow.component.Component;
@@ -13,7 +14,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.text.NumberFormat;
 
-public class LandlordViewPropertyDialog extends Dialog {
+public class ViewPropertyDialog extends Dialog {
     private Property property;
     private VerticalLayout panel;
     private Button closeButton;
@@ -23,11 +24,10 @@ public class LandlordViewPropertyDialog extends Dialog {
     private Button editPropertyButton;
     private Dialog editPropertyDialog;
 
-
     /**
      * Configure the UI
      */
-    public LandlordViewPropertyDialog(Property property) {
+    public ViewPropertyDialog(Property property) {
         this.property = property;
 
         setCloseOnEsc(true);
@@ -78,7 +78,7 @@ public class LandlordViewPropertyDialog extends Dialog {
 //        CHANGE STATUS
         changeStatusButton = new Button("Update Property Status");
         changeStatusButton.addClickListener(updateEvent -> {
-                    changeStatusDialog = new LandlordChangeStatusDialog(property);
+                    changeStatusDialog = new ChangeStatusDialog(property);
                     changeStatusDialog.open();
                     changeStatusDialog.addOpenedChangeListener(e -> {
                         close();
@@ -89,7 +89,7 @@ public class LandlordViewPropertyDialog extends Dialog {
 //        EDIT PROPERTY
         editPropertyButton = new Button("Edit");
         editPropertyButton.addClickListener(editEvent->{
-            editPropertyDialog = new LandlordAddEditPropertyDialog(property);
+            editPropertyDialog = new AddEditPropertyDialog(property);
             editPropertyDialog.open();
             editPropertyDialog.addOpenedChangeListener(e->{
                 close();

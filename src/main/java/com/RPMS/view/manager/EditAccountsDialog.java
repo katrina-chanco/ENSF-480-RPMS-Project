@@ -1,9 +1,7 @@
-package com.RPMS.view.login_registration;
+package com.RPMS.view.manager;
 
 import com.RPMS.controller.LoginController;
 import com.RPMS.model.entity.Account;
-import com.RPMS.model.entity.Landlord;
-import com.RPMS.model.entity.Registered_Renter;
 import com.RPMS.view.HomePageView;
 import com.RPMS.view.helpers.AddressFieldComponent;
 import com.RPMS.view.helpers.EmailFieldComponent;
@@ -20,7 +18,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.theme.lumo.Lumo;
 
-public class RegistrationView extends Dialog {
+public class EditAccountsDialog extends Dialog {
     /**
      * Account of user registering
      */
@@ -45,12 +43,13 @@ public class RegistrationView extends Dialog {
     /**
      * Instantiates registration form
      */
-    public RegistrationView() {
+    public EditAccountsDialog(Account account) {
+        this.account = account;
         header = new VerticalLayout();
         layout = new HorizontalLayout();
         setHeight("510px");
         setWidth("760px");
-        H2 h2 = new H2( "Register");
+        H2 h2 = new H2("Edit Account");
         layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
         layout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.STRETCH);
         layout.setWidth("75%");
@@ -66,6 +65,7 @@ public class RegistrationView extends Dialog {
      * Creates a registration form and adds it to the layour
      */
     private void registrationForm() {
+
         addressField = new AddressFieldComponent();
         nameField = new NameFieldComponent();
         emailField = new EmailFieldComponent();
@@ -89,10 +89,10 @@ public class RegistrationView extends Dialog {
                 .withValidationStatusHandler(status -> passwordsMatch = false)
                 .bind(Account::getPassword, Account::setPassword);
 
-        initializeAccountTypeComboBox();
+        accountBinder.readBean(account);
 
         /**
-         * Layputs and components
+         * Layouts and components
          */
         Button closeButton = new Button("Close");
         closeButton.addClickListener(e -> close());
@@ -108,10 +108,6 @@ public class RegistrationView extends Dialog {
         accountBinder.forField(confirmPasswordField);
     }
 
-    private void initializeAccountTypeComboBox() {
-        accountTypeComboBox = new ComboBox<>("Account Type");
-        accountTypeComboBox.setItems("Landlord", "Renter");
-    }
 
     /**
      * Checks if text fields are validated and passwords match
@@ -119,7 +115,7 @@ public class RegistrationView extends Dialog {
      * @throws Exception if fields not validates
      */
     public void isValid() throws Exception {
-        if(passwordField.getValue().equals(confirmPasswordField.getValue())) {
+        if (passwordField.getValue().equals(confirmPasswordField.getValue())) {
             passwordsMatch = true;
         }
         if (emailField.isEmpty() || passwordField.isEmpty() || addressField.isEmpty() || nameField.isEmpty() || !passwordsMatch || accountTypeComboBox.isEmpty()) {
@@ -129,6 +125,7 @@ public class RegistrationView extends Dialog {
 
     /**
      * Creates a button to confrim account creation
+     *
      * @return
      */
     private Button confirmButton() {
@@ -137,28 +134,15 @@ public class RegistrationView extends Dialog {
         confirmButton.addClickListener(e -> {
             // create an account based on combobox selection
             try {
-                switch (accountTypeComboBox.getValue()) {
-                    case "Landlord":
-                        account = new Landlord();
-                        break;
-                    case "Renter":
-                        account = new Registered_Renter();
-                        break;
-                    default:
-                        System.out.println("ERROR in selecting account type");
-                        break;
-                }
                 accountBinder.writeBean(account);
                 isValid();
                 LoginController.getInstance().loginRegistrationAccount(account);
                 confirmButton.setEnabled(false);
                 getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
                 this.close();
-                Notification.show("Registration success!", 3000, Notification.Position.TOP_START);
+                Notification.show("Account saved successfully", 3000, Notification.Position.TOP_START);
             } catch (Exception v) {
-                if (accountTypeComboBox.isEmpty()) {
-                    Notification.show("Please select an account type");
-                } else if (!passwordsMatch) {
+                if (!passwordsMatch) {
                     Notification.show("Passwords don't match");
                 } else {
                     Notification.show("Please enter information in all the fields.");

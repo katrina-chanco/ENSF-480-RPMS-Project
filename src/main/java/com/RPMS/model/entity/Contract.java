@@ -8,19 +8,10 @@ public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int envelopeId;
 
-    private boolean isSigned;
+    private String envelopeId;
 
     public Contract() {
-    }
-
-    public boolean isSigned() {
-        return isSigned;
-    }
-
-    public void setSigned(boolean signed) {
-        isSigned = signed;
     }
 
     public int getId() {
@@ -35,12 +26,13 @@ public class Contract {
         return id + 1;
     }
 
-    public int getEnvelopeId() {
+    public String getEnvelopeId() {
         return envelopeId;
     }
 
-    public void setEnvelopeId(int envelopeId) {
+    public void setEnvelopeId(String envelopeId) {
         this.envelopeId = envelopeId;
     }
+
 }
 

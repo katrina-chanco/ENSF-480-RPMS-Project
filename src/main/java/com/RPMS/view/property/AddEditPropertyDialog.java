@@ -1,4 +1,4 @@
-package com.RPMS.view.landlord;
+package com.RPMS.view.property;
 
 import com.RPMS.controller.FileController;
 import com.RPMS.controller.PropertyController;
@@ -27,8 +27,7 @@ import org.vaadin.gatanaso.MultiselectComboBox;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
-public class LandlordAddEditPropertyDialog extends Dialog {
+public class AddEditPropertyDialog extends Dialog {
     private FormLayout formLayout;
     private Property property;
     private Button saveButton;
@@ -73,7 +72,7 @@ public class LandlordAddEditPropertyDialog extends Dialog {
         }
     };
 
-    public LandlordAddEditPropertyDialog(Property property) {
+    public AddEditPropertyDialog(Property property) {
         this.property = property;
         setCloseOnEsc(false);
         setCloseOnOutsideClick(false);
@@ -113,7 +112,7 @@ public class LandlordAddEditPropertyDialog extends Dialog {
         add(layout);
     }
 
-    public LandlordAddEditPropertyDialog() {
+    public AddEditPropertyDialog() {
         this(PropertyController.getInstance().generatePropertyBean());
     }
 

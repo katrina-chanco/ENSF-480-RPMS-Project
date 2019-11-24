@@ -76,7 +76,6 @@ public class LoginView extends Div {
 
     private void addRegistrationListener() {
         form.addForgotPasswordListener(e -> {
-            // TODO route to registration page
             Notification.show("Taking you to the registration page....", 3000, Notification.Position.TOP_START);
             Dialog regDialog = new RegistrationView();
             regDialog.open();
@@ -86,6 +85,7 @@ public class LoginView extends Div {
     private void addCustomI81n() {
         LoginI18n i18n = LoginI18n.createDefault();
         i18n.getForm().setForgotPassword("Register");
+        i18n.getForm().setUsername("Email");
         i18n.setAdditionalInformation("To close the login form, either submit non-empty username and password, register, or continue as an unregistered renter");
         i18n.getForm().getForgotPassword();
         form.setForgotPasswordButtonVisible(true);
