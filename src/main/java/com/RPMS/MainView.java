@@ -21,10 +21,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 public class MainView extends AppLayout {
 
-    /**
-     * Instantiates MainView
-     */
-    public MainView() {
+    public MainView(){
         DrawerToggle drawerToggle = new DrawerToggle();
         RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
         RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
