@@ -157,6 +157,19 @@ public class LoginController {
         }
     }
 
+    /**
+     * Gets email of user currently logged in
+     *
+     * @return
+     */
+    public String getUserEmail() {
+        LoginController loginCont = LoginController.getInstance();
+        if (loginCont.isLoggedIn()) {
+            return loginCont.getAccount().getEmail().getEmailAddress();
+        }
+        return "";
+    }
+
     public boolean isLoggedIn() {
         return isLoggedIn;
     }

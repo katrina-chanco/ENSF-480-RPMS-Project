@@ -43,8 +43,8 @@ public class ContactController {
      * @param message
      * @param property
      */
-    public void performContactLandlord(String message, Property property) {
-        contactStrategy.contactLandlord(message, property);
+    public void performContactLandlord(String emailAddress, String message, Property property) {
+        contactStrategy.contactLandlord(emailAddress, message, property);
     }
 
     /**

@@ -21,5 +21,5 @@ public interface ContactStrategy {
      * @param message
      * @param property
      */
-    void contactLandlord(String message, Property property);
+    void contactLandlord(String emailAddress, String message, Property property);
 }
