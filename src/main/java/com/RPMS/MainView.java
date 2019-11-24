@@ -5,6 +5,7 @@ import com.RPMS.view.HomePageView;
 import com.RPMS.view.SearchPropertyView;
 import com.RPMS.view.landlord.ListPropertyView;
 import com.RPMS.view.login_registration.LoginView;
+import com.RPMS.view.manager.AccountSystemView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -23,11 +24,12 @@ public class MainView extends AppLayout {
 
     public MainView(){
         DrawerToggle drawerToggle = new DrawerToggle();
+        RouterLink accountSystem = new RouterLink("Account System Options", AccountSystemView.class);
         RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
         RouterLink landlordList = new RouterLink("Properties Listed", ListPropertyView.class);
         RouterLink about = new RouterLink("About Company", SearchPropertyView.class);
         RouterLink home = new RouterLink("Home", HomePageView.class);
-        VerticalLayout mainLayout = new VerticalLayout(home, about, selectSystemOptions, landlordList);
+        VerticalLayout mainLayout = new VerticalLayout(home, about, selectSystemOptions, accountSystem, landlordList);
         addToDrawer(mainLayout);
         addToNavbar(drawerToggle);
         HorizontalLayout filler = new HorizontalLayout();
