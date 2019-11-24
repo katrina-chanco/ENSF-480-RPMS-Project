@@ -1,7 +1,6 @@
 package com.RPMS.controller;
 
-import com.RPMS.model.entity.Account;
-import com.RPMS.model.entity.Email;
+import com.RPMS.model.entity.*;
 import com.vaadin.flow.component.login.AbstractLogin;
 
 import javax.persistence.*;
@@ -69,6 +68,23 @@ public class LoginController {
         return isLoggedIn;
     }
 
+    public String getAccountType() {
+        if (account == null && isLoggedInUnregisteredRenter()) {
+            return "UnregisteredRenter";
+        }
+        if (LoginController.getInstance().getAccount().getClass() == Landlord.class) {
+            return "Landlord";
+        }
+        if (LoginController.getInstance().getAccount().getClass() == Registered_Renter.class) {
+            return "Registered_Renter";
+        }
+        if (LoginController.getInstance().getAccount().getClass() == Manager.class) {
+            return "Manager";
+        }
+        return null;
+    }
+
+
     /**
      * Finds the user using their email
      * @param emailAddress
@@ -81,7 +97,7 @@ public class LoginController {
         try {
             email = query.setParameter("emailAddress", emailAddress).getSingleResult();
         } catch (NullPointerException | NoResultException e) {
-            System.out.println("\n\nemail not found...\n\n");
+            e.printStackTrace();
         }
         em.close();
         return email;
@@ -109,10 +125,9 @@ public class LoginController {
             try {
                 account = query.setParameter("email", email).setParameter("password", password).getSingleResult();
             } catch (NullPointerException | NoResultException e) {
-//                System.out.println("\n\naccount not found...\n\n");
+                e.printStackTrace();
             }
             if (account != null) {
-//                System.out.println(account.getClass());
                 isLoggedIn = true;
             }
             em.close();

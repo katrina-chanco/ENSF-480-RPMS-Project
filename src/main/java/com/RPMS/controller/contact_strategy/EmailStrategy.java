@@ -30,7 +30,7 @@ public class EmailStrategy implements ContactStrategy {
     /**
      * Email strategy constructor
      */
-    private EmailStrategy() {
+    public EmailStrategy() {
         prop = new Properties();
         setServerProperties();
     }

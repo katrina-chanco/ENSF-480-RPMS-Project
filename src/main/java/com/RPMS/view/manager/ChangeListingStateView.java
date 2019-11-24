@@ -11,4 +11,5 @@ public class ChangeListingStateView extends Div {
         Label label = new Label("Displaying Change Listing State Page");
         add(label);
     }
+
 }

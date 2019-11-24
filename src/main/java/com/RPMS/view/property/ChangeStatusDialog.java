@@ -1,4 +1,4 @@
-package com.RPMS.view.landlord;
+package com.RPMS.view.property;
 
 import com.RPMS.controller.LoginController;
 import com.RPMS.controller.PaymentController;
@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
-public class LandlordChangeStatusDialog extends Dialog {
+public class ChangeStatusDialog extends Dialog {
     private Property property;
     private VerticalLayout panel;
     private Button closeButton;
@@ -46,7 +46,7 @@ public class LandlordChangeStatusDialog extends Dialog {
     private NumberFormat defaultFormat = NumberFormat.getCurrencyInstance();
     private Button payButton;
 
-    public LandlordChangeStatusDialog(Property property) {
+    public ChangeStatusDialog(Property property) {
         this.property = property;
 
         setCloseOnEsc(true);
@@ -116,8 +116,6 @@ public class LandlordChangeStatusDialog extends Dialog {
                 saveButton.setVisible(true);
                 payButton.setVisible(false);
             }
-
-
         });
         infoLabel.getStyle().set("color", "red");
         infoLabel.setVisible(false);
