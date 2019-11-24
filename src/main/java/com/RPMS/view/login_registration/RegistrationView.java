@@ -20,9 +20,6 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.theme.lumo.Lumo;
 
-
-//@PageTitle("register")
-//@Route(value = "register")
 public class RegistrationView extends Dialog {
     /**
      * Account of user registering

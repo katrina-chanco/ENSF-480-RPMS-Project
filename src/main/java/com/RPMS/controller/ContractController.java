@@ -58,10 +58,11 @@ public class ContractController {
 
     public void createContract(Property property) {
         property.setContract(new Contract());
-//        em = entityManagerFactory.createEntityManager();
-//        em.merge(property);
-//        em.getTransaction().commit();
-//        em.close();
+        em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(property);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public boolean getEnvelopeStatus(Contract contract) {
@@ -118,7 +119,6 @@ public class ContractController {
         document.setName("Contract for property at " + property.getAddress());
         document.setFileExtension("pdf");
         document.setDocumentId(String.valueOf(property.getContract().getContractId()));
-
         // renter signer
         String renterName = findNameByEmail(renterEmailAddress);
         if(renterName == null) {
@@ -257,7 +257,7 @@ public class ContractController {
         apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
         EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
         EnvelopeSummary results = envelopesApi.createEnvelope(accountId, envelopeDefinition);
-        property.getContract().setEnvelopeId(Integer.parseInt(results.getEnvelopeId()));
+        property.getContract().setEnvelopeId(results.getEnvelopeId());
         String envelopeId = results.getEnvelopeId();
 
         RecipientViewRequest landlordViewRequest = new RecipientViewRequest();

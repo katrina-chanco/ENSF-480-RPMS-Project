@@ -9,7 +9,6 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     private String envelopeId;
 
     public Contract() {
@@ -27,18 +26,13 @@ public class Contract {
         return id + 1;
     }
 
-    public int getEnvelopeId() {
+    public String getEnvelopeId() {
         return envelopeId;
     }
-
 
     public void setEnvelopeId(String envelopeId) {
         this.envelopeId = envelopeId;
     }
 
-
-    public void setEnvelopeId(int envelopeId) {
-        this.envelopeId = envelopeId;
-    }
 }
 
