@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table
-@NamedQuery(name = "SystemSetting.findByName", query = "SELECT s FROM SystemSetting s WHERE s.settingName = :name")
+@NamedQueries({
+        @NamedQuery(name = "SystemSetting.findByName", query = "SELECT s FROM SystemSetting s WHERE s.settingName = :name")
+})
 public class SystemSetting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

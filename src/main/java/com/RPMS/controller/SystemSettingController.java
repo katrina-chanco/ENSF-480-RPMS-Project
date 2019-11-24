@@ -50,4 +50,23 @@ public class SystemSettingController {
         return Double.valueOf(costSetting.getSettingValue());
     }
 
+    //Modify the Payment Amount with a New Value
+    public void setPaymentAmount(SystemSetting systemSetting, String newAmount){
+        systemSetting.setSettingValue(newAmount);
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(systemSetting);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    //Modify the Payment Period with a New Value
+    public void setPaymentPeriod(SystemSetting systemSetting, String newPeriod){
+        systemSetting.setSettingValue(newPeriod);
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(systemSetting);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
 }
