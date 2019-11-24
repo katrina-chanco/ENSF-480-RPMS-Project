@@ -11,6 +11,10 @@ import java.util.List;
         @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord")
 })
 
+@NamedNativeQueries({
+        //Interacts with Database to get Report Values
+})
+
 @Table
 public class Property {
 
@@ -158,6 +162,8 @@ public class Property {
     public void setDateAdded(Date dateAdded) {
         this.dateAdded = dateAdded;
     }
+
+
 
     public Property_Status getPropertyStatus() {
         return propertyStatus;
