@@ -1,8 +1,7 @@
 package com.RPMS.view.helpers;
 
 import com.RPMS.controller.ContractController;
-import com.RPMS.model.entity.Image;
-import com.RPMS.model.entity.Property;
+import com.RPMS.model.entity.*;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
@@ -42,6 +41,20 @@ public class GridHelpers {
                     break;
             }
             return badge;
+        });
+    }
+
+    public static ComponentRenderer<Label, Account> getAccountLabel() {
+        return new ComponentRenderer<>(account -> {
+            Label label = new Label();
+            if (Landlord.class.equals(account.getClass())) {
+                label.setText("Landlord");
+            } else if (Manager.class.equals(account.getClass())) {
+                label.setText("Manager");
+            } else if (Registered_Renter.class.equals(account.getClass())) {
+                label.setText("Registered Renter");
+            }
+            return label;
         });
     }
 

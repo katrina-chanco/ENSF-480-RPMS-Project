@@ -69,9 +69,9 @@ public class SubscriptionController {
 
         for (Subscription s : subscriptionObservers) {
 
-            ContactController.getInstance().performContact("A property at " + property.getAddress().toString() + " has been added to our system. It matches your subscription criteria." +
-                    "\n\nTo unsubscribe from this mailing list, please visit our website.", s.getSubscriber().getEmail().getEmailAddress(),
-                    "RPMS SUBSCRIPTION: A property matching your subscription has been added!");
+//            ContactController.getInstance().performContact("A property at " + property.getAddress().toString() + " has been added to our system. It matches your subscription criteria." +
+//                    "\n\nTo unsubscribe from this mailing list, please visit our website.", s.getSubscriber().getEmail().getEmailAddress(),
+//                    "RPMS SUBSCRIPTION: A property matching your subscription has been added!");
         }
         //if query matches subscribers, send email
         //TODO threaded

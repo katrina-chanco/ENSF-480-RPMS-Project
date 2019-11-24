@@ -15,8 +15,8 @@ public class Subscription {
     @OneToOne(cascade = {CascadeType.ALL})
     private Registered_Renter subscriber;
 
-    @ElementCollection
-    private Map<String, Object> amenitiesMap = new HashMap<String, Object>();
+//    @ElementCollection
+//    private Map<String, Object> amenitiesMap = new HashMap<String, Object>();
 
     public Subscription(Registered_Renter subscriber) {
         this.subscriber = subscriber;
@@ -25,14 +25,14 @@ public class Subscription {
     public Subscription(){
 
     }
-
-    public Map<String, Object> getMap() {
-        return amenitiesMap;
-    }
-
-    public void setMap(Map<String, Object> amenitiesMap) {
-        this.amenitiesMap = amenitiesMap;
-    }
+//
+//    public Map<String, Object> getMap() {
+//        return amenitiesMap;
+//    }
+//
+//    public void setMap(Map<String, Object> amenitiesMap) {
+//        this.amenitiesMap = amenitiesMap;
+//    }
 
     public Registered_Renter getSubscriber() {
         return subscriber;

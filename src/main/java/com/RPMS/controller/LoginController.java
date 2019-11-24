@@ -138,10 +138,18 @@ public class LoginController {
      * Saves account into the database
      * @param account
      */
-    private void saveAccount(Account account) {
+    public void saveAccount(Account account) {
         em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
         em.persist(account);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void mergeAccount(Account account) {
+        em = entityManagerFactory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(account);
         em.getTransaction().commit();
         em.close();
     }

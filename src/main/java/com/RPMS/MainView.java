@@ -3,6 +3,7 @@ package com.RPMS;
 import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
 import com.RPMS.view.login_registration.LoginView;
+import com.RPMS.view.manager.AccountSystemView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
 import com.RPMS.view.property.ListPropertyView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -23,13 +24,15 @@ public class MainView extends AppLayout {
     private RouterLink selectSystemOptions;
     private RouterLink deepPropertyList;
     private RouterLink home;
+    private RouterLink listAccounts;
 
     public MainView(){
         DrawerToggle drawerToggle = new DrawerToggle();
         selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
         deepPropertyList = new RouterLink("Properties Listed", ListPropertyView.class);
         home = new RouterLink("Home", HomePageView.class);
-        VerticalLayout mainLayout = new VerticalLayout(home, selectSystemOptions, deepPropertyList);
+        listAccounts = new RouterLink("List Accounts", AccountSystemView.class);
+        VerticalLayout mainLayout = new VerticalLayout(home, selectSystemOptions, deepPropertyList, listAccounts);
         addToDrawer(mainLayout);
         addToNavbar(drawerToggle);
         HorizontalLayout filler = new HorizontalLayout();

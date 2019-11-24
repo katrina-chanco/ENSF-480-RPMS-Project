@@ -38,7 +38,6 @@ public class EditAccountsDialog extends Dialog {
     private NameFieldComponent nameField;
     private PasswordField passwordField;
     private PasswordField confirmPasswordField;
-    private ComboBox<String> accountTypeComboBox;
 
     /**
      * Instantiates registration form
@@ -100,7 +99,7 @@ public class EditAccountsDialog extends Dialog {
         passwordLayout.setMargin(false);
         passwordLayout.setPadding(false);
         VerticalLayout verticalLayout1 = new VerticalLayout(nameField, new HorizontalLayout(passwordLayout));
-        VerticalLayout verticalLayout2 = new VerticalLayout(addressField, emailField, accountTypeComboBox, new HorizontalLayout(), new HorizontalLayout(new HorizontalLayout(), confirmButton(), closeButton));
+        VerticalLayout verticalLayout2 = new VerticalLayout(addressField, emailField, new HorizontalLayout(), new HorizontalLayout(new HorizontalLayout(), confirmButton(), closeButton));
         verticalLayout1.setPadding(false);
         verticalLayout2.setPadding(false);
         layout.add(verticalLayout1, verticalLayout2);
@@ -118,10 +117,11 @@ public class EditAccountsDialog extends Dialog {
         if (passwordField.getValue().equals(confirmPasswordField.getValue())) {
             passwordsMatch = true;
         }
-        if (emailField.isEmpty() || passwordField.isEmpty() || addressField.isEmpty() || nameField.isEmpty() || !passwordsMatch || accountTypeComboBox.isEmpty()) {
+        if (emailField.isInvalid() || passwordField.isInvalid() || addressField.isInvalid() || nameField.isInvalid() || !passwordsMatch) {
             throw new Exception();
         }
     }
+
 
     /**
      * Creates a button to confrim account creation
@@ -135,13 +135,13 @@ public class EditAccountsDialog extends Dialog {
             // create an account based on combobox selection
             try {
                 accountBinder.writeBean(account);
+                LoginController.getInstance().mergeAccount(account);
                 isValid();
-                LoginController.getInstance().loginRegistrationAccount(account);
                 confirmButton.setEnabled(false);
-                getUI().ifPresent(ui -> ui.navigate(HomePageView.class));
                 this.close();
                 Notification.show("Account saved successfully", 3000, Notification.Position.TOP_START);
             } catch (Exception v) {
+//                v.printStackTrace();
                 if (!passwordsMatch) {
                     Notification.show("Passwords don't match");
                 } else {

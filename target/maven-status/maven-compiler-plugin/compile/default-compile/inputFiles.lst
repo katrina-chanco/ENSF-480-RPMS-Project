@@ -18,6 +18,7 @@
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/property/AddEditPropertyDialog.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/helpers/ConditionalValidator.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/FileController.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/manager/AccountController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Property.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Contract.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/AccessSystemInformationView.java
@@ -44,6 +45,7 @@
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/ContractController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/manager/ReportController.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/model/entity/Address.java
+/Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/AccountSystemView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/property/ListPropertyView.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/controller/contact_strategy/ContactStrategy.java
 /Users/layla/Documents/Uni/F2019/ENSF480/PROJECT/ENSF-480-RPMS-Project/src/main/java/com/RPMS/view/manager/RequestReportView.java
