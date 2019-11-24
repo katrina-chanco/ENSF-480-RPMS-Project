@@ -1,5 +1,17 @@
+com/RPMS/view/renter/RenterSearchPropertyView.class
 com/RPMS/controller/contact_strategy/EmailStrategy.class
+com/RPMS/view/landlord/LandlordAddEditPropertyDialog$1.class
 com/RPMS/controller/contact_strategy/ContactStrategy.class
 com/RPMS/controller/contact_strategy/ContactController.class
+com/RPMS/controller/PaymentController.class
+com/RPMS/controller/SubscriptionController.class
+com/RPMS/view/landlord/LandlordChangeStatusDialog.class
+com/RPMS/view/landlord/LandlordAddEditPropertyDialog.class
+com/RPMS/controller/FileController.class
 com/RPMS/controller/ContractController.class
 com/RPMS/controller/contact_strategy/EmailStrategy$1.class
+com/RPMS/controller/SystemSettingController.class
+com/RPMS/view/landlord/LandlordAddEditPropertyDialog$2.class
+com/RPMS/model/entity/SystemSetting.class
+com/RPMS/view/landlord/LandlordViewPropertyDialog.class
+com/RPMS/model/entity/Image.class
