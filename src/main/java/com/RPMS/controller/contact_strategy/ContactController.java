@@ -34,8 +34,8 @@ public class ContactController {
      * Perform contact strategy
      * @param message
      */
-    public void performContact(String message, String recepient, String subject) {
-        contactStrategy.performContact(message, recepient, subject);
+    public void performContact(String emailAddress, String message, String recepient, String subject) {
+        contactStrategy.performContact(emailAddress, message, recepient, subject);
     }
 
     /**
