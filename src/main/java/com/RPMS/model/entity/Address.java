@@ -90,4 +90,8 @@ public class Address {
     public String toString() {
         return houseNo + " " + strName + ", " + city + " " + province + " " + postalCode + " " + country;
     }
+
+    public String toStringLines() {
+        return houseNo + " " + strName + ", \n" + city + " \n" + province + " " + postalCode + " " + country;
+    }
 }

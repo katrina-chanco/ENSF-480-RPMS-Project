@@ -11,7 +11,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import java.text.NumberFormat;
-import java.util.Currency;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -85,7 +85,9 @@ public class GridHelpers {
             if (!property.hasContract()) {
                 icon = new Icon(VaadinIcon.FILE_REMOVE);
                 label.setText("No Contract");
-            } else if (property.getContract().isSigned()) {
+//            } else if (property.getContract().isSigned()) {
+            }else if(true) {
+//                TODO update this
                 icon = new Icon(VaadinIcon.FILE_TEXT);
                 label.setText("Signed");
             } else {
@@ -101,6 +103,9 @@ public class GridHelpers {
     public static ComponentRenderer<HorizontalLayout, Property> getImageList() {
 
         return new ComponentRenderer<>(property -> {
+            if(property.getImages().isEmpty()) {
+                return new HorizontalLayout(new Label("No Images"));
+            }
             HorizontalLayout imageLayout = new HorizontalLayout();
             ListBox<Image> pImagesList = new ListBox<>();
             List<Image> imageList = property.getImages();

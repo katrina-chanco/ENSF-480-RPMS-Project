@@ -1,7 +1,6 @@
 package com.RPMS.controller;
 
-import com.RPMS.model.entity.Account;
-import com.RPMS.model.entity.Email;
+import com.RPMS.model.entity.*;
 import com.vaadin.flow.component.login.AbstractLogin;
 
 import javax.persistence.*;
@@ -153,6 +152,18 @@ public class LoginController {
     public Account getAccount() {
         return account;
     }
+
+//    TODO change
+    public boolean isAccountRenter() {
+        return account.getClass() == Registered_Renter.class;
+    }
+    public boolean isAccountLandlord() {
+        return account.getClass() == Landlord.class;
+    }
+    public boolean isAccountManager() {
+        return account.getClass() == Manager.class;
+    }
+
 
 
 }

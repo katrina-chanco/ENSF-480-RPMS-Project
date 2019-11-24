@@ -30,9 +30,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //TODO Check for landlord account
-@Route(value = "landlord/list", layout = MainView.class)
+@Route(value = "landlord/list_property", layout = MainView.class)
 @StyleSheet("./styles/badge.css")
-public class ListPropertyView extends Div implements BeforeEnterObserver {
+public class LandlordListPropertyView extends Div implements BeforeEnterObserver {
     private LandlordController landlordController = LandlordController.getInstance();
     /**
      * Add property dialog
@@ -48,7 +48,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
      */
     private Grid<Property> propertyGrid = new Grid<>(Property.class);
 
-    public ListPropertyView(){
+    public LandlordListPropertyView(){
         Button addPropertyButton = new Button("Add Property");
         addPropertyButton.addClickListener(e -> {
             addPropertyDialog = new LandlordAddEditPropertyDialog();

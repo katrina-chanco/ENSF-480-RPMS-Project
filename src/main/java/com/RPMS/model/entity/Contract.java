@@ -10,17 +10,7 @@ public class Contract {
     private int id;
     private int envelopeId;
 
-    private boolean isSigned;
-
     public Contract() {
-    }
-
-    public boolean isSigned() {
-        return isSigned;
-    }
-
-    public void setSigned(boolean signed) {
-        isSigned = signed;
     }
 
     public int getId() {
