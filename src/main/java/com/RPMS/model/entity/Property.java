@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @NamedQueries({
         @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord"),
@@ -13,7 +12,6 @@ import java.util.List;
                 "c.price > :lowerPrice AND c.price < :upperPrice"),
         @NamedQuery(name = "Property.findAll", query = "SELECT c FROM Property c")
 })
-
 @NamedNativeQueries({
         //Interacts with Database to get Report Values
 })
@@ -111,6 +109,10 @@ public class Property {
 
     public Landlord getLandlord() {
         return landlord;
+    }
+
+    public String getLandlordName() {
+        return landlord.getName().toString();
     }
 
     public void setLandlord(Landlord landlord) {

@@ -90,7 +90,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
         HeaderRow filterRow = propertyGrid.appendHeaderRow();
         // show landlord name if manager
         if (accountType.equals("Manager")) {
-            Grid.Column<Property> landlordColumn = propertyGrid.addColumn(Property::getLandlord).setWidth("250px").setHeader("Landlord").setSortable(true);
+            Grid.Column<Property> landlordColumn = propertyGrid.addColumn(Property::getLandlordName).setWidth("250px").setHeader("Landlord").setSortable(true);
             TextField landlordTextFilter = new TextField();
             landlordTextFilter.addValueChangeListener(e -> {
                 List<Property> filteredItemList = properties.stream().filter(property -> property.getLandlord().getName().toString().contains(landlordTextFilter.getValue())).collect(Collectors.toList());
