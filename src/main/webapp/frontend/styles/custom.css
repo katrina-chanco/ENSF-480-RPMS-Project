@@ -43,3 +43,6 @@
     padding: .05rem .4rem .15rem;
 }
 
+vaadin-license-box#vaadin-license-validation-notification-vaadin-rich-text-editor {
+    display: none !important;
+}

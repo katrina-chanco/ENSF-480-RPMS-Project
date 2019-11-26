@@ -21,9 +21,7 @@ import java.util.List;
                 "AND (c.address.postalCode = :postal OR :postal is null OR :postal = '')" +
                 "AND (c.address.country = :country OR :country is null OR :country = '')" +
                 "AND (c.petsAllowed = :pets_allowed OR :pets_allowed is null OR :pets_allowed = '')" +
-                "AND c.propertyStatus = 'ACTIVE'")
-        @NamedQuery(name="Property.findAllByQuery", query="SELECT c FROM Property c WHERE " +
-                "c.price > :lowerPrice AND c.price < :upperPrice"),
+                "AND c.propertyStatus = 'ACTIVE'"),
         @NamedQuery(name = "Property.findAll", query = "SELECT c FROM Property c")
 })
 

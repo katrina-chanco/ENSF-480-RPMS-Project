@@ -131,15 +131,6 @@ public class ViewPropertyDialog extends Dialog {
                     });
                 }
         );
-            changeStatusButton = new Button("Update Property Status");
-            changeStatusButton.addClickListener(updateEvent -> {
-                        changeStatusDialog = new LandlordChangeStatusDialog(property);
-                        changeStatusDialog.open();
-                        changeStatusDialog.addOpenedChangeListener(e -> {
-                            close();
-                        });
-                    }
-            );
 
 //        EDIT PROPERTY
         editPropertyButton = new Button("Edit");
@@ -150,15 +141,6 @@ public class ViewPropertyDialog extends Dialog {
                 close();
             });
         });
-            editPropertyButton = new Button("Edit");
-            editPropertyButton.addClickListener(editEvent -> {
-                editPropertyDialog = new LandlordAddEditPropertyDialog(property);
-                editPropertyDialog.open();
-                editPropertyDialog.addOpenedChangeListener(e -> {
-
-                    close();
-                });
-            });
 
             panel.add(
                     new HorizontalLayout(changeStatusButton, editPropertyButton)

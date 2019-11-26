@@ -95,7 +95,7 @@ public class GridHelpers {
 
         return new ComponentRenderer<>(property -> {
             Label label = new Label();
-            Icon icon;
+            Icon icon = new Icon();
             if (!property.hasContract()) {
                 icon = new Icon(VaadinIcon.FILE_REMOVE);
                 label.setText("No Contract");

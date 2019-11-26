@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 //TODO Check for landlord account
 @Route(value = "list", layout = MainView.class)
-@StyleSheet("./styles/badge.css")
+@StyleSheet("./styles/custom.css")
 public class ListPropertyView extends Div implements BeforeEnterObserver {
     private LandlordController landlordController = LandlordController.getInstance();
     /**
