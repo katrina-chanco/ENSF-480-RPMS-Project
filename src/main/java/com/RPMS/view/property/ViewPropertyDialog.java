@@ -1,4 +1,4 @@
-package com.RPMS.view.landlord;
+package com.RPMS.view.property;
 
 import com.RPMS.controller.LoginController;
 import com.RPMS.model.entity.Property;
@@ -16,7 +16,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.text.NumberFormat;
 
-public class LandlordViewPropertyDialog extends Dialog {
+public class ViewPropertyDialog extends Dialog {
     private Property property;
     private VerticalLayout panel;
     private Button closeButton;
@@ -31,10 +31,11 @@ public class LandlordViewPropertyDialog extends Dialog {
     private boolean isRenter;
     private boolean isUnregisteredRenter;
 
+
     /**
      * Configure the UI
      */
-    public LandlordViewPropertyDialog(Property property) {
+    public ViewPropertyDialog(Property property) {
         this.property = property;
         if (LoginController.getInstance().isLoggedInUnregisteredRenter()) {
             isRenter = false;
@@ -121,6 +122,15 @@ public class LandlordViewPropertyDialog extends Dialog {
 
         private void fillPropertyInfoPowerUser () {
 //        CHANGE STATUS
+        changeStatusButton = new Button("Update Property Status");
+        changeStatusButton.addClickListener(updateEvent -> {
+                    changeStatusDialog = new ChangeStatusDialog(property);
+                    changeStatusDialog.open();
+                    changeStatusDialog.addOpenedChangeListener(e -> {
+                        close();
+                    });
+                }
+        );
             changeStatusButton = new Button("Update Property Status");
             changeStatusButton.addClickListener(updateEvent -> {
                         changeStatusDialog = new LandlordChangeStatusDialog(property);
@@ -132,6 +142,14 @@ public class LandlordViewPropertyDialog extends Dialog {
             );
 
 //        EDIT PROPERTY
+        editPropertyButton = new Button("Edit");
+        editPropertyButton.addClickListener(editEvent->{
+            editPropertyDialog = new AddEditPropertyDialog(property);
+            editPropertyDialog.open();
+            editPropertyDialog.addOpenedChangeListener(e->{
+                close();
+            });
+        });
             editPropertyButton = new Button("Edit");
             editPropertyButton.addClickListener(editEvent -> {
                 editPropertyDialog = new LandlordAddEditPropertyDialog(property);

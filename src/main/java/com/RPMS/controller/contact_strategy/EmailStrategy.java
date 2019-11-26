@@ -30,7 +30,7 @@ public class EmailStrategy implements ContactStrategy {
     /**
      * Email strategy constructor
      */
-    private EmailStrategy() {
+    public EmailStrategy() {
         prop = new Properties();
         setServerProperties();
     }
@@ -41,8 +41,8 @@ public class EmailStrategy implements ContactStrategy {
      * @param property
      */
     @Override
-    public void contactLandlord(String message, Property property) {
-        performContact(message, getLandlordEmail(property), "With regards to property at " + property.getAddress());
+    public void contactLandlord(String emailAddress, String message, Property property) {
+        performContact(emailAddress, message, getLandlordEmail(property), "With regards to property at " + property.getAddress());
     }
 
     /**
@@ -52,7 +52,7 @@ public class EmailStrategy implements ContactStrategy {
      * @param recepient
      * @param subject
      */
-    public void performContact(String emailContents, String recepient, String subject) {
+    public void performContact(String emailAddress, String emailContents, String recepient, String subject) {
         Session session = Session.getInstance(prop,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
@@ -61,7 +61,7 @@ public class EmailStrategy implements ContactStrategy {
                 });
         try {
             Message message = new MimeMessage(session);
-            message.setReplyTo(InternetAddress.parse(getUserEmail()));
+            message.setReplyTo(InternetAddress.parse(emailAddress));
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(recepient)
@@ -84,18 +84,7 @@ public class EmailStrategy implements ContactStrategy {
         prop.put("mail.smtp.starttls.enable", "true");
     }
 
-    /**
-     * Gets email of user currently logged in
-     *
-     * @return
-     */
-    public String getUserEmail() {
-        LoginController loginCont = LoginController.getInstance();
-        if (loginCont.isLoggedIn()) {
-            return loginCont.getAccount().getEmail().getEmailAddress();
-        }
-        return null;
-    }
+
 
     /**
      * Gets the email of the landlord of the property

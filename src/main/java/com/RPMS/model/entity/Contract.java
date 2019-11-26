@@ -8,7 +8,8 @@ public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int envelopeId;
+
+    private String envelopeId;
 
     public Contract() {
     }
@@ -25,12 +26,13 @@ public class Contract {
         return id + 1;
     }
 
-    public int getEnvelopeId() {
+    public String getEnvelopeId() {
         return envelopeId;
     }
 
-    public void setEnvelopeId(int envelopeId) {
+    public void setEnvelopeId(String envelopeId) {
         this.envelopeId = envelopeId;
     }
+
 }
 

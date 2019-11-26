@@ -3,10 +3,11 @@ package com.RPMS.model.entity;
 import javax.persistence.*;
 
 @Entity
-@Table
 @NamedQueries({
-        @NamedQuery(name = "Report.searchByName",  query = "SELECT r.query FROM Report r WHERE r.name = :name")
+        //Interacts with Database to get Report Type
+        @NamedQuery(name = "Report.searchByName",  query = "SELECT r FROM Report r WHERE r.name = :name")
 })
+@Table
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,14 @@ public class Report {
 
     public Report(){
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

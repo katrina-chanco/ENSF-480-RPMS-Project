@@ -30,7 +30,7 @@ public class PaymentController {
     }
 
     public boolean isPaymentNeeded() {
-        return  LoginController.getInstance().getAccount().getClass() == Landlord.class;
+        return  LoginController.getInstance().getAccountType().equals("Landlord");
     }
 
     /**

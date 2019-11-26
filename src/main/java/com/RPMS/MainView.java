@@ -7,6 +7,7 @@ import com.RPMS.view.landlord.LandlordListPropertyView;
 import com.RPMS.view.login_registration.LoginView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
 import com.RPMS.view.renter.RenterSearchPropertyView;
+import com.RPMS.view.property.ListPropertyView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
@@ -21,12 +22,17 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 
 public class MainView extends AppLayout {
+    private VerticalLayout mainLayout;
+    private RouterLink selectSystemOptions;
+    private RouterLink deepPropertyList;
+    private RouterLink home;
 
-    /**
-     * Instantiates MainView
-     */
-    public MainView() {
+    public MainView(){
         DrawerToggle drawerToggle = new DrawerToggle();
+        selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
+        deepPropertyList = new RouterLink("Properties Listed", ListPropertyView.class);
+        home = new RouterLink("Home", HomePageView.class);
+        VerticalLayout mainLayout = new VerticalLayout(home, selectSystemOptions, deepPropertyList);
         RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
         RouterLink landlordList = new RouterLink("Properties Listed", LandlordListPropertyView.class);
         RouterLink renterSearch = new RouterLink("Find Your Home", RenterSearchPropertyView.class);
@@ -57,7 +63,30 @@ public class MainView extends AppLayout {
         return logoutButton;
     }
 
+    private void switchView() {
+
+    }
+
+    private void landlordView() {
+        mainLayout = new VerticalLayout(home, deepPropertyList);
+    }
+
+    private void renterView() {
+        mainLayout = new VerticalLayout(home);
+    }
+
+    private void unregisteredRenterView() {
+        mainLayout = new VerticalLayout(home);
+    }
+
+    private void managerView() {
+        mainLayout = new VerticalLayout(home, selectSystemOptions, deepPropertyList);
+    }
+
+
 }
+
+
 
 
 //

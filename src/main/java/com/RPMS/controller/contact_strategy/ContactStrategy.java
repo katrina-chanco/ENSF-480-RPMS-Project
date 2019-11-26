@@ -13,7 +13,7 @@ public interface ContactStrategy {
      * @param recipient
      * @param subject
      */
-    void performContact(String message, String recipient, String subject);
+    void performContact(String emailAddress, String message, String recipient, String subject);
 
     /**
      * Contacts landlord of selected property⁄
@@ -21,5 +21,5 @@ public interface ContactStrategy {
      * @param message
      * @param property
      */
-    void contactLandlord(String message, Property property);
+    void contactLandlord(String emailAddress, String message, Property property);
 }
