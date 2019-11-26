@@ -2,13 +2,16 @@ package com.RPMS;
 
 import com.RPMS.controller.LoginController;
 import com.RPMS.view.HomePageView;
+import com.RPMS.view.landlord.LandlordListPropertyView;
 import com.RPMS.view.login_registration.LoginView;
 import com.RPMS.view.manager.AccountSystemView;
 import com.RPMS.view.manager.SelectSystemOptionsView;
+import com.RPMS.view.renter.RenterSearchPropertyView;
 import com.RPMS.view.property.ListPropertyView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -18,7 +21,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.Lumo;
 
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
-
+@StyleSheet("./styles/custom.css")
 public class MainView extends AppLayout {
     private VerticalLayout mainLayout;
     private RouterLink selectSystemOptions;
@@ -32,7 +35,11 @@ public class MainView extends AppLayout {
         deepPropertyList = new RouterLink("Properties Listed", ListPropertyView.class);
         home = new RouterLink("Home", HomePageView.class);
         listAccounts = new RouterLink("List Accounts", AccountSystemView.class);
-        VerticalLayout mainLayout = new VerticalLayout(home, selectSystemOptions, deepPropertyList, listAccounts);
+        RouterLink selectSystemOptions = new RouterLink("Select System Options", SelectSystemOptionsView.class);
+        RouterLink landlordList = new RouterLink("Properties Listed", LandlordListPropertyView.class);
+        RouterLink renterSearch = new RouterLink("Find Your Home", RenterSearchPropertyView.class);
+        RouterLink home = new RouterLink("Home", HomePageView.class);
+        VerticalLayout mainLayout = new VerticalLayout(home, selectSystemOptions, landlordList, renterSearch);
         addToDrawer(mainLayout);
         addToNavbar(drawerToggle);
         HorizontalLayout filler = new HorizontalLayout();

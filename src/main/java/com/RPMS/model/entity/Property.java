@@ -8,8 +8,19 @@ import java.util.List;
 @Entity
 @NamedQueries({
         @NamedQuery(name="Property.findAllForLandlord", query="SELECT c FROM Property c WHERE c.landlord = :landlord"),
-        @NamedQuery(name="Property.findAllByQuery", query="SELECT c FROM Property c WHERE " +
-                "c.price > :lowerPrice AND c.price < :upperPrice"),
+        @NamedQuery(name="Property.findAllByQuery", query="SELECT c FROM Property c " +
+                "WHERE (c.price >= :lowerPrice OR :lowerPrice is null) " +
+                "AND (c.price <= :upperPrice OR :upperPrice is null)" +
+                "AND (c.bathrooms >= :lowerBath OR :lowerBath is null) " +
+                "AND (c.bathrooms <= :upperBath OR :upperBath is null)" +
+                "AND (c.beds >= :lowerBed OR :lowerBed is null) " +
+                "AND (c.beds <= :upperBed OR :upperBed is null)" +
+                "AND (c.address.city = :city OR :city is null OR :city = '')" +
+                "AND (c.address.province = :province OR :province is null OR :province = '')" +
+                "AND (c.address.postalCode = :postal OR :postal is null OR :postal = '')" +
+                "AND (c.address.country = :country OR :country is null OR :country = '')" +
+                "AND (c.petsAllowed = :pets_allowed OR :pets_allowed is null OR :pets_allowed = '')" +
+                "AND c.propertyStatus = 'ACTIVE'"),
         @NamedQuery(name = "Property.findAll", query = "SELECT c FROM Property c")
 })
 @NamedNativeQueries({

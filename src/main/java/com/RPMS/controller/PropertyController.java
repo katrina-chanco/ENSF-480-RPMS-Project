@@ -3,6 +3,8 @@ package com.RPMS.controller;
 import com.RPMS.model.entity.Landlord;
 import com.RPMS.model.entity.Property;
 
+import javax.persistence.*;
+import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -38,14 +40,25 @@ public class PropertyController {
         return list;
     }
 
-//    public List<Property> getAlProperties(Map<String, String> queryParams) {
-//        entityManager = entityManagerFactory.createEntityManager();
-//        TypedQuery<Property> query =entityManager.createNamedQuery("Property.fina", Property.class);
-//
-//        List<Property> list = query.getResultList();
-//        entityManager.close();
-//        return list;
-//    }
+    public List<Property> getAllProperties(Map<String, Object> queryParams) {
+        entityManager = entityManagerFactory.createEntityManager();
+        TypedQuery<Property> query =entityManager.createNamedQuery("Property.findAllByQuery", Property.class);
+        query.setParameter("lowerPrice", queryParams.get("lowerPrice"));
+        query.setParameter("upperPrice", queryParams.get("upperPrice"));
+        query.setParameter("lowerBed", queryParams.get("lowerBed"));
+        query.setParameter("upperBed", queryParams.get("upperBed"));
+        query.setParameter("lowerBath", queryParams.get("lowerBath"));
+        query.setParameter("upperBath", queryParams.get("upperBath"));
+        query.setParameter("city", queryParams.get("city"));
+        query.setParameter("province", queryParams.get("province"));
+        query.setParameter("postal", queryParams.get("postal"));
+        query.setParameter("country", queryParams.get("country"));
+        query.setParameter("pets_allowed", queryParams.get("pets_allowed"));
+
+        List<Property> list = query.getResultList();
+        entityManager.close();
+        return list;
+    }
 
     /**
      * Save/update property in DB
@@ -66,6 +79,7 @@ public class PropertyController {
      */
     public void updateStatus(Property property, Property.Property_Status value) {
         property.setPropertyStatus(value);
+        property.setDateActivated(new java.sql.Date(new Date().getTime()));
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(property);
