@@ -1,6 +1,8 @@
 package com.RPMS.controller.contact_strategy;
 
+import com.RPMS.controller.LoginController;
 import com.RPMS.model.entity.Property;
+import com.RPMS.model.entity.Subscription;
 
 public class ContactController {
     /**
@@ -54,5 +56,12 @@ public class ContactController {
      */
     public void setContactStrategy(ContactStrategy other) {
         this.contactStrategy = other;
+    }
+
+    public void sendSubscriptionEmail(Subscription s, Property property) {
+        performContact(LoginController.getInstance().getUserEmail(), "A property at "
+                        + property.getAddress().toString() + " has been added to our system. It matches your subscription criteria." +
+                        "\n\nTo unsubscribe from this mailing list, please visit our website.", s.getSubscriber().getEmail().getEmailAddress(),
+                "RPMS SUBSCRIPTION: A property matching your subscription has been added!");
     }
 }

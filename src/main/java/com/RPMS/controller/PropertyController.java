@@ -3,14 +3,14 @@ package com.RPMS.controller;
 import com.RPMS.model.entity.Landlord;
 import com.RPMS.model.entity.Property;
 
-import javax.persistence.*;
-import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class PropertyController {
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("RPMS_PU");
@@ -42,7 +42,7 @@ public class PropertyController {
 
     public List<Property> getAllProperties(Map<String, Object> queryParams) {
         entityManager = entityManagerFactory.createEntityManager();
-        TypedQuery<Property> query =entityManager.createNamedQuery("Property.findAllByQuery", Property.class);
+        TypedQuery<Property> query = entityManager.createNamedQuery("Property.findAllByQuery", Property.class);
         query.setParameter("lowerPrice", queryParams.get("lowerPrice"));
         query.setParameter("upperPrice", queryParams.get("upperPrice"));
         query.setParameter("lowerBed", queryParams.get("lowerBed"));
@@ -70,6 +70,7 @@ public class PropertyController {
         entityManager.merge(property);
         entityManager.getTransaction().commit();
         entityManager.close();
+        SubscriptionController.getInstance().notifySubscribers(property);
     }
 
     /**

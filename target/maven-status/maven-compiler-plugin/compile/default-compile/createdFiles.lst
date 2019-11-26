@@ -8,6 +8,7 @@ com/RPMS/view/property/ChangeStatusDialog.class
 com/RPMS/controller/ContractController.class
 com/RPMS/controller/contact_strategy/EmailStrategy$1.class
 com/RPMS/controller/manager/AccountController.class
+com/RPMS/view/landlord/LandlordListPropertyView.class
 com/RPMS/view/manager/AccountSystemView.class
 com/RPMS/view/property/ViewPropertyDialog.class
 com/RPMS/model/entity/SystemSetting.class
@@ -19,4 +20,5 @@ com/RPMS/controller/SubscriptionController.class
 com/RPMS/view/manager/ChangeStatusDialog.class
 com/RPMS/view/manager/EditAccountsDialog.class
 com/RPMS/controller/SystemSettingController.class
+com/RPMS/view/renter/ContactLandlordDialog.class
 com/RPMS/view/property/AddEditPropertyDialog$2.class

@@ -3,8 +3,10 @@ package com.RPMS.view.renter;
 import com.RPMS.MainView;
 import com.RPMS.controller.LoginController;
 import com.RPMS.controller.PropertyController;
+import com.RPMS.controller.SubscriptionController;
 import com.RPMS.model.entity.Property;
 import com.RPMS.model.entity.Registered_Renter;
+import com.RPMS.model.entity.Subscription;
 import com.RPMS.view.helpers.GridHelpers;
 import com.RPMS.view.property.ViewPropertyDialog;
 import com.vaadin.flow.component.button.Button;
@@ -68,10 +70,7 @@ public class RenterSearchPropertyView extends Div {
     private Map<String, Object> searchMap = new HashMap<>();
 
     public RenterSearchPropertyView() {
-        isRegistered = LoginController.getInstance().isLoggedIn() && !LoginController.getInstance().isLoggedInUnregisteredRenter();
-        if(isRegistered) {
-             registered_renter = (Registered_Renter) LoginController.getInstance().getAccount();
-        }
+        checkIfRegistered();
         rootView = new HorizontalLayout();
         searchBox = new VerticalLayout();
         searchBox.setWidth("300px");
@@ -198,23 +197,34 @@ public class RenterSearchPropertyView extends Div {
         }
     }
 
+    private void checkIfRegistered() {
+        isRegistered = LoginController.getInstance().isLoggedIn() && !LoginController.getInstance().isLoggedInUnregisteredRenter();
+        if (isRegistered) {
+            registered_renter = LoginController.getInstance().findRegistered_Renter(LoginController.getInstance().getAccount().getEmail());
+        }
+    }
+
     private void buildSearchMap() {
         searchMap.put("lowerPrice", lowerPriceRange.getValue());
         searchMap.put("upperPrice", upperPriceRange.getValue());
 
         try {
             searchMap.put("lowerBath", lowerBathRange.getValue().intValue());
-        } catch (NullPointerException ignored){}
+        } catch (NullPointerException ignored) {
+        }
         try {
             searchMap.put("upperBath", upperBathRange.getValue().intValue());
-        } catch (NullPointerException ignored){}
+        } catch (NullPointerException ignored) {
+        }
 
         try {
             searchMap.put("lowerBed", lowerBedRange.getValue().intValue());
-        } catch (NullPointerException ignored){}
+        } catch (NullPointerException ignored) {
+        }
         try {
             searchMap.put("upperBed", upperBedRange.getValue().intValue());
-        } catch (NullPointerException ignored){}
+        } catch (NullPointerException ignored) {
+        }
 
 
         searchMap.put("city", cityFilter.getValue());
@@ -230,26 +240,27 @@ public class RenterSearchPropertyView extends Div {
         viewPropertyDialog.open();
     }
 
-    private void renderSubscriptionButtons(){
+    private void renderSubscriptionButtons() {
         subscribeButton = new Button("Subscribe");
         subscribeButton.setWidth("130px");
-        subscribeButton.addClickListener(subEvent->{
-            Notification.show("SUBED");
+        subscribeButton.addClickListener(subEvent -> {
+            Notification.show("SUBBED");
             buildSearchMap();
-
-            //            TODO add sub / use map
+            SubscriptionController.getInstance().registerSubscription(new Subscription((Registered_Renter) LoginController.getInstance().getAccount(), searchMap));
         });
         unsubscribeButton = new Button("Unsubscribe");
         unsubscribeButton.setWidth("130px");
-        unsubscribeButton.addClickListener(subEvent->{
-            Notification.show("UNSUBED");
-
-            //            TODO rm sub
+        unsubscribeButton.addClickListener(subEvent -> {
+            Notification.show("UNSUBBED");
+            Registered_Renter renter = LoginController.getInstance().findRegistered_Renter(LoginController.getInstance().getAccount().getEmail());
+            SubscriptionController.getInstance().unregisterSubscription(renter.getSubscription());
         });
+        checkIfRegistered();
         subscribeButton.setVisible(false);
         unsubscribeButton.setVisible(false);
-        if(isRegistered) {
-            if(registered_renter.getSubscription() == null) {
+        if (isRegistered) {
+            Registered_Renter renter = registered_renter;
+            if (registered_renter.getSubscription() == null) {
                 subscribeButton.setVisible(true);
             } else {
                 unsubscribeButton.setVisible(true);

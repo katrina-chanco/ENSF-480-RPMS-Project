@@ -3,6 +3,7 @@ package com.RPMS.model.entity;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="Registered_Renter.findRenter", query="SELECT r FROM Registered_Renter r WHERE r.email = :email")
 @Table
 public class Registered_Renter extends Account {
     @Id

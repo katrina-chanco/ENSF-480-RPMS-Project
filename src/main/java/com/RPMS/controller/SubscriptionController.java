@@ -8,6 +8,7 @@ import com.RPMS.model.entity.Subscription;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class SubscriptionController {
     /**
@@ -40,13 +41,24 @@ public class SubscriptionController {
         return obj;
     }
 
-    private void unregisterSubscription(Subscription subscription) {
-        subscriptionObservers.remove(subscription);
+    public void saveSubscription(Subscription subscription) {
         em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        em.remove(subscription);
+        em.merge(subscription);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public void unregisterSubscription(Subscription subscription) {
+        subscriptionObservers.remove(subscription);
+        subscription.getSubscriber().setSubscription(null);
+        LoginController.getInstance().mergeAccount(subscription.getSubscriber());
+//        em = entityManagerFactory.createEntityManager();
+//        em.getTransaction().begin();
+//        em.remove(subscription);
+//        em.getTransaction().commit();
+//        em.close();
+
     }
 
     private void getAllSubscriptions() {
@@ -62,21 +74,25 @@ public class SubscriptionController {
 
     public void registerSubscription(Subscription subscription) {
         subscriptionObservers.add(subscription);
+        subscription.getSubscriber().setSubscription(subscription);
+//        saveSubscription(subscription);
+        LoginController.getInstance().mergeAccount(subscription.getSubscriber());
     }
 
     public void notifySubscribers(Property property) {
         ContactController.getInstance().setContactStrategy(new EmailStrategy());
-
+        Map<String, Object> stringObjectMap;
+        List<Property> propertyList;
         for (Subscription s : subscriptionObservers) {
+            stringObjectMap = s.convertMapObject(s.getMap());
+            propertyList = PropertyController.getInstance().getAllProperties(stringObjectMap);
+            propertyList.add(property);
+            for (Property p : propertyList) {
+                if (p.getAddress().toString().equals(property.getAddress().toString())) {
+                    ContactController.getInstance().sendSubscriptionEmail(s, property);
+                }
+            }
 
-//            ContactController.getInstance().performContact("A property at " + property.getAddress().toString() + " has been added to our system. It matches your subscription criteria." +
-//                    "\n\nTo unsubscribe from this mailing list, please visit our website.", s.getSubscriber().getEmail().getEmailAddress(),
-//                    "RPMS SUBSCRIPTION: A property matching your subscription has been added!");
         }
-        //if query matches subscribers, send email
-        //TODO threaded
-
     }
-
-
 }

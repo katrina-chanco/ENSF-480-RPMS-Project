@@ -1,6 +1,5 @@
 package com.RPMS.controller.contact_strategy;
 
-import com.RPMS.controller.LoginController;
 import com.RPMS.model.entity.Property;
 
 import javax.mail.*;

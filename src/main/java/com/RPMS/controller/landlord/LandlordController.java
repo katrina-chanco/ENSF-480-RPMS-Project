@@ -2,6 +2,7 @@ package com.RPMS.controller.landlord;
 
 import com.RPMS.controller.LoginController;
 import com.RPMS.controller.PropertyController;
+import com.RPMS.controller.SubscriptionController;
 import com.RPMS.model.entity.Landlord;
 import com.RPMS.model.entity.Property;
 
@@ -32,5 +33,6 @@ public class LandlordController {
     public void saveProperty(Property property) {
         property.setLandlord((Landlord) LoginController.getInstance().getAccount());
         PropertyController.getInstance().saveProperty(property);
+        SubscriptionController.getInstance().notifySubscribers(property);
     }
 }

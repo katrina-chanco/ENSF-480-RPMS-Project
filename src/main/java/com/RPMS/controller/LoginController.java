@@ -178,6 +178,18 @@ public class LoginController {
         return "";
     }
 
+    public Registered_Renter findRegistered_Renter(Email email) {
+        em = entityManagerFactory.createEntityManager();
+        TypedQuery<Registered_Renter> query = em.createNamedQuery("Registered_Renter.findRenter", Registered_Renter.class);
+        try {
+            return query.setParameter("email", email).getSingleResult();
+        } catch (NullPointerException | NoResultException e) {
+            e.printStackTrace();
+        }
+        em.close();
+        return null;
+    }
+
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
