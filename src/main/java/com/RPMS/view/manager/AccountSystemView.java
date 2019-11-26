@@ -54,7 +54,7 @@ public class AccountSystemView extends Div {
     }
 
     private void showGridEditDialog(ItemClickEvent itemClickEvent) {
-        Notification.show(itemClickEvent.getItem().toString());
+//        Notification.show(itemClickEvent.getItem().toString());
         editAccountsDialog = new EditAccountsDialog((Account) itemClickEvent.getItem());
         editAccountsDialog.open();
         editAccountsDialog.addOpenedChangeListener( e -> updateGrid());
