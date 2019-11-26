@@ -142,7 +142,7 @@ public class ListPropertyView extends Div implements BeforeEnterObserver {
     }
 
     private void showGridEditDialog(ItemClickEvent itemClickEvent) {
-        Notification.show(itemClickEvent.getItem().toString());
+//        Notification.show(itemClickEvent.getItem().toString());
         viewPropertyDialog = new ViewPropertyDialog((Property) itemClickEvent.getItem());
         viewPropertyDialog.open();
         viewPropertyDialog.addOpenedChangeListener( e -> updateGrid());

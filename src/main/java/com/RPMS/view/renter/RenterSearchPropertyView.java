@@ -6,6 +6,7 @@ import com.RPMS.controller.PropertyController;
 import com.RPMS.model.entity.Property;
 import com.RPMS.model.entity.Registered_Renter;
 import com.RPMS.view.helpers.GridHelpers;
+import com.RPMS.view.login_registration.LoginView;
 import com.RPMS.view.property.ViewPropertyDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -22,7 +23,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.vaadin.textfieldformatter.CustomStringBlockFormatter;
 
@@ -30,7 +31,7 @@ import javax.persistence.NoResultException;
 import java.util.*;
 
 @Route(value = "renter/list_properties", layout = MainView.class)
-public class RenterSearchPropertyView extends Div {
+public class RenterSearchPropertyView extends Div implements AfterNavigationObserver {
     private boolean isRegistered;
     private HorizontalLayout rootView;
     private VerticalLayout searchBox;
@@ -49,7 +50,7 @@ public class RenterSearchPropertyView extends Div {
     private Dialog viewPropertyDialog;
     private Button subscribeButton;
     private Button unsubscribeButton;
-    private  Registered_Renter registered_renter;
+    private Registered_Renter registered_renter;
 
 
 
@@ -254,6 +255,13 @@ public class RenterSearchPropertyView extends Div {
             } else {
                 unsubscribeButton.setVisible(true);
             }
+        }
+    }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+        if (!LoginController.getInstance().isLoggedInUnregisteredRenter() && !LoginController.getInstance().isLoggedIn()) {
+            getUI().ifPresent(ui -> ui.navigate(LoginView.class));
         }
     }
 }
