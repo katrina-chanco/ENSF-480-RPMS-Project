@@ -6,10 +6,9 @@ import com.RPMS.controller.PropertyController;
 import com.RPMS.model.entity.Property;
 import com.RPMS.model.entity.Registered_Renter;
 import com.RPMS.view.helpers.GridHelpers;
-import com.RPMS.view.landlord.LandlordViewPropertyDialog;
+import com.RPMS.view.property.ViewPropertyDialog;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.ItemClickEvent;
@@ -30,7 +29,6 @@ import org.vaadin.textfieldformatter.CustomStringBlockFormatter;
 import javax.persistence.NoResultException;
 import java.util.*;
 
-@StyleSheet("./styles/badge.css")
 @Route(value = "renter/list_properties", layout = MainView.class)
 public class RenterSearchPropertyView extends Div {
     private boolean isRegistered;
@@ -228,7 +226,7 @@ public class RenterSearchPropertyView extends Div {
 
     private void showGridEditDialog(ItemClickEvent itemClickEvent) {
         Notification.show(itemClickEvent.getItem().toString());
-        viewPropertyDialog = new LandlordViewPropertyDialog((Property) itemClickEvent.getItem());
+        viewPropertyDialog = new ViewPropertyDialog((Property) itemClickEvent.getItem());
         viewPropertyDialog.open();
     }
 

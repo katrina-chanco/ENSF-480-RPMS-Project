@@ -4,11 +4,12 @@ package com.RPMS.view.landlord;
 import com.RPMS.MainView;
 import com.RPMS.controller.LoginController;
 import com.RPMS.controller.landlord.LandlordController;
-import com.RPMS.model.entity.*;
+import com.RPMS.model.entity.Property;
 import com.RPMS.view.helpers.GridHelpers;
 import com.RPMS.view.login_registration.LoginView;
+import com.RPMS.view.property.AddEditPropertyDialog;
+import com.RPMS.view.property.ViewPropertyDialog;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.HeaderRow;
@@ -24,14 +25,13 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
-import javax.persistence.*;
+import javax.persistence.NoResultException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 //TODO Check for landlord account
 @Route(value = "landlord/list_property", layout = MainView.class)
-@StyleSheet("./styles/badge.css")
 public class LandlordListPropertyView extends Div implements BeforeEnterObserver {
     private LandlordController landlordController = LandlordController.getInstance();
     /**
@@ -51,7 +51,7 @@ public class LandlordListPropertyView extends Div implements BeforeEnterObserver
     public LandlordListPropertyView(){
         Button addPropertyButton = new Button("Add Property");
         addPropertyButton.addClickListener(e -> {
-            addPropertyDialog = new LandlordAddEditPropertyDialog();
+            addPropertyDialog = new AddEditPropertyDialog();
             addPropertyDialog.open();
             addPropertyDialog.addOpenedChangeListener( closeE-> {
                 updateGrid();
@@ -115,7 +115,7 @@ public class LandlordListPropertyView extends Div implements BeforeEnterObserver
 
     private void showGridEditDialog(ItemClickEvent itemClickEvent) {
         Notification.show(itemClickEvent.getItem().toString());
-        viewPropertyDialog = new LandlordViewPropertyDialog((Property) itemClickEvent.getItem());
+        viewPropertyDialog = new ViewPropertyDialog((Property) itemClickEvent.getItem());
         viewPropertyDialog.open();
         viewPropertyDialog.addOpenedChangeListener( e -> updateGrid());
     }
