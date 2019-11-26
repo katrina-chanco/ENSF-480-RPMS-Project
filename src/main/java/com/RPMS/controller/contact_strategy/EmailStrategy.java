@@ -67,7 +67,8 @@ public class EmailStrategy implements ContactStrategy {
                     InternetAddress.parse(recepient)
             );
             message.setSubject(subject);
-            message.setText(emailContents);
+            message.setContent(emailContents, "text/html");
+
             Transport.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();

@@ -1,8 +1,11 @@
 package com.RPMS.view.renter;
 
+import com.RPMS.controller.LoginController;
+import com.RPMS.controller.contact_strategy.ContactController;
 import com.RPMS.model.entity.Property;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,9 +21,12 @@ public class ContactLandlordDialog extends Dialog {
     private VerticalLayout panel;
     private TextField emailField;
     private RichTextEditor message;
+    private ContactController contactController;
+    private LoginController loginController;
 
 
     public ContactLandlordDialog(Property property) {
+        contactController = ContactController.getInstance();
         this.property = property;
         setCloseOnEsc(false);
         setCloseOnOutsideClick(false);
@@ -50,13 +56,24 @@ public class ContactLandlordDialog extends Dialog {
         fillPanel();
         layout.add(panel, bottomBar);
         add(layout);
+
     }
 
     private void sendButton() {
         try {
             sendButton.setEnabled(false);
-//            EMAIL
-            close();
+            String emailAddress = emailField.getValue();
+            String emailMessage = message.getHtmlValue();
+            if(!emailAddress.equals("")){
+                //send email to landlord
+                contactController.performContactLandlord(emailAddress, emailMessage, property);
+                close();
+            }
+            else{
+                //if no email was entered in the field
+                Notification.show("Please Enter an Email Address...");
+                sendButton.setEnabled(true);
+            }
         } catch (Exception e) {
             sendButton.setEnabled(true);
             e.printStackTrace();
@@ -64,10 +81,12 @@ public class ContactLandlordDialog extends Dialog {
     }
 
     private void fillPanel() {
-        emailField = new TextField("Email");
-//        TODO populate email
-//        emailField.setValue(LoginController.getInstance().g);
-
+        emailField = new TextField("Your Email");
+        loginController = LoginController.getInstance();
+        if(loginController.isLoggedIn()){
+            //auto fill email field if user has an account email
+            emailField.setValue(LoginController.getInstance().getUserEmail());
+        }
         message = new RichTextEditor();
         message.setHeight("300px");
         String messageVal = "[{\"insert\":\"Hello,\\nI am interested in the property at \"},{\"attributes\":{\"italic\":true},\"insert\":\""+property.getAddress().toString()+".\"},{\"insert\":\"\\nThanks\\n\"}]";

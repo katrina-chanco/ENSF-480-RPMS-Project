@@ -169,7 +169,7 @@ public class RenterSearchPropertyView extends Div {
         updateGrid();
         propertyGrid.removeAllColumns();
         propertyGrid.setSelectionMode(Grid.SelectionMode.SINGLE);
-        propertyGrid.addItemClickListener(e -> Notification.show("NTI"));
+        //propertyGrid.addItemClickListener(e -> Notification.show("NTI"));
         propertyGrid.addColumn(Property::getAddress).setWidth("400px").setHeader("Address").setSortable(true);
         propertyGrid.addColumn(GridHelpers.getBathrooms()).setAutoWidth(true).setHeader("Bathrooms").setSortable(true).setComparator(Comparator.comparingDouble(Property::getBathrooms));
         propertyGrid.addColumn(GridHelpers.getBeds()).setAutoWidth(true).setHeader("Beds").setSortable(true).setComparator(Comparator.comparingDouble(Property::getBeds));
@@ -225,7 +225,7 @@ public class RenterSearchPropertyView extends Div {
     }
 
     private void showGridEditDialog(ItemClickEvent itemClickEvent) {
-        Notification.show(itemClickEvent.getItem().toString());
+        //Notification.show(itemClickEvent.getItem().toString());
         viewPropertyDialog = new ViewPropertyDialog((Property) itemClickEvent.getItem());
         viewPropertyDialog.open();
     }

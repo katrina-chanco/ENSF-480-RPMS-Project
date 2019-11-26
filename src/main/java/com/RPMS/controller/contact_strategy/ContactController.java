@@ -44,6 +44,7 @@ public class ContactController {
      * @param property
      */
     public void performContactLandlord(String emailAddress, String message, Property property) {
+        setContactStrategy(new EmailStrategy());
         contactStrategy.contactLandlord(emailAddress, message, property);
     }
 
