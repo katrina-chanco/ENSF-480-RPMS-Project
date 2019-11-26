@@ -94,13 +94,6 @@ public class AddEditPropertyDialog extends Dialog {
         saveButton.setThemeName(Lumo.DARK);
         saveButton.addClickListener(e -> saveButton());
 
-        Button testB = new Button("Test");
-        testB.addClickListener(e -> {
-            System.out.println(property.getAddress().toString());
-            Notification.show("Stuff");
-        });
-        bottomBar.add(testB);
-
         bottomBar.add(closeButton, saveButton);
 
         createForm();

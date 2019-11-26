@@ -41,8 +41,10 @@ public class ContractController {
     }
 
     private String basePath = "https://demo.docusign.net/restapi";
-    private String accountId = "9431335";
-    private String accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjY4MTg1ZmYxLTRlNTEtNGNlOS1hZjFjLTY4OTgxMjIwMzMxNyJ9.eyJUb2tlblR5cGUiOjUsIklzc3VlSW5zdGFudCI6MTU3NDU1ODAxNywiZXhwIjoxNTc0NTg2ODE3LCJVc2VySWQiOiIxMjU3NTcxNi03Y2I3LTQzMWMtYTIxYi0yNzk2OTI0ODkyZDEiLCJzaXRlaWQiOjEsInNjcCI6WyJzaWduYXR1cmUiLCJjbGljay5tYW5hZ2UiLCJvcmdhbml6YXRpb25fcmVhZCIsImdyb3VwX3JlYWQiLCJwZXJtaXNzaW9uX3JlYWQiLCJ1c2VyX3JlYWQiLCJ1c2VyX3dyaXRlIiwiYWNjb3VudF9yZWFkIiwiZG9tYWluX3JlYWQiLCJpZGVudGl0eV9wcm92aWRlcl9yZWFkIiwiZHRyLnJvb21zLnJlYWQiLCJkdHIucm9vbXMud3JpdGUiLCJkdHIuZG9jdW1lbnRzLnJlYWQiLCJkdHIuZG9jdW1lbnRzLndyaXRlIiwiZHRyLnByb2ZpbGUucmVhZCIsImR0ci5wcm9maWxlLndyaXRlIiwiZHRyLmNvbXBhbnkucmVhZCIsImR0ci5jb21wYW55LndyaXRlIl0sImF1ZCI6ImYwZjI3ZjBlLTg1N2QtNGE3MS1hNGRhLTMyY2VjYWUzYTk3OCIsImlzcyI6Imh0dHBzOi8vYWNjb3VudC1kLmRvY3VzaWduLmNvbS8iLCJzdWIiOiIxMjU3NTcxNi03Y2I3LTQzMWMtYTIxYi0yNzk2OTI0ODkyZDEiLCJhdXRoX3RpbWUiOjE1NzQ1NTc5NjIsInB3aWQiOiJkODlkMWI1OC01N2MwLTRiNTctOGM4Ni05NWNmYzJjY2JkYTkifQ.yROanVVFfoPEOB5atUI4zIQVV_a10J-OVyLGOmsnF8rtIwtIhEOgYaxwbgM_hvH0-982yvSd9FzTeMklxHL0whlsDPG_sK9HWnZe-kkJx9GoxUX9uBXZD2VLwpCEzzThTl4isdQCKoBre7YmcmexDSIkqPglPmWcf2r_DT8vhp3ryPjTHHPq2UZ0t1f-8B0dfsoq-BsUM6-YjOiwXlp1NaOwfolOvhx2E3KQaoUSv72Y4mGsJjBvMBVievb_jbIjqcVWOBOVj2p6dx08c0MaxZCOfBPmjvk80V783mt0JRx293974jTPYr7hqbaAJ0XcWxplPRelwjeIDhJAdD-Fkg";
+    private String accountId = SystemSettingController.getInstance().getSettingByName("accountId").getSettingValue();
+    private String accessToken = SystemSettingController.getInstance().getSettingByName("accessToken").getSettingValue();
+//    private String accountId = "9482734";
+//    private String accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjY4MTg1ZmYxLTRlNTEtNGNlOS1hZjFjLTY4OTgxMjIwMzMxNyJ9.eyJUb2tlblR5cGUiOjUsIklzc3VlSW5zdGFudCI6MTU3NDc0MzcxMywiZXhwIjoxNTc0NzcyNTEzLCJVc2VySWQiOiI4YTUzNjEwMi1kMDg2LTRjZTctYWI3YS1kNWM0MTY0ODQ5NWQiLCJzaXRlaWQiOjEsInNjcCI6WyJzaWduYXR1cmUiLCJjbGljay5tYW5hZ2UiLCJvcmdhbml6YXRpb25fcmVhZCIsImdyb3VwX3JlYWQiLCJwZXJtaXNzaW9uX3JlYWQiLCJ1c2VyX3JlYWQiLCJ1c2VyX3dyaXRlIiwiYWNjb3VudF9yZWFkIiwiZG9tYWluX3JlYWQiLCJpZGVudGl0eV9wcm92aWRlcl9yZWFkIiwiZHRyLnJvb21zLnJlYWQiLCJkdHIucm9vbXMud3JpdGUiLCJkdHIuZG9jdW1lbnRzLnJlYWQiLCJkdHIuZG9jdW1lbnRzLndyaXRlIiwiZHRyLnByb2ZpbGUucmVhZCIsImR0ci5wcm9maWxlLndyaXRlIiwiZHRyLmNvbXBhbnkucmVhZCIsImR0ci5jb21wYW55LndyaXRlIl0sImF1ZCI6ImYwZjI3ZjBlLTg1N2QtNGE3MS1hNGRhLTMyY2VjYWUzYTk3OCIsImF6cCI6ImYwZjI3ZjBlLTg1N2QtNGE3MS1hNGRhLTMyY2VjYWUzYTk3OCIsImlzcyI6Imh0dHBzOi8vYWNjb3VudC1kLmRvY3VzaWduLmNvbS8iLCJzdWIiOiI4YTUzNjEwMi1kMDg2LTRjZTctYWI3YS1kNWM0MTY0ODQ5NWQiLCJhbXIiOlsiaW50ZXJhY3RpdmUiXSwiYXV0aF90aW1lIjoxNTc0NzQzNzExLCJwd2lkIjoiNmMyZTg2MzctYmJhMC00NWM2LThiZDAtMGY0YTJhMzc5NzU1In0.2Vsp2uovLtwZUENMvXe1tCurCB0EANiVETuJ5NauQAGopH1bQ8LB17X7gIRdyn4mgufm67UuxzhNjUYiV-mn_p4TsH9aypJeIgI3MrGHomcVESqSOKTbcsJXCcbQK7jO1VnFWZk2_GhaWfY4VpzzU3cJRSRF8mbxomAxnPKY7Vw_NLYZEuDVRXczkKhLCBmzpAcaXTj9OUtRuRGrMDQvkDrlHGv-RH5axfj5uU2C6jiZEChHnClTacBJyHEK4nf2ujKmgj0h59shMbMEz9qJvwDr0HztJfDkGCksMphOgHJjUVhWVKe2Yp2YQMtg3EPE5GrelbdHil0_25gBneEpDw";
 
     /**
      * getInstance method for the Singleton pattern
@@ -70,35 +72,51 @@ public class ContractController {
             ApiClient apiClient = new ApiClient(basePath);
             apiClient.addDefaultHeader("Authorization", "Bearer " + accessToken);
             EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
-            Envelope results = envelopesApi.getEnvelope(accountId, String.valueOf(contract.getEnvelopeId()));
-            return Boolean.getBoolean(results.getStatus());
+            Envelope results = envelopesApi.getEnvelope(accountId, contract.getEnvelopeId());
+            return results.getStatus().equals("completed");
         } catch (ApiException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public void signEvanContract() {
-        Landlord landlord;
-        em = entityManagerFactory.createEntityManager();
-        EntityManager em = entityManagerFactory.createEntityManager();
-        TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "evan@krul.ca");
+//    public void signEvanContract() {
+//        Landlord landlord;
+//        em = entityManagerFactory.createEntityManager();
+//        EntityManager em = entityManagerFactory.createEntityManager();
+//        TypedQuery<Account> landlordTypedQuery = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", "evan@krul.ca");
+//        try {
+//            landlord = (Landlord) landlordTypedQuery.getSingleResult();
+//            em = entityManagerFactory.createEntityManager();
+//            TypedQuery<Property> query = em.createNamedQuery("Property.findAllForLandlord", Property.class);
+//            Property property = query.setParameter("landlord", landlord).getResultList().get(1);
+//            createContract(property);
+//            initiateContractSigning("layla.e.arab@gmail.com", property);
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//        } catch (NoResultException | IOException e) {
+//            e.printStackTrace();
+//        }
+//        em.close();
+//    }
+
+    /**
+     * Sends contract for property
+     * @param renterEmail
+     * @param property
+     */
+    public void sendContract(String renterEmail, Property property) {
+        createContract(property);
         try {
-            landlord = (Landlord) landlordTypedQuery.getSingleResult();
-            em = entityManagerFactory.createEntityManager();
-            TypedQuery<Property> query = em.createNamedQuery("Property.findAllForLandlord", Property.class);
-            Property property = query.setParameter("landlord", landlord).getResultList().get(1);
-            createContract(property);
-            initiateContractSigning("layla.e.arab@gmail.com", property);
+            initiateContractSigning(renterEmail, property);
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (ApiException e) {
             e.printStackTrace();
-        } catch (NoResultException | IOException e) {
-            e.printStackTrace();
         }
-        em.close();
     }
 
-    public String findNameByEmail(String emailAddress) {
+    private String findNameByEmail(String emailAddress) {
         em = entityManagerFactory.createEntityManager();
         EntityManager em = entityManagerFactory.createEntityManager();
         TypedQuery<Account> findAccount = em.createNamedQuery("Account.findByEmail", Account.class).setParameter("email", emailAddress);
@@ -109,7 +127,7 @@ public class ContractController {
         return null;
     }
 
-    public void initiateContractSigning(String renterEmailAddress, Property property) throws IOException, ApiException {
+    private void initiateContractSigning(String renterEmailAddress, Property property) throws IOException, ApiException {
         byte[] input_file = Files.readAllBytes(Paths.get("RPMS_Rental_Agreement.pdf"));
         byte[] encodedBytes = Base64.getEncoder().encode(input_file);
         String encodedString =  new String(encodedBytes);
@@ -258,6 +276,7 @@ public class ContractController {
         EnvelopesApi envelopesApi = new EnvelopesApi(apiClient);
         EnvelopeSummary results = envelopesApi.createEnvelope(accountId, envelopeDefinition);
         property.getContract().setEnvelopeId(results.getEnvelopeId());
+        PropertyController.getInstance().saveProperty(property);
         String envelopeId = results.getEnvelopeId();
 
         RecipientViewRequest landlordViewRequest = new RecipientViewRequest();

@@ -24,9 +24,11 @@ public class ViewPropertyDialog extends Dialog {
     private Dialog changeStatusDialog;
     private Button changeStatusButton;
     private Button editPropertyButton;
+    private Button sendContractButton;
     private Button contactLandlordButton;
     private Dialog editPropertyDialog;
     private Dialog contactLandlordDialog;
+    private Dialog addContract;
     private boolean isPowerUser;
     private boolean isRenter;
     private boolean isUnregisteredRenter;
@@ -142,8 +144,20 @@ public class ViewPropertyDialog extends Dialog {
             });
         });
 
+//SEND CONTRACT
+            sendContractButton = new Button("Send Contract");
+            sendContractButton.addClickListener(editEvent->{
+                addContract = new SendContractDialog(property);
+                addContract.open();
+                addContract.addOpenedChangeListener(e->{
+                    close();
+            });
+        });
+            if(property.getContract() != null) {
+                sendContractButton.setVisible(false);
+            }
             panel.add(
-                    new HorizontalLayout(changeStatusButton, editPropertyButton)
+                    new HorizontalLayout(changeStatusButton, editPropertyButton, sendContractButton)
             );
         }
     }

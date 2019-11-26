@@ -100,8 +100,6 @@ public class GridHelpers {
                 icon = new Icon(VaadinIcon.FILE_REMOVE);
                 label.setText("No Contract");
 //            } else if (property.getContract().isSigned()) {
-            }else if(true) {
-//                TODO update this
             } else if (ContractController.getInstance().getEnvelopeStatus(property.getContract())) {
                 icon = new Icon(VaadinIcon.FILE_TEXT);
                 label.setText("Signed");
