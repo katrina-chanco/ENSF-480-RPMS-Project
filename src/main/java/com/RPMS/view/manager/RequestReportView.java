@@ -162,24 +162,24 @@ public class RequestReportView extends Div {
             gridResult.setItems(reportDataCols);
 
             //Adding data to the grid
-            gridResult.addColumn(hm -> hm.get(PROP_ID)).setHeader(PROP_ID).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(PROP_STATUS)).setHeader(PROP_STATUS).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(PRICE)).setHeader(PRICE).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(DATE_ADDED)).setHeader(DATE_ADDED).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(BATHROOMS)).setHeader(BATHROOMS).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(BEDS)).setHeader(BEDS).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(PETS_ALLOWED)).setHeader(PETS_ALLOWED).setSortable(true).setWidth("250px");
+            gridResult.addColumn(hm -> hm.get(PROP_ID)).setHeader(PROP_ID).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(PROP_STATUS)).setHeader(PROP_STATUS).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(PRICE)).setHeader(PRICE).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(DATE_ADDED)).setHeader(DATE_ADDED).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(BATHROOMS)).setHeader(BATHROOMS).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(BEDS)).setHeader(BEDS).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(PETS_ALLOWED)).setHeader(PETS_ALLOWED).setSortable(true).setAutoWidth(true);
 
-            gridResult.addColumn(hm -> hm.get(HOUSE_NM)).setHeader(HOUSE_NM).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(STRTNAME)).setHeader(STRTNAME).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(CITY)).setHeader(CITY).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(PROVINCE)).setHeader(PROVINCE).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(POSTAL)).setHeader(POSTAL).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(COUNTRY)).setHeader(COUNTRY).setSortable(true).setWidth("250px");
+            gridResult.addColumn(hm -> hm.get(HOUSE_NM)).setHeader(HOUSE_NM).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(STRTNAME)).setHeader(STRTNAME).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(CITY)).setHeader(CITY).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(PROVINCE)).setHeader(PROVINCE).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(POSTAL)).setHeader(POSTAL).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(COUNTRY)).setHeader(COUNTRY).setSortable(true).setAutoWidth(true);
 
-            gridResult.addColumn(hm -> hm.get(FIRST_NAME)).setHeader(FIRST_NAME).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(MID_NAME)).setHeader(MID_NAME).setSortable(true).setWidth("250px");
-            gridResult.addColumn(hm -> hm.get(LAST_NAME)).setHeader(LAST_NAME).setSortable(true).setWidth("250px");
+            gridResult.addColumn(hm -> hm.get(FIRST_NAME)).setHeader(FIRST_NAME).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(MID_NAME)).setHeader(MID_NAME).setSortable(true).setAutoWidth(true);
+            gridResult.addColumn(hm -> hm.get(LAST_NAME)).setHeader(LAST_NAME).setSortable(true).setAutoWidth(true);
 
             //Total number of properties listed
             String strLabel = String.valueOf(dateCounter);

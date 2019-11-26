@@ -273,8 +273,8 @@ public class ContractController {
         String landlordURL = landlordResult.getUrl();
         String renterURL = renterResult.getUrl();
 
-        ContactController.getInstance().performContact(landlordURL, property.getLandlord().getEmail().getEmailAddress(), "RPMS ACTION REQUIRED: Contract for property at " + property.getAddress());
-        ContactController.getInstance().performContact(renterURL, renterEmailAddress, "RPMS ACTION REQUIRED: Contract for property at " + property.getAddress());
+        ContactController.getInstance().performContact(property.getLandlord().getEmail().getEmailAddress(), landlordURL, property.getLandlord().getEmail().getEmailAddress(), "RPMS ACTION REQUIRED: Contract for property at " + property.getAddress());
+        ContactController.getInstance().performContact(renterSigner.getEmail(), renterURL, renterEmailAddress, "RPMS ACTION REQUIRED: Contract for property at " + property.getAddress());
     }
 }
 

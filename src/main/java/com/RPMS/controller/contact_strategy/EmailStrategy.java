@@ -84,8 +84,6 @@ public class EmailStrategy implements ContactStrategy {
         prop.put("mail.smtp.starttls.enable", "true");
     }
 
-
-
     /**
      * Gets the email of the landlord of the property
      *
