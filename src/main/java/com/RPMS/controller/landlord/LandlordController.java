@@ -30,7 +30,9 @@ public class LandlordController {
     }
 
     public void saveProperty(Property property) {
-        property.setLandlord((Landlord) LoginController.getInstance().getAccount());
+        if(property.getLandlord() == null) {
+            property.setLandlord((Landlord) LoginController.getInstance().getAccount());
+        }
         PropertyController.getInstance().saveProperty(property);
     }
 }
